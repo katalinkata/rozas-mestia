@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roza's Guest House | Boutique Mountain Retreat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --forest: #2D3A2F; --sun: #BC7A4C; --cream: #FDF8F2;
+      --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-juggle: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Professional Polish: Film Grain & Smoothing */
+    body { 
+      background: var(--cream); color: var(--forest); 
+      font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; 
+      overflow-x: hidden;
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: 999998; pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Silk Cursor (Absolute Max Z-Index) */
+    #silk-cursor, #silk-cursor-dot { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999999; opacity: 0; transition: opacity 0.3s ease; }
+    #silk-cursor { width: 40px; height: 40px; border: 1.2px solid var(--sun); border-radius: 50%; mix-blend-mode: multiply; }
+    #silk-cursor-dot { width: 6px; height: 6px; background: var(--sun); border-radius: 50%; }
+    .cursor-active #silk-cursor, .cursor-active #silk-cursor-dot { opacity: 1; }
+
+    /* Hero Parallax with High-Res Bleed */
+    .hero-shell { position: relative; height: 100vh; overflow: hidden; background: var(--forest); }
+    .hero-bg {
+      position: absolute; inset: -15% -5%; width: 110%; height: 130%; 
+      background: linear-gradient(to bottom, rgba(45,58,47,0.4), rgba(45,58,47,0.9)), 
+                  url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover; background-position: center; will-change: transform;
+    }
+
+    /* The "Juggle" Interaction */
+    .juggle-card {
+      transition: transform 0.6s var(--ease-juggle), box-shadow 0.6s var(--ease-juggle);
+      box-shadow: 0 10px 30px rgba(45,58,47,0.05);
+    }
+    @media (hover: hover) {
+      .juggle-card:hover { transform: translate3d(0, -12px, 0) scale(1.02); box-shadow: 0 40px 80px rgba(45,58,47,0.12); }
+      .has-silk-cursor, .has-silk-cursor a, .has-silk-cursor button { cursor: none; }
+    }
+
+    /* Continuous Scroll Reveal */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 1s var(--ease-lux); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Professional Glass */
+    .glass-panel { 
+      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.4); border-top: 1.5px solid rgba(255,255,255,0.6);
+    }
+    
+    .font-display { font-family: 'Fraunces', serif; }
+  </style>
+</head>
+<body class="has-silk-cursor">
+  <div id="silk-cursor"></div><div id="silk-cursor-dot"></div>
+
+  <header id="site-header" class="fixed top-0 w-full z-[1000] py-6 transition-all duration-500">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-8">
+      <div class="flex items-center gap-4 group cursor-pointer">
+        <div class="h-10 w-10 rounded-full bg-white flex items-center justify-center font-bold text-xs shadow-xl transition-transform group-hover:scale-110">RG</div>
+        <span class="font-display text-xl text-white tracking-tight" id="hdr-text">Roza's Guest House</span>
+      </div>
+      <a href="#book-direct" id="hdr-btn" class="bg-white text-forest px-8 py-3 rounded-full font-extrabold text-sm transition-all hover:bg-sun hover:text-white shadow-lg">Book Direct</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-shell flex items-end">
+      <div class="hero-bg" id="hero-img"></div>
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-8 py-24 text-white reveal">
+        <p class="uppercase tracking-[0.4em] text-[10px] font-extrabold text-sun mb-6">Mestia • Svaneti</p>
+        <h1 class="font-display text-7xl md:text-[9rem] font-semibold leading-[0.8] mb-12 tracking-tighter">
+          Mountain calm, <br/><span class="italic font-normal">made personal.</span>
+        </h1>
+        <div class="flex gap-8">
+          <a href="#book-direct" class="bg-sun px-12 py-6 rounded-full font-bold text-lg hover:scale-105 transition shadow-2xl">Check Availability</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="trust" class="py-32 px-8 max-w-7xl mx-auto">
+      <div class="mb-20 reveal">
+        <h2 class="font-display text-6xl mb-6">Why book direct?</h2>
+        <p class="text-slate text-xl opacity-70">A family-run stay should feel personal from the very first message.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="juggle-card glass-panel p-10 rounded-[3rem] reveal">
+          <div class="text-4xl mb-6">💬</div>
+          <h3 class="font-display text-2xl mb-4">Direct Contact</h3>
+          <p class="opacity-70 leading-relaxed">Speak directly with Roza on WhatsApp to coordinate your arrival and needs.</p>
+        </div>
+        <div class="juggle-card glass-panel p-10 rounded-[3rem] reveal">
+          <div class="text-4xl mb-6">🏔️</div>
+          <h3 class="font-display text-2xl mb-4">Local Insight</h3>
+          <p class="opacity-70 leading-relaxed">Get recommendations for secret trails and local drivers that big sites won't tell you.</p>
+        </div>
+        <div class="juggle-card glass-panel p-10 rounded-[3rem] reveal">
+          <div class="text-4xl mb-6">🤝</div>
+          <h3 class="font-display text-2xl mb-4">No Hidden Fees</h3>
+          <p class="opacity-70 leading-relaxed">Booking direct ensures the best rate and zero middle-man service charges.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="book-direct" class="py-32 bg-forest text-white">
+      <div class="max-w-4xl mx-auto px-8 reveal">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-6xl mb-4">Secure your stay.</h2>
+          <p class="italic opacity-50 text-xl">No deposit required. Simply message us to confirm.</p>
+        </div>
+        <div class="glass-panel text-forest p-12 md:p-20 rounded-[4rem]">
+          <form id="availability-form" class="grid gap-8">
+            <div class="grid md:grid-cols-2 gap-8">
+              <input id="check_in" type="date" class="p-6 rounded-2xl bg-white border-none shadow-inner" required>
+              <input id="check_out" type="date" class="p-6 rounded-2xl bg-white border-none shadow-inner" required>
+            </div>
+            <select id="room_type" class="p-6 rounded-2xl bg-white border-none shadow-inner appearance-none" required>
+              <option value="">Select your sanctuary...</option>
+              <option>Balcony Double</option><option>Mountain Twin</option><option>Family Suite</option>
+            </select>
+            <button type="submit" class="bg-sun text-white py-8 rounded-full font-bold text-xl shadow-2xl hover:scale-[1.02] active:scale-95 transition">Request Availability via WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-12 text-center opacity-30 text-[10px] font-bold uppercase tracking-[0.3em]">
+    © 2026 Roza's Guest House • Mestia, Georgia
+  </footer>
+
+  <script>
+    // Configuration
+    const CONTACT = { whatsapp: "995000000000", email: "stay@rozas.com" };
+
+    // Momentum Scroll (Lenis)
+    const lenis = new Lenis();
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // Dynamic Header & Parallax
+    const header = document.getElementById('site-header');
+    const hdrText = document.getElementById('hdr-text');
+    const hdrBtn = document.getElementById('hdr-btn');
+    const heroImg = document.getElementById('hero-img');
+
+    lenis.on('scroll', ({ scroll }) => {
+      // Header Transition
+      if (scroll > 80) {
+        header.classList.add('glass-panel', 'py-4');
+        hdrText.style.color = '#2D3A2F';
+        hdrBtn.classList.replace('bg-white', 'bg-forest');
+        hdrBtn.classList.replace('text-forest', 'text-white');
+      } else {
+        header.classList.remove('glass-panel', 'py-4');
+        hdrText.style.color = '#FFFFFF';
+        hdrBtn.classList.replace('bg-forest', 'bg-white');
+        hdrBtn.classList.replace('text-white', 'text-forest');
+      }
+      // Parallax 0.4 Ratio
+      heroImg.style.transform = `translate3d(0, ${scroll * 0.4}px, 0)`;
+    });
+
+    // Silk Cursor Logic
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      document.body.classList.add('cursor-active');
+    });
+
+    function renderCursor() {
+      cx += (mx - cx) * 0.15; cy += (my - cy) * 0.15;
+      document.getElementById('silk-cursor').style.transform = `translate3d(${cx - 20}px, ${cy - 20}px, 0)`;
+      document.getElementById('silk-cursor-dot').style.transform = `translate3d(${mx - 3}px, ${my - 3}px, 0)`;
+      requestAnimationFrame(renderCursor);
+    }
+    renderCursor();
+
+    // Continuous Reveal Observer (Repeats on every scroll)
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+        else entry.target.classList.remove('visible'); // Continuous reveal
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form Logic
+    document.getElementById('availability-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const msg = encodeURIComponent(`Hi Roza! Checking availability for ${document.getElementById('room_type').value} from ${document.getElementById('check_in').value}.`);
+      window.open(`https://wa.me/${CONTACT.whatsapp}?text=${msg}`, '_blank');
+    });
+  </script>
+</body>
+</html>
