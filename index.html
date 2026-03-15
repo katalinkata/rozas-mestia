@@ -396,21 +396,94 @@
       min-height: 100%;
     }
 
-    .hero-bg {
-      position: absolute;
-      left: -7%;
-      right: -7%;
-      top: -15%;
-      height: 130%;
-      z-index: 0;
-      background-image: url("hero.jpg");
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      transform: translate3d(0, var(--hero-shift), 0);
-      will-change: transform;
-    }
+   .hero-shell {
+  position: relative;
+  overflow: hidden;
+  background: var(--forest);
+  min-height: clamp(680px, 100svh, 920px);
+}
 
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  transform: translate3d(0, var(--hero-shift), 0) scale(1.04);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .hero-shell {
+    min-height: 100svh;
+  }
+
+  .hero-bg-image {
+    transform: none !important;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+@media (max-width: 640px) {
+  body { padding-bottom: 5rem; }
+  .room-art { min-height: 13.2rem; }
+
+  .hero-shell {
+    min-height: 100svh;
+  }
+
+  .hero-bg-image {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  #floating-whatsapp {
+    bottom: 0.875rem;
+    right: 0.875rem;
+    padding: 0.78rem 1.1rem;
+    font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #silk-cursor,
+  #silk-cursor-dot,
+  body::after { display: none !important; }
+
+  .reveal,
+  .card-float,
+  .concierge-card,
+  .trust-badge,
+  .magnetic-button,
+  #site-header,
+  .lux-input,
+  .faq-panel,
+  .faq-toggle svg,
+  .mobile-nav-backdrop,
+  .mobile-nav-panel {
+    transition: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-bg-image {
+    transform: none !important;
+    object-position: center center !important;
+  }
+  
+}
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -1067,7 +1140,9 @@
   <main id="top">
     <section class="relative overflow-hidden">
       <div class="hero-shell relative">
-        <div class="hero-bg"></div>
+        <div class="hero-bg">
+  <img src="hero.jpg" alt="" class="hero-bg-image" fetchpriority="high" />
+</div>
         <div class="hero-overlay"></div>
         <div class="mountain-band"></div>
 
