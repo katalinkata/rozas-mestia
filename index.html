@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roza's Guest House | Warm Mountain Stay in Mestia</title>
+  <meta
+    name="description"
+    content="Warm, scenic, family-run guest house in Mestia, Georgia. Check availability directly with Roza via a polished enquiry form and WhatsApp."
+  />
+  <meta name="theme-color" content="#2D3A2F" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: "#2D3A2F",
+            cream: "#FDF8F2",
+            slate: "#5F6C72",
+            pine: "#445348",
+            sun: "#BC7A4C",
+            stone: "#E9E0D4",
+            ember: "#9E6948",
+            mist: "#F5EFE6"
+          },
+          fontFamily: {
+            display: ["Fraunces", "Georgia", "serif"],
+            sans: ["Manrope", "Segoe UI", "sans-serif"]
+          },
+          maxWidth: {
+            "8xl": "88rem",
+            "9xl": "96rem"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --forest: #2D3A2F;
+      --cream: #FDF8F2;
+      --slate: #5F6C72;
+      --pine: #445348;
+      --sun: #BC7A4C;
+      --stone: #E9E0D4;
+      --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-juggle: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --hero-shift: 0px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+
+    body {
+      margin: 0;
+      color: #1f2c21;
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(188,122,76,0.14), transparent 24%),
+        radial-gradient(circle at 0% 100%, rgba(68,83,72,0.09), transparent 30%),
+        linear-gradient(180deg, #fffdf9 0%, #fdf8f2 48%, #f8f1e8 100%);
+      isolation: isolate;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      opacity: 0.03;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      background-repeat: repeat;
+    }
+
+    body.mobile-nav-open {
+      overflow: hidden;
+    }
+
+    .has-silk-cursor,
+    .has-silk-cursor a,
+    .has-silk-cursor button,
+    .has-silk-cursor input,
+    .has-silk-cursor select {
+      cursor: none;
+    }
+
+    #silk-cursor,
+    #silk-cursor-dot {
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 999999;
+      opacity: 0;
+      transform: translate3d(-100px, -100px, 0);
+      transition: opacity 0.25s ease;
+    }
+
+    #silk-cursor {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(45,58,47,0.22);
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.42), rgba(253,248,242,0.08));
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow:
+        0 1px 1px rgba(17,24,20,0.04),
+        0 4px 8px rgba(17,24,20,0.05),
+        0 10px 18px rgba(17,24,20,0.06),
+        0 20px 34px rgba(17,24,20,0.07),
+        0 34px 58px rgba(17,24,20,0.08);
+      mix-blend-mode: multiply;
+      transition:
+        opacity 0.25s ease,
+        border-color 0.28s ease;
+    }
+
+    #silk-cursor-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(188,122,76,0.92);
+      box-shadow: 0 0 18px rgba(188,122,76,0.34);
+    }
+
+    .cursor-active #silk-cursor,
+    .cursor-active #silk-cursor-dot {
+      opacity: 1;
+    }
+
+    .lux-shadow {
+      box-shadow:
+        0 1px 1px rgba(18,26,20,0.03),
+        0 4px 10px rgba(18,26,20,0.04),
+        0 10px 22px rgba(18,26,20,0.05),
+        0 22px 44px rgba(18,26,20,0.06),
+        0 42px 84px rgba(18,26,20,0.08);
+    }
+
+    .lux-shadow-strong {
+      box-shadow:
+        0 1px 1px rgba(18,26,20,0.04),
+        0 6px 12px rgba(18,26,20,0.05),
+        0 14px 28px rgba(18,26,20,0.06),
+        0 28px 58px rgba(18,26,20,0.08),
+        0 54px 104px rgba(18,26,20,0.11);
+    }
+
+    .glass-panel {
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(253,248,242,0.82);
+      backdrop-filter: blur(18px) saturate(1.35);
+      -webkit-backdrop-filter: blur(18px) saturate(1.35);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.34),
+        0 1px 1px rgba(18,26,20,0.03),
+        0 6px 12px rgba(18,26,20,0.05),
+        0 14px 28px rgba(18,26,20,0.06),
+        0 30px 62px rgba(18,26,20,0.08),
+        0 58px 108px rgba(18,26,20,0.10);
+    }
+
+    .card-float {
+      box-shadow:
+        0 1px 1px rgba(18,26,20,0.03),
+        0 5px 11px rgba(18,26,20,0.04),
+        0 12px 24px rgba(18,26,20,0.05),
+        0 24px 50px rgba(18,26,20,0.07),
+        0 48px 92px rgba(18,26,20,0.08);
+      transition:
+        transform 0.6s var(--ease-lux),
+        box-shadow 0.6s var(--ease-lux),
+        border-color 0.35s ease,
+        background-color 0.35s ease;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .juggle-card {
+      transition:
+        transform 0.5s var(--ease-juggle),
+        box-shadow 0.5s var(--ease-juggle),
+        border-color 0.35s ease,
+        background-color 0.35s ease;
+    }
+
+    .section-label {
+      letter-spacing: 0.24em;
+    }
+
+    #site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      pointer-events: auto;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transition:
+        background 0.55s var(--ease-lux),
+        border-color 0.55s var(--ease-lux),
+        backdrop-filter 0.55s ease,
+        box-shadow 0.55s var(--ease-lux);
+    }
+
+    #site-header .hdr-logo-name,
+    #site-header .hdr-logo-sub,
+    #site-header .hdr-nav-link,
+    #site-header .hdr-monogram,
+    #site-header .hdr-btn-ghost,
+    #site-header .hdr-cta,
+    #site-header .hdr-menu-btn {
+      transition:
+        color 0.45s var(--ease-lux),
+        border-color 0.45s var(--ease-lux),
+        background 0.45s var(--ease-lux),
+        box-shadow 0.45s var(--ease-lux),
+        transform 0.3s var(--ease-lux);
+    }
+
+    #site-header .hdr-logo-name { color: #fdf8f2; }
+    #site-header .hdr-logo-sub { color: rgba(253,248,242,0.62); }
+    #site-header .hdr-nav-link { color: rgba(253,248,242,0.76); }
+    #site-header .hdr-nav-link:hover { color: #ffffff; }
+    #site-header .hdr-monogram {
+      color: #fdf8f2;
+      border-color: rgba(253,248,242,0.22);
+      background: rgba(253,248,242,0.10);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        0 1px 1px rgba(0,0,0,0.04),
+        0 4px 10px rgba(0,0,0,0.06),
+        0 10px 20px rgba(0,0,0,0.08),
+        0 18px 36px rgba(0,0,0,0.10);
+    }
+    #site-header .hdr-btn-ghost,
+    #site-header .hdr-menu-btn {
+      color: rgba(253,248,242,0.92);
+      border-color: rgba(253,248,242,0.22);
+      background: rgba(253,248,242,0.06);
+    }
+    #site-header .hdr-cta {
+      color: #fdf8f2;
+      border: 1.5px solid rgba(253,248,242,0.28);
+      background: rgba(253,248,242,0.14);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 1px 1px rgba(0,0,0,0.03),
+        0 5px 10px rgba(0,0,0,0.05),
+        0 12px 24px rgba(0,0,0,0.07),
+        0 24px 44px rgba(0,0,0,0.09);
+    }
+
+    #site-header.scrolled {
+      background: rgba(253,248,242,0.92);
+      border-bottom-color: rgba(45,58,47,0.08);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      box-shadow:
+        0 1px 1px rgba(18,26,20,0.03),
+        0 6px 14px rgba(18,26,20,0.04),
+        0 14px 30px rgba(18,26,20,0.05),
+        0 28px 54px rgba(18,26,20,0.06),
+        0 46px 76px rgba(18,26,20,0.06);
+    }
+
+    #site-header.scrolled .hdr-logo-name { color: var(--forest); }
+    #site-header.scrolled .hdr-logo-sub { color: var(--slate); }
+    #site-header.scrolled .hdr-nav-link { color: var(--slate); }
+    #site-header.scrolled .hdr-nav-link:hover { color: var(--forest); }
+    #site-header.scrolled .hdr-monogram {
+      color: var(--forest);
+      border-color: rgba(45,58,47,0.14);
+      background: rgba(255,255,255,0.84);
+    }
+    #site-header.scrolled .hdr-btn-ghost,
+    #site-header.scrolled .hdr-menu-btn {
+      color: var(--forest);
+      border-color: rgba(45,58,47,0.14);
+      background: rgba(255,255,255,0.72);
+    }
+    #site-header.scrolled .hdr-cta {
+      color: var(--cream);
+      background: var(--forest);
+      border-color: transparent;
+    }
+
+    .mobile-nav-shell {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+    }
+
+    .mobile-nav-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(13, 19, 15, 0.48);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      transition: opacity 0.45s var(--ease-lux);
+    }
+
+    .mobile-nav-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: min(92vw, 420px);
+      padding: 1.35rem 1.15rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      background: rgba(253,248,242,0.96);
+      border-left: 1px solid rgba(45,58,47,0.09);
+      box-shadow:
+        0 1px 1px rgba(18,26,20,0.04),
+        0 8px 16px rgba(18,26,20,0.05),
+        0 18px 36px rgba(18,26,20,0.07),
+        0 38px 74px rgba(18,26,20,0.10),
+        0 74px 128px rgba(18,26,20,0.13);
+      transform: translate3d(108%, 0, 0);
+      opacity: 0;
+      transition:
+        transform 0.55s var(--ease-lux),
+        opacity 0.4s ease;
+    }
+
+    .mobile-nav-shell.open {
+      pointer-events: auto;
+    }
+
+    .mobile-nav-shell.open .mobile-nav-backdrop {
+      opacity: 1;
+    }
+
+    .mobile-nav-shell.open .mobile-nav-panel {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      border-radius: 1.3rem;
+      text-decoration: none;
+      color: var(--forest);
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(45,58,47,0.08);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.74),
+        0 1px 1px rgba(18,26,20,0.03),
+        0 5px 10px rgba(18,26,20,0.04),
+        0 12px 22px rgba(18,26,20,0.05);
+      transition:
+        transform 0.4s var(--ease-lux),
+        background 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .mobile-nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.95rem 1.25rem;
+      text-decoration: none;
+      font-weight: 700;
+      transition:
+        transform 0.4s var(--ease-lux),
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      background: var(--forest);
+      min-height: 100%;
+    }
+
+    .hero-bg {
+      position: absolute;
+      left: -7%;
+      right: -7%;
+      top: -15%;
+      height: 130%;
+      z-index: 0;
+      background-image: url("hero.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transform: translate3d(0, var(--hero-shift), 0);
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(148deg, rgba(14,22,16,0.90) 0%, rgba(32,44,34,0.72) 48%, rgba(45,58,47,0.44) 100%),
+        radial-gradient(circle at 18% 14%, rgba(188,122,76,0.18), transparent 22%),
+        linear-gradient(to bottom, rgba(255,255,255,0.03), transparent 28%),
+        linear-gradient(to top, rgba(8,12,9,0.42), transparent 42%);
+    }
+
+    .mountain-band {
+      position: absolute;
+      inset: auto 0 0;
+      height: 38%;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(12,18,14,0.86), transparent);
+      overflow: hidden;
+    }
+
+    .mountain-band::before,
+    .mountain-band::after {
+      content: "";
+      position: absolute;
+      left: -4%;
+      right: -4%;
+      bottom: -2rem;
+      height: 110%;
+      background: rgba(253,248,242,0.06);
+      clip-path: polygon(0 100%,10% 60%,18% 78%,29% 34%,42% 76%,55% 20%,69% 79%,82% 46%,100% 100%);
+    }
+
+    .mountain-band::after {
+      bottom: -3rem;
+      background: rgba(24,34,26,0.78);
+      clip-path: polygon(0 100%,14% 70%,27% 82%,39% 44%,56% 100%,68% 58%,79% 80%,89% 58%,100% 72%,100% 100%);
+    }
+
+    .room-art {
+      position: relative;
+      min-height: 14.5rem;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(253,248,242,0.02), rgba(24,34,26,0.70)),
+        linear-gradient(135deg, rgba(188,122,76,0.30), rgba(45,58,47,0.84));
+    }
+
+    .room-art::before,
+    .room-art::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .room-art::before {
+      width: 18rem;
+      height: 18rem;
+      right: -5rem;
+      bottom: -9rem;
+      background: rgba(253,248,242,0.06);
+    }
+
+    .room-art::after {
+      width: 10rem;
+      height: 10rem;
+      top: -3rem;
+      left: -2rem;
+      background: rgba(188,122,76,0.15);
+    }
+
+    .lux-input {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      background: rgba(253,248,242,0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(45,58,47,0.11);
+      border-radius: 1rem;
+      padding: 0.92rem 1.125rem;
+      font-size: 0.95rem;
+      font-family: "Manrope", sans-serif;
+      color: #1f2c21;
+      line-height: 1.5;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.85),
+        inset 0 -1px 0 rgba(45,58,47,0.04),
+        0 1px 1px rgba(18,26,20,0.03),
+        0 4px 8px rgba(18,26,20,0.04),
+        0 10px 18px rgba(18,26,20,0.05);
+      transition:
+        border-color 0.28s ease,
+        box-shadow 0.28s ease,
+        background 0.28s ease,
+        transform 0.28s var(--ease-lux);
+    }
+
+    .lux-input:hover {
+      border-color: rgba(45,58,47,0.20);
+      background: rgba(255,255,255,0.90);
+    }
+
+    .lux-input:focus {
+      outline: none;
+      border-color: rgba(188,122,76,0.60);
+      background: #ffffff;
+      transform: translate3d(0, -1px, 0);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.85),
+        inset 0 -1px 0 rgba(45,58,47,0.04),
+        0 0 0 3.5px rgba(188,122,76,0.14),
+        0 1px 1px rgba(18,26,20,0.03),
+        0 6px 12px rgba(18,26,20,0.05),
+        0 14px 28px rgba(18,26,20,0.06);
+    }
+
+    .lux-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 20 20' fill='none' stroke='%235F6C72' stroke-width='1.6'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.75rem;
+      cursor: pointer;
+    }
+
+    .lux-select:focus {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 20 20' fill='none' stroke='%23BC7A4C' stroke-width='1.6'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5'/%3E%3C/svg%3E");
+    }
+
+    .lux-date::-webkit-calendar-picker-indicator {
+      opacity: 0.38;
+      cursor: pointer;
+      filter: saturate(0);
+    }
+
+    .lux-date:focus::-webkit-calendar-picker-indicator {
+      opacity: 0.7;
+      filter: none;
+    }
+
+    .preview-box {
+      border: 1.5px dashed rgba(188,122,76,0.28);
+      border-radius: 1.1rem;
+      padding: 1.15rem 1.2rem;
+      background: linear-gradient(135deg, rgba(188,122,76,0.08), rgba(45,58,47,0.04));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.65),
+        0 1px 1px rgba(18,26,20,0.03),
+        0 5px 10px rgba(18,26,20,0.04),
+        0 12px 22px rgba(18,26,20,0.04);
+    }
+
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.56rem 1rem;
+      border-radius: 999px;
+      border: 1.5px solid rgba(45,58,47,0.10);
+      background: rgba(253,248,242,0.82);
+      color: var(--forest);
+      font-size: 0.82rem;
+      font-weight: 700;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.72),
+        0 1px 1px rgba(18,26,20,0.03),
+        0 4px 8px rgba(18,26,20,0.04),
+        0 10px 18px rgba(18,26,20,0.05);
+      transition:
+        transform 0.32s var(--ease-lux),
+        box-shadow 0.32s ease;
+    }
+
+    .review-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .review-card::before {
+      content: "“";
+      position: absolute;
+      top: 0.75rem;
+      right: 1.3rem;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 5.5rem;
+      line-height: 1;
+      color: rgba(188,122,76,0.08);
+      pointer-events: none;
+    }
+
+    .star {
+      color: var(--sun);
+      font-size: 0.875rem;
+    }
+
+    .map-shell {
+      position: relative;
+      min-height: 360px;
+      overflow: hidden;
+      border-radius: 2rem;
+      background:
+        linear-gradient(160deg, rgba(45,58,47,0.92), rgba(68,83,72,0.76)),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(253,248,242,0.035) 39px, rgba(253,248,242,0.035) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(253,248,242,0.035) 39px, rgba(253,248,242,0.035) 40px);
+      box-shadow:
+        0 1px 1px rgba(18,26,20,0.04),
+        0 6px 12px rgba(18,26,20,0.05),
+        0 14px 28px rgba(18,26,20,0.07),
+        0 30px 64px rgba(18,26,20,0.10),
+        0 58px 112px rgba(18,26,20,0.12);
+    }
+
+    .map-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 48%, rgba(188,122,76,0.18) 0%, transparent 54%);
+    }
+
+    .map-pin-dot {
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: rgba(188,122,76,0.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      box-shadow:
+        0 0 0 8px rgba(188,122,76,0.18),
+        0 0 0 18px rgba(188,122,76,0.06);
+      animation: pulse-pin 2.5s var(--ease-lux) infinite;
+    }
+
+    @keyframes pulse-pin {
+      0%, 100% {
+        box-shadow:
+          0 0 0 8px rgba(188,122,76,0.18),
+          0 0 0 18px rgba(188,122,76,0.06);
+      }
+      50% {
+        box-shadow:
+          0 0 0 14px rgba(188,122,76,0.12),
+          0 0 0 30px rgba(188,122,76,0.04);
+      }
+    }
+
+    .concierge-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.5rem 1.7rem;
+      border-radius: 1.75rem;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(253,248,242,0.06);
+      text-decoration: none;
+      transition:
+        background 0.45s ease,
+        border-color 0.45s ease,
+        transform 0.55s var(--ease-lux),
+        box-shadow 0.55s var(--ease-lux);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 1px 1px rgba(0,0,0,0.03),
+        0 5px 10px rgba(0,0,0,0.05),
+        0 12px 24px rgba(0,0,0,0.07),
+        0 26px 52px rgba(0,0,0,0.10);
+      will-change: transform;
+    }
+
+    .concierge-icon-wrap {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.45s var(--ease-lux);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+
+    .footer-accent {
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(188,122,76,0.55) 28%, rgba(188,122,76,0.82) 50%, rgba(188,122,76,0.55) 72%, transparent);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 32px, 0);
+      transition:
+        opacity 1s var(--ease-lux),
+        transform 1s var(--ease-lux);
+      will-change: opacity, transform;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .magnetic-button {
+      --wa-opacity: 0;
+      --wa-y: 120px;
+      --mag-x: 0px;
+      --mag-y: 0px;
+      opacity: var(--wa-opacity);
+      transform: translate3d(var(--mag-x), calc(var(--mag-y) + var(--wa-y)), 0);
+      will-change: transform, opacity;
+      transition:
+        transform 0.9s var(--ease-juggle),
+        opacity 0.5s ease,
+        background-color 0.35s ease,
+        box-shadow 0.35s ease;
+    }
+
+    .magnetic-button.is-visible {
+      --wa-opacity: 1;
+      --wa-y: 0px;
+    }
+
+    .btn-focus:focus-visible,
+    .lux-input:focus-visible,
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid rgba(188,122,76,0.60);
+      outline-offset: 3px;
+    }
+
+    .faq-item {
+      overflow: hidden;
+    }
+
+    .faq-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      color: var(--forest);
+      font-size: 0.9375rem;
+      font-weight: 700;
+    }
+
+    .faq-toggle svg {
+      flex-shrink: 0;
+      transition: transform 0.38s var(--ease-lux);
+    }
+
+    .faq-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      margin-top: 0;
+      transition:
+        grid-template-rows 0.45s var(--ease-lux),
+        opacity 0.32s ease,
+        margin-top 0.35s ease;
+    }
+
+    .faq-panel > div {
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .faq-item.open .faq-panel {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 1rem;
+    }
+
+    .faq-item.open .faq-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    @media (hover: hover) {
+      .card-float:hover {
+        transform: translate3d(0, -6px, 0);
+        box-shadow:
+          0 1px 1px rgba(18,26,20,0.04),
+          0 8px 15px rgba(18,26,20,0.05),
+          0 16px 32px rgba(18,26,20,0.07),
+          0 34px 70px rgba(18,26,20,0.09),
+          0 68px 122px rgba(18,26,20,0.12);
+      }
+
+      .juggle-card:hover {
+        transform: translate3d(0, -12px, 0) scale(1.02);
+        box-shadow:
+          0 1px 1px rgba(18,26,20,0.04),
+          0 8px 16px rgba(18,26,20,0.05),
+          0 18px 36px rgba(18,26,20,0.07),
+          0 38px 74px rgba(18,26,20,0.10),
+          0 74px 128px rgba(18,26,20,0.13);
+      }
+
+      #site-header .hdr-btn-ghost:hover,
+      #site-header .hdr-menu-btn:hover {
+        transform: translate3d(0, -1px, 0);
+        background: rgba(253,248,242,0.13);
+      }
+
+      #site-header .hdr-cta:hover {
+        transform: translate3d(0, -1px, 0);
+        background: rgba(253,248,242,0.22);
+      }
+
+      #site-header.scrolled .hdr-btn-ghost:hover,
+      #site-header.scrolled .hdr-menu-btn:hover {
+        background: rgba(255,255,255,0.95);
+      }
+
+      #site-header.scrolled .hdr-cta:hover {
+        background: var(--pine);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.08),
+          0 1px 1px rgba(18,26,20,0.05),
+          0 6px 12px rgba(18,26,20,0.07),
+          0 14px 28px rgba(18,26,20,0.10),
+          0 30px 56px rgba(18,26,20,0.14);
+      }
+
+      .mobile-nav-link:hover {
+        transform: translate3d(4px, 0, 0);
+        background: #ffffff;
+        border-color: rgba(45,58,47,0.12);
+      }
+
+      .mobile-nav-cta:hover {
+        transform: translate3d(0, -2px, 0);
+      }
+
+      .trust-badge:hover {
+        transform: translate3d(0, -2px, 0);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.72),
+          0 1px 1px rgba(18,26,20,0.03),
+          0 6px 12px rgba(18,26,20,0.04),
+          0 14px 26px rgba(18,26,20,0.06),
+          0 28px 48px rgba(18,26,20,0.08);
+      }
+
+      .concierge-card:hover {
+        background: rgba(253,248,242,0.10);
+        border-color: rgba(255,255,255,0.24);
+        transform: translate3d(0, -4px, 0);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.14),
+          0 1px 1px rgba(0,0,0,0.04),
+          0 8px 16px rgba(0,0,0,0.06),
+          0 18px 36px rgba(0,0,0,0.09),
+          0 38px 72px rgba(0,0,0,0.14);
+      }
+
+      .concierge-card:hover .concierge-icon-wrap {
+        transform: scale(1.08);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      #site-header .hdr-cta {
+        padding-left: 0.95rem;
+        padding-right: 0.95rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-bg {
+        transform: translate3d(0, 0, 0) !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body { padding-bottom: 5rem; }
+      .room-art { min-height: 13.2rem; }
+      #floating-whatsapp {
+        bottom: 0.875rem;
+        right: 0.875rem;
+        padding: 0.78rem 1.1rem;
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (pointer: coarse), (max-width: 768px) {
+      #silk-cursor,
+      #silk-cursor-dot { display: none !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #silk-cursor,
+      #silk-cursor-dot,
+      body::after { display: none !important; }
+
+      .reveal,
+      .card-float,
+      .concierge-card,
+      .trust-badge,
+      .magnetic-button,
+      #site-header,
+      .lux-input,
+      .faq-panel,
+      .faq-toggle svg,
+      .mobile-nav-backdrop,
+      .mobile-nav-panel {
+        transition: none !important;
+      }
+
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .hero-bg {
+        transform: translate3d(0, 0, 0) !important;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans text-forest">
+  <div id="silk-cursor"></div>
+  <div id="silk-cursor-dot"></div>
+
+  <header id="site-header">
+    <div class="mx-auto flex max-w-8xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8 lg:px-12 xl:max-w-[92rem]">
+      <a href="#top" class="flex items-center gap-3.5 no-underline group">
+        <div class="hdr-monogram flex h-11 w-11 items-center justify-center rounded-full border text-[10px] font-bold uppercase tracking-[0.28em]">RG</div>
+        <div>
+          <div class="hdr-logo-name font-display text-[1.2rem] font-semibold leading-none">Roza's Guest House</div>
+          <div class="hdr-logo-sub mt-1 text-[10px] uppercase tracking-[0.22em]">Mestia, Svaneti · Georgia</div>
+        </div>
+      </a>
+
+      <nav class="hidden items-center gap-7 text-sm font-medium lg:flex">
+        <a href="#rooms" class="hdr-nav-link">Rooms</a>
+        <a href="#trust" class="hdr-nav-link">Why Stay Here</a>
+        <a href="#reviews" class="hdr-nav-link">Guest Stories</a>
+        <a href="#find-us" class="hdr-nav-link">Find Us</a>
+        <a href="#book-direct" class="hdr-nav-link">Book Direct</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <a href="#book-direct" class="hdr-btn-ghost btn-focus hidden rounded-full border px-4 py-2 text-sm font-semibold reveal sm:inline-flex">Check Availability</a>
+        <a id="header-whatsapp" href="#book-direct" class="hdr-cta btn-focus inline-flex rounded-full px-4 py-2 text-sm font-semibold reveal">Chat with Roza</a>
+        <button
+          id="mobile-nav-toggle"
+          type="button"
+          class="hdr-menu-btn btn-focus inline-flex h-11 w-11 items-center justify-center rounded-full border lg:hidden"
+          aria-label="Open navigation menu"
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M4 7h16" />
+            <path d="M4 12h16" />
+            <path d="M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="mobile-nav" class="mobile-nav-shell lg:hidden" aria-hidden="true">
+    <div class="mobile-nav-backdrop" data-mobile-close></div>
+    <div class="mobile-nav-panel">
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="flex h-11 w-11 items-center justify-center rounded-full border border-forest/10 bg-white text-[10px] font-bold uppercase tracking-[0.28em] text-forest">RG</div>
+          <div>
+            <div class="font-display text-[1.2rem] font-semibold leading-none text-forest">Roza's Guest House</div>
+            <div class="mt-1 text-[10px] uppercase tracking-[0.22em] text-slate">Mestia, Svaneti · Georgia</div>
+          </div>
+        </div>
+        <button
+          id="mobile-nav-close"
+          type="button"
+          class="btn-focus inline-flex h-11 w-11 items-center justify-center rounded-full border border-forest/10 bg-white text-forest"
+          aria-label="Close navigation menu"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M6 6l12 12" />
+            <path d="M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mt-8 flex flex-col gap-3 text-lg font-semibold">
+        <a href="#rooms" class="mobile-nav-link" data-mobile-link>
+          <span>Rooms</span>
+          <span class="text-slate/60">01</span>
+        </a>
+        <a href="#trust" class="mobile-nav-link" data-mobile-link>
+          <span>Why Stay Here</span>
+          <span class="text-slate/60">02</span>
+        </a>
+        <a href="#reviews" class="mobile-nav-link" data-mobile-link>
+          <span>Guest Stories</span>
+          <span class="text-slate/60">03</span>
+        </a>
+        <a href="#find-us" class="mobile-nav-link" data-mobile-link>
+          <span>Find Us</span>
+          <span class="text-slate/60">04</span>
+        </a>
+        <a href="#book-direct" class="mobile-nav-link" data-mobile-link>
+          <span>Book Direct</span>
+          <span class="text-slate/60">05</span>
+        </a>
+      </nav>
+
+      <div class="mt-7 grid gap-3">
+        <a
+          href="#book-direct"
+          class="mobile-nav-cta bg-forest text-cream lux-shadow"
+          data-mobile-link
+        >
+          Check Availability
+        </a>
+        <a
+          id="mobile-nav-whatsapp"
+          href="#book-direct"
+          class="mobile-nav-cta border border-forest/10 bg-white text-forest lux-shadow"
+        >
+          Chat with Roza
+        </a>
+      </div>
+
+      <div class="mt-auto pt-8">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate">Direct contact</p>
+        <div class="mt-4 grid gap-3">
+          <a
+            id="mobile-nav-phone-link"
+            href="tel:+995599641455"
+            class="rounded-[1.25rem] border border-forest/8 bg-white px-4 py-3 text-sm font-semibold text-forest card-float"
+          >
+            Phone · <span id="mobile-nav-phone-text">+995599641455</span>
+          </a>
+          <a
+            id="mobile-nav-email-link"
+            href="mailto:rozashukvani@gmail.com"
+            class="rounded-[1.25rem] border border-forest/8 bg-white px-4 py-3 text-sm font-semibold text-forest card-float"
+          >
+            Email · <span id="mobile-nav-email-text">rozashukvani@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="relative overflow-hidden">
+      <div class="hero-shell relative">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="mountain-band"></div>
+
+        <div class="relative z-10 mx-auto grid max-w-8xl gap-12 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:px-12 lg:py-32 xl:max-w-[92rem]">
+          <div class="max-w-2xl text-cream" data-stagger>
+            <p class="section-label reveal text-[11px] font-semibold uppercase text-cream/62">Family-run mountain stay · Svaneti, Georgia</p>
+            <p class="reveal mt-5 font-display text-[0.88rem] font-medium tracking-[0.18em] text-cream/78">Turning Moments into Memories</p>
+            <h1 class="reveal mt-3 font-display text-5xl font-semibold leading-[1.12] sm:text-6xl lg:text-[3.85rem]">
+              A warm mountain stay<br />
+              <em class="font-normal italic text-sun">made personal.</em>
+            </h1>
+            <p class="reveal mt-6 max-w-xl text-[1.0625rem] leading-[1.85] text-cream/80">
+              Stay with mountain views, peaceful nights, and the kind of family welcome that makes hiking,
+              skiing, and slow travel feel effortless from the moment you arrive.
+            </p>
+
+            <div class="mt-7 flex flex-wrap gap-2.5" data-stagger>
+              <span class="reveal rounded-full border border-cream/15 bg-white/7 px-4 py-2 text-sm text-cream/82">Heated rooms for cool mountain nights</span>
+              <span class="reveal rounded-full border border-cream/15 bg-white/7 px-4 py-2 text-sm text-cream/82">Quiet base for hiking and skiing</span>
+              <span class="reveal rounded-full border border-cream/15 bg-white/7 px-4 py-2 text-sm text-cream/82">Direct support from Roza's family</span>
+            </div>
+
+            <div class="mt-9 flex flex-col gap-3 sm:flex-row" data-stagger>
+              <a href="#book-direct" class="reveal btn-focus inline-flex items-center justify-center rounded-full bg-sun px-7 py-4 text-base font-semibold text-white lux-shadow-strong">Check Availability</a>
+              <a id="hero-whatsapp" href="#book-direct" class="reveal btn-focus inline-flex items-center justify-center rounded-full border border-cream/20 bg-white/10 px-7 py-4 text-base font-semibold text-cream glass-panel" style="background:rgba(255,255,255,0.10);">Chat with Roza</a>
+            </div>
+
+            <div class="mt-10 grid max-w-xl gap-3 text-sm text-cream/70 sm:grid-cols-3" data-stagger>
+              <div class="reveal rounded-2xl border border-cream/10 bg-black/12 p-4 card-float">
+                <div class="font-semibold text-cream">Book direct</div>
+                <p class="mt-2 leading-[1.75]">A cleaner, more personal flow than any third-party site.</p>
+              </div>
+              <div class="reveal rounded-2xl border border-cream/10 bg-black/12 p-4 card-float">
+                <div class="font-semibold text-cream">Ask before you book</div>
+                <p class="mt-2 leading-[1.75]">WhatsApp for quick questions or send dates through the form.</p>
+              </div>
+              <div class="reveal rounded-2xl border border-cream/10 bg-black/12 p-4 card-float">
+                <div class="font-semibold text-cream">Stay looked after</div>
+                <p class="mt-2 leading-[1.75]">Guests who book direct get a human, reassuring planning experience.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal" data-stagger>
+            <div class="glass-panel rounded-[2rem] p-6 text-forest sm:p-8">
+              <div class="flex items-center justify-between gap-4">
+                <div>
+                  <p class="section-label text-[10px] font-semibold uppercase text-slate">Preview the stay</p>
+                  <h2 class="mt-2 font-display text-[1.7rem] font-semibold leading-tight">
+                    Mountain boutique calm
+                  </h2>
+                </div>
+                <div class="rounded-full bg-forest px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] text-cream lux-shadow">17 rooms</div>
+              </div>
+
+              <div class="mt-7 grid gap-4">
+                <div class="overflow-hidden rounded-[1.5rem] border border-forest/8 bg-white card-float">
+                  <div class="room-art flex items-end p-6 text-cream">
+                    <div>
+                      <div class="text-[10px] uppercase tracking-[0.24em] text-cream/65">Scenic placeholder</div>
+                      <div class="mt-2 font-display text-2xl">Balcony sunrise over Mestia</div>
+                    </div>
+                  </div>
+                  <div class="grid gap-5 p-6 sm:grid-cols-3">
+                    <div>
+                      <div class="text-[10px] uppercase tracking-[0.2em] text-slate">Comfort</div>
+                      <p class="mt-2 text-sm leading-[1.75] text-slate">Warm rooms, private bathrooms, Wi-Fi, and peace after outdoor days.</p>
+                    </div>
+                    <div>
+                      <div class="text-[10px] uppercase tracking-[0.2em] text-slate">Hospitality</div>
+                      <p class="mt-2 text-sm leading-[1.75] text-slate">Family-run support from first message to departure morning.</p>
+                    </div>
+                    <div>
+                      <div class="text-[10px] uppercase tracking-[0.2em] text-slate">Location</div>
+                      <p class="mt-2 text-sm leading-[1.75] text-slate">A calm base for trails, ski days, and authentic Svaneti exploring.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2" data-stagger>
+                  <div class="reveal rounded-[1.4rem] border border-forest/8 bg-white p-5 card-float">
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-slate">Direct-booking benefit</p>
+                    <h3 class="mt-2.5 text-[1rem] font-semibold leading-snug">Ask first, then book with confidence</h3>
+                    <p class="mt-2 text-sm leading-[1.75] text-slate">Confirm the right room or ask practical questions before committing.</p>
+                  </div>
+                  <div class="reveal rounded-[1.4rem] border border-forest/8 bg-stone/40 p-5 card-float">
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-slate">Swap-ready layout</p>
+                    <h3 class="mt-2.5 text-[1rem] font-semibold leading-snug">Built for real photography later</h3>
+                    <p class="mt-2 text-sm leading-[1.75] text-slate">Replace placeholders with room images without rebuilding.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rooms" class="border-y border-forest/8 bg-white/55">
+      <div class="mx-auto max-w-8xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:max-w-[92rem]">
+        <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end" data-stagger>
+          <div>
+            <p class="section-label reveal text-[11px] font-semibold uppercase text-slate">Rooms</p>
+            <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">Warm, simple rooms for mountain days and restful nights.</h2>
+          </div>
+          <p class="reveal max-w-2xl text-[1.0625rem] leading-[1.85] text-slate">
+            Mountain views, balcony air, heating, private bathrooms, Wi-Fi, and the peace that matters most when guests return from the trails or slopes.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 md:grid-cols-2" data-stagger>
+          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float">
+            <div class="room-art flex items-end p-7 text-cream transition duration-700 group-hover:scale-[1.01]">
+              <div>
+                <div class="text-[10px] uppercase tracking-[0.24em] text-cream/62">Balcony view</div>
+                <h3 class="mt-2 font-display text-3xl">Balcony Double</h3>
+              </div>
+            </div>
+            <div class="p-7">
+              <p class="text-[0.9375rem] leading-[1.8] text-slate">A cosy double room for couples or two travellers who want fresh mountain air, a warm atmosphere, and quiet evenings with balcony views over Mestia.</p>
+              <div class="mt-5 flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate">
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Balcony</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Private bathroom</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Heating</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Wi-Fi</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float">
+            <div class="room-art flex items-end p-7 text-cream transition duration-700 group-hover:scale-[1.01]">
+              <div>
+                <div class="text-[10px] uppercase tracking-[0.24em] text-cream/62">Friends and adventure stays</div>
+                <h3 class="mt-2 font-display text-3xl">Mountain Twin</h3>
+              </div>
+            </div>
+            <div class="p-7">
+              <p class="text-[0.9375rem] leading-[1.8] text-slate">A comfortable twin room for friends, hikers, or skiers looking for a restful base with practical comfort, reliable heating, and a peaceful night's sleep.</p>
+              <div class="mt-5 flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate">
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Twin setup</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Private bathroom</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Heated</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Quiet feel</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float">
+            <div class="room-art flex items-end p-7 text-cream transition duration-700 group-hover:scale-[1.01]">
+              <div>
+                <div class="text-[10px] uppercase tracking-[0.24em] text-cream/62">For longer settles</div>
+                <h3 class="mt-2 font-display text-3xl">Family Room</h3>
+              </div>
+            </div>
+            <div class="p-7">
+              <p class="text-[0.9375rem] leading-[1.8] text-slate">A spacious, welcoming option for families or small groups who want room to settle in, easy comfort, and a calm guest house feel after a day in the mountains.</p>
+              <div class="mt-5 flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate">
+                <span class="rounded-full bg-stone px-3.5 py-1.5">More space</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Family-friendly</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Warm rooms</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Mountain base</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float">
+            <div class="room-art flex items-end p-7 text-cream transition duration-700 group-hover:scale-[1.01]">
+              <div>
+                <div class="text-[10px] uppercase tracking-[0.24em] text-cream/62">Solo stays</div>
+                <h3 class="mt-2 font-display text-3xl">Single Room</h3>
+              </div>
+            </div>
+            <div class="p-7">
+              <p class="text-[0.9375rem] leading-[1.8] text-slate">A simple, warm room for solo travellers who want privacy, personal hospitality, and an easy base for exploring Svaneti at their own pace.</p>
+              <div class="mt-5 flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate">
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Solo comfort</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Private bathroom</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Heating</span>
+                <span class="rounded-full bg-stone px-3.5 py-1.5">Wi-Fi</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="trust" class="mx-auto max-w-8xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:max-w-[92rem]">
+      <div class="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-start">
+        <div data-stagger>
+          <p class="section-label reveal text-[11px] font-semibold uppercase text-slate">Trust and warmth</p>
+          <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">A guest house that feels reassuring before you arrive.</h2>
+          <p class="reveal mt-6 max-w-xl text-[1.0625rem] leading-[1.85] text-slate">
+            Guests choose Roza's Guest House for the feeling as much as the view: warm rooms after long mountain days,
+            genuine family hospitality, and a peaceful place to return to in Mestia.
+          </p>
+          <div class="mt-9 grid gap-4 sm:grid-cols-2" data-stagger>
+            <div class="reveal rounded-[1.6rem] border border-forest/8 bg-white p-6 card-float">
+              <p class="text-[10px] uppercase tracking-[0.20em] text-slate">What guests value most</p>
+              <p class="mt-3 text-sm leading-[1.8] text-slate">Warm welcome, peaceful sleep, mountain views, generous hospitality, and the comfort of being personally looked after.</p>
+            </div>
+            <div class="reveal rounded-[1.6rem] border border-forest/8 bg-white p-6 card-float">
+              <p class="text-[10px] uppercase tracking-[0.20em] text-slate">Direct-booking reassurance</p>
+              <p class="mt-3 text-sm leading-[1.8] text-slate">Use the form for a structured request, then continue on WhatsApp or email if you have extra questions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <article class="rounded-[1.9rem] border border-forest/8 bg-white p-7 card-float">
+            <p class="section-label text-[10px] font-semibold uppercase text-slate">Why stay here</p>
+            <h3 class="mt-3.5 text-2xl font-semibold leading-tight text-forest">Local Svaneti experience, with personal support built in.</h3>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-[1.25rem] bg-cream p-4"><p class="font-semibold text-forest">Family-run warmth</p><p class="mt-2 text-sm leading-[1.75] text-slate">The human side of the stay is visible early and often.</p></div>
+              <div class="rounded-[1.25rem] bg-cream p-4"><p class="font-semibold text-forest">Quiet mountain recovery</p><p class="mt-2 text-sm leading-[1.75] text-slate">Not just a place to sleep — a calm base for hiking and skiing days.</p></div>
+              <div class="rounded-[1.25rem] bg-cream p-4"><p class="font-semibold text-forest">Simple communication</p><p class="mt-2 text-sm leading-[1.75] text-slate">WhatsApp for speed, email for reassurance, and a form for clarity.</p></div>
+              <div class="rounded-[1.25rem] bg-cream p-4"><p class="font-semibold text-forest">Premium without pretence</p><p class="mt-2 text-sm leading-[1.75] text-slate">Polished, warm, and credible — not corporate or transactional.</p></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="explore" class="border-y border-forest/8 bg-forest text-cream">
+      <div class="mx-auto max-w-8xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:max-w-[92rem]">
+        <div class="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-end" data-stagger>
+          <div>
+            <p class="section-label reveal text-[11px] font-semibold uppercase text-cream/58">Explore Mestia</p>
+            <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">
+              A calm base for hiking, skiing, and authentic Svaneti moments.
+            </h2>
+          </div>
+          <p class="reveal max-w-2xl text-[1.0625rem] leading-[1.85] text-cream/72">
+            Roza's Guest House sells more than a room. It sells the feeling of waking in the mountains, returning to warmth after a long day outdoors, and getting local tips from people who know Mestia's rhythm.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-5 md:grid-cols-3" data-stagger>
+          <article class="reveal rounded-[1.75rem] border border-white/12 bg-white/6 p-7 card-float" style="backdrop-filter: blur(8px);">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-cream/55">For hikers</p>
+            <h3 class="mt-3 text-xl font-semibold">Trail-ready mornings</h3>
+            <p class="mt-3.5 text-sm leading-[1.8] text-cream/72">Set out for mountain walks and scenic routes with a peaceful guest house base to return to each evening.</p>
+          </article>
+          <article class="reveal rounded-[1.75rem] border border-white/12 bg-white/6 p-7 card-float" style="backdrop-filter: blur(8px);">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-cream/55">For winter stays</p>
+            <h3 class="mt-3 text-xl font-semibold">Warmth after the slopes</h3>
+            <p class="mt-3.5 text-sm leading-[1.8] text-cream/72">Heating and comfort built into the promise for skiers and cold-season travellers staying in Mestia.</p>
+          </article>
+          <article class="reveal rounded-[1.75rem] border border-white/12 bg-white/6 p-7 card-float" style="backdrop-filter: blur(8px);">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-cream/55">For culture lovers</p>
+            <h3 class="mt-3 text-xl font-semibold">A more local, personal stay</h3>
+            <p class="mt-3.5 text-sm leading-[1.8] text-cream/72">Direct guests can ask for local recommendations and enjoy a more authentic Svaneti experience.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="mx-auto max-w-8xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:max-w-[92rem]">
+      <div class="grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-end" data-stagger>
+        <div>
+          <p class="section-label reveal text-[11px] font-semibold uppercase text-slate">Guest stories</p>
+          <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">What travellers say about staying with Roza.</h2>
+        </div>
+        <p class="reveal max-w-xl text-[1.0625rem] leading-[1.85] text-slate">
+          Every guest arrives as a visitor and leaves feeling like part of the family. These are the words they use when they tell others about Mestia.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3" data-stagger>
+        <article class="reveal review-card rounded-[2rem] border border-forest/8 bg-white p-8 card-float">
+          <div class="mb-5 flex gap-1">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="font-display text-[1.0625rem] leading-[1.8] text-forest italic">"Waking up to mountain views every morning was something I didn't expect to miss so much. Roza's family made us feel completely at home from the first message."</p>
+          <div class="mt-7 flex items-center gap-3.5 border-t border-forest/8 pt-6">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-forest/10 text-[0.8125rem] font-bold text-forest">ML</div>
+            <div><p class="text-sm font-semibold text-forest">Marie L.</p><p class="mt-0.5 text-[0.8125rem] text-slate">Paris, France · Hiked Ushba trail</p></div>
+          </div>
+        </article>
+
+        <article class="reveal review-card rounded-[2rem] border border-forest/8 bg-white p-8 card-float">
+          <div class="mb-5 flex gap-1">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="font-display text-[1.0625rem] leading-[1.8] text-forest italic">"We came for three nights and stayed for a week. The room was spotless, the heating worked perfectly, and the breakfast felt like a real Svaneti welcome every single morning."</p>
+          <div class="mt-7 flex items-center gap-3.5 border-t border-forest/8 pt-6">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-[0.8125rem] font-bold" style="background:rgba(188,122,76,0.14); color:#BC7A4C;">TD</div>
+            <div><p class="text-sm font-semibold text-forest">Tom &amp; Dana</p><p class="mt-0.5 text-[0.8125rem] text-slate">London, UK · Winter ski trip</p></div>
+          </div>
+        </article>
+
+        <article class="reveal review-card rounded-[2rem] border border-forest/8 bg-white p-8 card-float">
+          <div class="mb-5 flex gap-1">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="font-display text-[1.0625rem] leading-[1.8] text-forest italic">"I travel solo and always worry about communication. Roza replied within minutes on WhatsApp, helped me plan two day hikes, and even arranged a driver to the trailhead. Extraordinary."</p>
+          <div class="mt-7 flex items-center gap-3.5 border-t border-forest/8 pt-6">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-pine/10 text-[0.8125rem] font-bold text-pine">AK</div>
+            <div><p class="text-sm font-semibold text-forest">Anke K.</p><p class="mt-0.5 text-[0.8125rem] text-slate">Berlin, Germany · Solo explorer</p></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="find-us" class="border-y border-forest/8 bg-white/55">
+      <div class="mx-auto max-w-8xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:max-w-[92rem]">
+        <div class="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:items-start">
+          <div data-stagger>
+            <p class="section-label reveal text-[11px] font-semibold uppercase text-slate">Find us</p>
+            <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">Getting to Roza's Guest House.</h2>
+            <p class="reveal mt-6 text-[1.0625rem] leading-[1.85] text-slate">
+              Nestled in the heart of Mestia, we are an easy walk from the town centre and close to all the trails, ski lifts, and Svaneti landmarks you came to see.
+            </p>
+
+            <div class="mt-8 space-y-4" data-stagger>
+              <div class="reveal flex items-start gap-4 rounded-[1.5rem] border border-forest/8 bg-white p-5 card-float">
+                <div class="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-stone">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D3A2F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                </div>
+                <div><p class="font-semibold text-forest">5-minute walk from Mestia centre</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">We are a short, pleasant walk from the main square, restaurants, and the iconic Svan towers.</p></div>
+              </div>
+
+              <div class="reveal flex items-start gap-4 rounded-[1.5rem] border border-forest/8 bg-white p-5 card-float">
+                <div class="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-stone">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D3A2F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                </div>
+                <div><p class="font-semibold text-forest">Marshrutka from Kutaisi or Tbilisi</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">Regular minibuses run to Mestia. Ask Roza on WhatsApp for current schedules, pick-up points, and private driver options.</p></div>
+              </div>
+
+              <div class="reveal flex items-start gap-4 rounded-[1.5rem] border border-forest/8 bg-white p-5 card-float">
+                <div class="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-stone">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D3A2F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.21 2 2 0 012 .04h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                </div>
+                <div><p class="font-semibold text-forest">Tell us your arrival time</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">Let Roza know when you are arriving and she will make sure someone is ready to welcome you at the door.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <div class="map-shell">
+              <div class="relative z-10 flex min-h-[360px] items-center justify-center p-8 text-center text-cream">
+                <div>
+                  <div class="map-pin-dot">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fdf8f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  </div>
+                  <p class="mt-5 font-display text-2xl font-semibold">Roza's Guest House</p>
+                  <p class="mt-1.5 text-sm text-cream/65">Mestia, Svaneti · Georgia</p>
+                  <a href="https://maps.google.com/?q=Mestia,Georgia" target="_blank" rel="noopener noreferrer"
+                     class="mt-6 inline-flex items-center gap-2 rounded-full border border-cream/22 bg-white/12 px-5 py-2.5 text-sm font-semibold text-cream transition hover:bg-white/18"
+                     style="backdrop-filter:blur(8px);">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Open in Google Maps
+                  </a>
+                  <p class="mt-5 text-[0.8125rem] text-cream/38 italic">Replace with an embedded Google Maps iframe when ready</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-3 gap-4" data-stagger>
+              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">5 min</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">to town centre</p></div>
+              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">2 km</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">to ski lift</p></div>
+              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">8 hr</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">from Tbilisi</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="book-direct" class="mx-auto max-w-8xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:max-w-[92rem]">
+      <div class="grid gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
+        <div data-stagger>
+          <p class="section-label reveal text-[11px] font-semibold uppercase text-slate">Book direct / check availability</p>
+
+          <div class="reveal mt-4 mb-3 inline-flex items-center gap-2 rounded-full bg-forest px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-cream lux-shadow">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#BC7A4C;"></span>Only 17 Rooms Available
+          </div>
+
+          <h2 class="reveal mt-1 font-display text-4xl font-semibold leading-tight sm:text-5xl">A simple, high-trust request flow.</h2>
+          <p class="reveal mt-5 max-w-xl text-[1.0625rem] leading-[1.85] text-slate">Tell us your dates, preferred room, and how many guests are travelling. Your request will open in WhatsApp with a ready-written message — no typing required.</p>
+
+          <div class="mt-7 flex flex-wrap gap-3" data-stagger>
+            <span class="reveal trust-badge">✔ Pay on Arrival</span>
+            <span class="reveal trust-badge">✔ Free Cancellation (3 Days)</span>
+            <span class="reveal trust-badge">⚡ Fast Replies</span>
+          </div>
+
+          <div class="mt-9 space-y-4" data-stagger>
+            <div class="reveal rounded-[1.5rem] border border-forest/8 bg-white p-6 card-float">
+              <p class="font-semibold text-forest">What happens next</p>
+              <p class="mt-2.5 text-sm leading-[1.8] text-slate">Roza or the family will confirm availability, suggest the right room, and answer any extra questions directly over WhatsApp.</p>
+            </div>
+            <div class="reveal rounded-[1.5rem] border border-forest/8 bg-stone/40 p-6 card-float">
+              <p class="font-semibold text-forest">Prefer email?</p>
+              <p class="mt-2.5 text-sm leading-[1.8] text-slate">Use the same details to start a formal email request if that feels more comfortable for your planning.</p>
+              <a id="email-link" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-forest underline decoration-forest/22 underline-offset-4 transition hover:decoration-forest/50" href="mailto:rozashukvani@gmail.com?subject=Availability%20request%20for%20Roza%27s%20Guest%20House">
+                Email your enquiry at rozashukvani@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal glass-panel rounded-[2rem] p-6 sm:p-8">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p class="text-[10px] uppercase tracking-[0.24em] text-slate">Availability request</p>
+              <h3 class="mt-2 text-2xl font-semibold text-forest">Check availability with Roza</h3>
+            </div>
+            <div class="rounded-full bg-cream px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-forest border border-forest/10 lux-shadow">WhatsApp ready</div>
+          </div>
+
+          <form id="availability-form" class="mt-7 grid gap-5">
+            <div class="grid gap-5 md:grid-cols-2">
+              <label class="grid gap-2">
+                <span class="text-sm font-semibold text-forest">Check-in date</span>
+                <input id="check_in" name="check_in" type="date" class="lux-input lux-date" required />
+              </label>
+              <label class="grid gap-2">
+                <span class="text-sm font-semibold text-forest">Check-out date</span>
+                <input id="check_out" name="check_out" type="date" class="lux-input lux-date" required />
+              </label>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-[1fr_172px]">
+              <label class="grid gap-2">
+                <span class="text-sm font-semibold text-forest">Room type</span>
+                <select id="room_type" name="room_type" class="lux-input lux-select" required>
+                  <option value="">Select a room type</option>
+                  <option>Balcony Double</option>
+                  <option>Mountain Twin</option>
+                  <option>Family Room</option>
+                  <option>Single Room</option>
+                  <option>Not Sure / Ask Us</option>
+                </select>
+              </label>
+
+              <label class="grid gap-2">
+                <span class="text-sm font-semibold text-forest">Guests</span>
+                <select id="guests" name="guests" class="lux-input lux-select" required>
+                  <option value="">Guests</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="preview-box">
+              <p class="text-[10px] font-semibold uppercase tracking-[0.20em] text-slate/75">Message preview</p>
+              <p id="message-preview" class="mt-2 text-sm leading-[1.75] text-slate">Hi Roza! I'd like to check availability for the [Room Type] from [Check-in] to [Check-out] for [Guests] people. Is it available?</p>
+            </div>
+
+            <div id="form-feedback" class="hidden rounded-2xl border px-4 py-3 text-sm" role="status" aria-live="polite"></div>
+
+            <div class="flex flex-col gap-3 sm:flex-row" data-stagger>
+              <button type="submit" class="reveal btn-focus inline-flex items-center justify-center rounded-full bg-forest px-7 py-4 text-base font-semibold text-cream lux-shadow-strong">Check Availability</button>
+              <a id="secondary-whatsapp" href="#" class="reveal btn-focus inline-flex items-center justify-center rounded-full border border-forest/14 px-7 py-4 text-base font-semibold text-forest transition hover:bg-cream">Ask a Quick Question</a>
+            </div>
+
+            <p class="text-[0.8125rem] leading-[1.75] text-slate">This form is designed for direct enquiries until a live booking engine is added. It keeps the process personal, clear, and easy to use on mobile.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-forest/8 bg-white/55">
+      <div class="mx-auto max-w-8xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:max-w-[92rem]">
+        <div class="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+          <div data-stagger>
+            <p class="section-label reveal text-[11px] font-semibold uppercase text-slate">Questions guests usually have</p>
+            <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">Everything you need to know before your mountain stay.</h2>
+          </div>
+
+          <div class="space-y-4 reveal">
+            <div class="faq-item rounded-[1.5rem] border border-forest/8 bg-white p-6 card-float">
+              <button class="faq-toggle btn-focus" type="button" aria-expanded="false">
+                <span>Is a traditional Svaneti breakfast included?</span>
+                <svg class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7.5L10 12.5L15 7.5"/></svg>
+              </button>
+              <div class="faq-panel" aria-hidden="true">
+                <div>
+                  <p class="text-sm leading-[1.8] text-slate">Yes! We believe the best way to start a day of hiking or skiing is with authentic, fresh local flavors prepared by the family.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item rounded-[1.5rem] border border-forest/8 bg-white p-6 card-float">
+              <button class="faq-toggle btn-focus" type="button" aria-expanded="false">
+                <span>Do the rooms have reliable Wi-Fi and heating?</span>
+                <svg class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7.5L10 12.5L15 7.5"/></svg>
+              </button>
+              <div class="faq-panel" aria-hidden="true">
+                <div>
+                  <p class="text-sm leading-[1.8] text-slate">Absolutely. Even though you are deep in the mountains, all of our rooms feature reliable Wi-Fi for staying connected, and dedicated heating to keep you warm on cool Svaneti nights.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item rounded-[1.5rem] border border-forest/8 bg-white p-6 card-float">
+              <button class="faq-toggle btn-focus" type="button" aria-expanded="false">
+                <span>Can you help arrange transport to Mestia?</span>
+                <svg class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7.5L10 12.5L15 7.5"/></svg>
+              </button>
+              <div class="faq-panel" aria-hidden="true">
+                <div>
+                  <p class="text-sm leading-[1.8] text-slate">Yes, getting to Mestia is part of the adventure! If you need advice on marshrutkas from Kutaisi or Tbilisi, or if you'd like us to arrange a private driver, just ask us on WhatsApp.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="overflow-hidden bg-forest text-cream">
+    <div class="footer-accent"></div>
+    <div class="mx-auto max-w-8xl px-5 pt-16 pb-10 sm:px-8 lg:px-12 lg:pt-20 lg:pb-12 xl:max-w-[92rem]">
+      <div class="grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+        <div data-stagger>
+          <div class="flex items-center gap-4">
+            <div class="reveal flex h-12 w-12 items-center justify-center rounded-full border border-cream/14 bg-cream/7 text-[10px] font-bold uppercase tracking-[0.26em] text-cream/75">RG</div>
+            <h2 class="reveal font-display text-[1.875rem] font-semibold">Roza's Guest House</h2>
+          </div>
+          <p class="reveal mt-4 max-w-md text-sm leading-[1.9] text-cream/60">
+            A warm, scenic, family-run guest house in Mestia designed to make direct booking feel personal, simple, and trustworthy — from first message to mountain morning.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-2.5 text-[11px] text-cream/48" data-stagger>
+            <span class="reveal inline-flex items-center gap-1.5 rounded-full border border-cream/10 px-3.5 py-1.5"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:rgba(188,122,76,0.75);"></span>Mestia, Svaneti, Georgia</span>
+            <span class="reveal inline-flex items-center gap-1.5 rounded-full border border-cream/10 px-3.5 py-1.5">17 Rooms</span>
+            <span class="reveal inline-flex items-center gap-1.5 rounded-full border border-cream/10 px-3.5 py-1.5">Family-run</span>
+          </div>
+
+          <div class="mt-5 flex flex-wrap gap-3" data-stagger>
+            <a
+              id="footer-phone-chip"
+              href="tel:+995599641455"
+              class="reveal inline-flex items-center gap-2 rounded-full border border-cream/12 bg-cream/6 px-4 py-2 text-[0.8125rem] font-semibold text-cream/82 transition hover:bg-cream/10"
+            >
+              <span>Phone:</span>
+              <span id="footer-phone-text">+995599641455</span>
+            </a>
+            <a
+              id="footer-email-chip"
+              href="mailto:rozashukvani@gmail.com"
+              class="reveal inline-flex items-center gap-2 rounded-full border border-cream/12 bg-cream/6 px-4 py-2 text-[0.8125rem] font-semibold text-cream/82 transition hover:bg-cream/10"
+            >
+              <span>Email:</span>
+              <span id="footer-email-text">rozashukvani@gmail.com</span>
+            </a>
+          </div>
+        </div>
+
+        <div data-stagger>
+          <p class="reveal mb-5 text-[10px] uppercase tracking-[0.24em] text-cream/42">Get in touch directly</p>
+
+          <a id="footer-whatsapp" href="#" class="reveal concierge-card mb-4 block">
+            <div class="concierge-icon-wrap" style="background:rgba(31,175,90,0.16);">
+              <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4C11.163 4 4 11.163 4 20c0 2.9.78 5.638 2.14 7.996L4 36l8.24-2.108A15.9 15.9 0 0020 36c8.837 0 16-7.163 16-16S28.837 4 20 4z" fill="rgba(31,175,90,0.18)" stroke="rgba(31,175,90,0.88)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14.5 13.5c.35 1.05.82 2.1 1.4 3.04l.22.33a.95.95 0 01-.12 1.05l-.82 1.05a.45.45 0 000 .34c.58 1.28 1.4 2.33 2.45 3.27 1.05.93 2.22 1.52 3.5 1.87a.45.45 0 00.46-.12l.94-1.05a.95.95 0 011.05-.24l.34.12c.93.46 1.98.93 3.04 1.17l.35.12c.46.12.7.58.58 1.05-.47 1.87-2.22 3.16-4.09 2.92-5.37-.7-10.26-5.59-10.38-10.96-.12-1.87 1.17-3.62 2.92-4.09.47-.12.93.12 1.05.58l.11.36z" fill="rgba(31,175,90,0.82)"/>
+              </svg>
+            </div>
+            <div>
+              <p class="mb-1 text-[10px] uppercase tracking-[0.18em] text-cream/44">WhatsApp</p>
+              <p class="text-[0.9375rem] font-semibold text-cream">Chat with Roza directly</p>
+              <p class="mt-0.5 text-[0.8125rem] text-cream/52">Phone: <span id="footer-whatsapp-number">+995599641455</span> · Fast replies · Available daily</p>
+            </div>
+            <svg class="ml-auto h-4 w-4 shrink-0 text-cream/24" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12.5L12.5 3.5M12.5 3.5H6.5M12.5 3.5V9.5"/></svg>
+          </a>
+
+          <a id="footer-email" href="mailto:rozashukvani@gmail.com" class="reveal concierge-card block">
+            <div class="concierge-icon-wrap" style="background:rgba(188,122,76,0.16);">
+              <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="9" width="32" height="22" rx="4" fill="rgba(188,122,76,0.14)" stroke="rgba(188,122,76,0.85)" stroke-width="1.6"/>
+                <path d="M4.5 11.5l13.1 9.8a4 4 0 004.8 0l13.1-9.8" stroke="rgba(188,122,76,0.85)" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M4.5 30.5L16 20M35.5 30.5L24 20" stroke="rgba(188,122,76,0.42)" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <p class="mb-1 text-[10px] uppercase tracking-[0.18em] text-cream/44">Email</p>
+              <p id="footer-email-card-text" class="truncate text-[0.9375rem] font-semibold text-cream">rozashukvani@gmail.com</p>
+              <p class="mt-0.5 text-[0.8125rem] text-cream/52">For formal enquiries &amp; group bookings</p>
+            </div>
+            <svg class="ml-auto h-4 w-4 shrink-0 text-cream/24" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12.5L12.5 3.5M12.5 3.5H6.5M12.5 3.5V9.5"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-14 flex flex-col gap-4 border-t border-cream/9 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <nav class="flex flex-wrap gap-6 text-[0.8125rem] text-cream/42">
+          <a href="#rooms" class="transition hover:text-cream/72">Rooms</a>
+          <a href="#trust" class="transition hover:text-cream/72">Why Stay Here</a>
+          <a href="#reviews" class="transition hover:text-cream/72">Guest Stories</a>
+          <a href="#find-us" class="transition hover:text-cream/72">Find Us</a>
+          <a href="#book-direct" class="transition hover:text-cream/72">Book Direct</a>
+        </nav>
+        <p class="text-[0.8125rem] text-cream/28">© Roza's Guest House · Mestia, Svaneti, Georgia</p>
+      </div>
+    </div>
+  </footer>
+
+  <a
+    id="floating-whatsapp"
+    href="#"
+    class="magnetic-button btn-focus fixed bottom-5 right-5 z-50 inline-flex items-center gap-2.5 rounded-full bg-[#1FAF5A] px-5 py-3.5 text-sm font-semibold text-white sm:bottom-7 sm:right-7"
+    style="box-shadow:0 1px 1px rgba(31,175,90,0.10),0 6px 12px rgba(31,175,90,0.18),0 14px 28px rgba(31,175,90,0.22),0 30px 58px rgba(31,175,90,0.28),0 54px 94px rgba(31,175,90,0.26);"
+    aria-label="Chat with Roza on WhatsApp"
+  >
+    <svg width="18" height="18" viewBox="0 0 40 40" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 4C11.163 4 4 11.163 4 20c0 2.9.78 5.638 2.14 7.996L4 36l8.24-2.108A15.9 15.9 0 0020 36c8.837 0 16-7.163 16-16S28.837 4 20 4zm0 29.5a13.4 13.4 0 01-6.83-1.87l-.5-.28-5.08 1.33 1.36-4.96-.33-.52A13.47 13.47 0 016.5 20C6.5 12.544 12.544 6.5 20 6.5S33.5 12.544 33.5 20 27.456 33.5 20 33.5zm7.42-10.12c-.41-.205-2.42-1.19-2.79-1.325-.37-.135-.64-.205-.91.205s-1.05 1.325-1.28 1.595c-.235.27-.465.3-.875.1s-1.72-.635-3.275-2.02c-1.21-1.08-2.03-2.41-2.27-2.815-.235-.405-.025-.625.175-.82.185-.175.41-.455.615-.685.205-.235.27-.405.41-.675.135-.27.067-.505-.03-.71s-.91-2.2-1.25-3.015c-.33-.79-.665-.68-.91-.69h-.775c-.27 0-.71.1-1.085.505s-1.42 1.385-1.42 3.38 1.453 3.92 1.656 4.19c.205.27 2.86 4.37 6.93 6.13.965.415 1.72.665 2.31.85.97.31 1.854.268 2.552.162.78-.12 2.41-.985 2.75-1.93.34-.95.34-1.76.235-1.93-.1-.165-.37-.26-.79-.465z"/>
+    </svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script>
+    const CONTACT = {
+      phone: "+995599641455",
+      whatsappNumber: "+995599641455",
+      email: "rozashukvani@gmail.com"
+    };
+
+    const form = document.getElementById("availability-form");
+    const checkIn = document.getElementById("check_in");
+    const checkOut = document.getElementById("check_out");
+    const roomType = document.getElementById("room_type");
+    const guests = document.getElementById("guests");
+    const preview = document.getElementById("message-preview");
+    const feedback = document.getElementById("form-feedback");
+    const emailLink = document.getElementById("email-link");
+    const footerEmail = document.getElementById("footer-email");
+    const footerWhatsapp = document.getElementById("footer-whatsapp");
+
+    const footerPhoneChip = document.getElementById("footer-phone-chip");
+    const footerEmailChip = document.getElementById("footer-email-chip");
+    const footerPhoneText = document.getElementById("footer-phone-text");
+    const footerEmailText = document.getElementById("footer-email-text");
+    const footerWhatsappNumber = document.getElementById("footer-whatsapp-number");
+    const footerEmailCardText = document.getElementById("footer-email-card-text");
+    const mobileNavPhoneLink = document.getElementById("mobile-nav-phone-link");
+    const mobileNavEmailLink = document.getElementById("mobile-nav-email-link");
+    const mobileNavPhoneText = document.getElementById("mobile-nav-phone-text");
+    const mobileNavEmailText = document.getElementById("mobile-nav-email-text");
+
+    function sanitizeNumber(number) {
+      return String(number || "").replace(/[^\d]/g, "");
+    }
+
+    function formatDateForGuest(value) {
+      if (!value) return null;
+      const parts = value.split("-").map(Number);
+      const date = new Date(parts[0], parts[1] - 1, parts[2]);
+      return new Intl.DateTimeFormat("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function buildAvailabilityMessage() {
+      const room = roomType.value || "[Room Type]";
+      const from = formatDateForGuest(checkIn.value) || "[Check-in]";
+      const to = formatDateForGuest(checkOut.value) || "[Check-out]";
+      const guestCount = guests.value || "[Guests]";
+      return `Hi Roza! I'd like to check availability for the ${room} from ${from} to ${to} for ${guestCount} people. Is it available?`;
+    }
+
+    function buildQuestionMessage() {
+      return "Hi Roza! I have a question about staying at Roza's Guest House in Mestia.";
+    }
+
+    function buildWhatsappUrl(message) {
+      const number = sanitizeNumber(CONTACT.whatsappNumber || CONTACT.phone);
+      return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+    }
+
+    function buildEmailUrl() {
+      const subject = "Availability request for Roza's Guest House";
+      const body = buildAvailabilityMessage();
+      return `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function toLocalIso(date) {
+      const offsetDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+      return offsetDate.toISOString().split("T")[0];
+    }
+
+    function setFeedback(message, tone) {
+      if (!message) {
+        feedback.className = "hidden rounded-2xl border px-4 py-3 text-sm";
+        feedback.textContent = "";
+        return;
+      }
+
+      const palette = tone === "error"
+        ? "rounded-2xl border border-[#d7b1a3] bg-[#fff3ed] px-4 py-3 text-sm text-[#8f4b2f]"
+        : "rounded-2xl border border-[#b8ceb8] bg-[#edf6ed] px-4 py-3 text-sm text-[#2d5b36]";
+
+      feedback.className = palette;
+      feedback.textContent = message;
+    }
+
+    function populateContactDetails() {
+      const phoneHref = `tel:${sanitizeNumber(CONTACT.phone).startsWith("995") ? "+" + sanitizeNumber(CONTACT.phone) : CONTACT.phone}`;
+      const emailHref = `mailto:${CONTACT.email}`;
+
+      if (footerPhoneChip) footerPhoneChip.href = phoneHref;
+      if (footerEmailChip) footerEmailChip.href = emailHref;
+      if (mobileNavPhoneLink) mobileNavPhoneLink.href = phoneHref;
+      if (mobileNavEmailLink) mobileNavEmailLink.href = emailHref;
+      if (footerEmail) footerEmail.href = emailHref;
+
+      if (footerPhoneText) footerPhoneText.textContent = CONTACT.phone;
+      if (footerEmailText) footerEmailText.textContent = CONTACT.email;
+      if (footerWhatsappNumber) footerWhatsappNumber.textContent = CONTACT.phone;
+      if (footerEmailCardText) footerEmailCardText.textContent = CONTACT.email;
+      if (mobileNavPhoneText) mobileNavPhoneText.textContent = CONTACT.phone;
+      if (mobileNavEmailText) mobileNavEmailText.textContent = CONTACT.email;
+    }
+
+    function updatePreviewAndLinks() {
+      preview.textContent = buildAvailabilityMessage();
+      emailLink.href = buildEmailUrl();
+      emailLink.textContent = `Email your enquiry at ${CONTACT.email}`;
+      if (footerEmail) footerEmail.href = `mailto:${CONTACT.email}`;
+    }
+
+    function validateForm() {
+      if (!checkIn.value || !checkOut.value || !roomType.value || !guests.value) {
+        return "Please complete all four fields before checking availability.";
+      }
+
+      if (checkOut.value <= checkIn.value) {
+        return "Check-out must be after check-in.";
+      }
+
+      return "";
+    }
+
+    function configureQuickLinks() {
+      const url = buildWhatsappUrl(buildQuestionMessage());
+      const targets = [
+        "hero-whatsapp",
+        "header-whatsapp",
+        "secondary-whatsapp",
+        "floating-whatsapp",
+        "footer-whatsapp",
+        "mobile-nav-whatsapp"
+      ];
+
+      targets.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.href = url;
+      });
+    }
+
+    function setDateDefaults() {
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      const todayIso = toLocalIso(today);
+      const tomorrowIso = toLocalIso(tomorrow);
+      checkIn.min = todayIso;
+      checkOut.min = tomorrowIso;
+    }
+
+    checkIn.addEventListener("change", () => {
+      if (checkIn.value) {
+        const nextDay = new Date(checkIn.value);
+        nextDay.setDate(nextDay.getDate() + 1);
+        checkOut.min = toLocalIso(nextDay);
+
+        if (checkOut.value && checkOut.value <= checkIn.value) {
+          checkOut.value = "";
+        }
+      }
+
+      setFeedback("", "");
+      updatePreviewAndLinks();
+    });
+
+    [checkOut, roomType, guests].forEach((field) => {
+      field.addEventListener("change", () => {
+        setFeedback("", "");
+        updatePreviewAndLinks();
+      });
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const error = validateForm();
+
+      if (error) {
+        setFeedback(error, "error");
+        return;
+      }
+
+      setFeedback("Opening your WhatsApp enquiry in a new tab.", "success");
+      window.open(buildWhatsappUrl(buildAvailabilityMessage()), "_blank", "noopener,noreferrer");
+    });
+
+    setDateDefaults();
+    populateContactDetails();
+    updatePreviewAndLinks();
+    configureQuickLinks();
+  </script>
+
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    (() => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const finePointer = window.matchMedia("(pointer:fine)").matches;
+      const header = document.getElementById("site-header");
+      const heroShell = document.querySelector(".hero-shell");
+      const floatingWhatsapp = document.getElementById("floating-whatsapp");
+      const cursorRing = document.getElementById("silk-cursor");
+      const cursorDot = document.getElementById("silk-cursor-dot");
+
+      const mobileNav = document.getElementById("mobile-nav");
+      const mobileNavToggle = document.getElementById("mobile-nav-toggle");
+      const mobileNavClose = document.getElementById("mobile-nav-close");
+      const mobileNavBackdrop = document.querySelector("[data-mobile-close]");
+
+      function setHeaderState(scrollY) {
+        if (!header) return;
+        header.classList.toggle("scrolled", scrollY > 50);
+      }
+
+      function updateHeroParallax() {
+        if (!heroShell || window.innerWidth <= 768 || prefersReducedMotion) return;
+        const rect = heroShell.getBoundingClientRect();
+        const shift = rect.top * 0.4;
+        heroShell.style.setProperty("--hero-shift", `${shift}px`);
+      }
+
+      function assignStaggers() {
+        document.querySelectorAll("[data-stagger]").forEach((group) => {
+          const items = Array.from(group.querySelectorAll(":scope > .reveal"));
+          items.forEach((item, index) => {
+            item.style.transitionDelay = `${index * 100}ms`;
+          });
+        });
+      }
+
+      function initRevealObserver() {
+        const revealItems = document.querySelectorAll(".reveal");
+
+        if (!("IntersectionObserver" in window) || prefersReducedMotion) {
+          revealItems.forEach((item) => item.classList.add("visible"));
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            } else {
+              entry.target.classList.remove("visible");
+            }
+          });
+        }, {
+          threshold: 0.08,
+          rootMargin: "0px 0px -48px 0px"
+        });
+
+        revealItems.forEach((item) => observer.observe(item));
+      }
+
+      function openMobileNav() {
+        if (!mobileNav) return;
+        mobileNav.classList.add("open");
+        mobileNav.setAttribute("aria-hidden", "false");
+        document.body.classList.add("mobile-nav-open");
+        if (mobileNavToggle) mobileNavToggle.setAttribute("aria-expanded", "true");
+      }
+
+      function closeMobileNav() {
+        if (!mobileNav) return;
+        mobileNav.classList.remove("open");
+        mobileNav.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("mobile-nav-open");
+        if (mobileNavToggle) mobileNavToggle.setAttribute("aria-expanded", "false");
+      }
+
+      function initMobileNav() {
+        if (!mobileNav) return;
+
+        if (mobileNavToggle) {
+          mobileNavToggle.addEventListener("click", () => {
+            if (mobileNav.classList.contains("open")) {
+              closeMobileNav();
+            } else {
+              openMobileNav();
+            }
+          });
+        }
+
+        if (mobileNavClose) {
+          mobileNavClose.addEventListener("click", closeMobileNav);
+        }
+
+        if (mobileNavBackdrop) {
+          mobileNavBackdrop.addEventListener("click", closeMobileNav);
+        }
+
+        document.querySelectorAll("[data-mobile-link]").forEach((link) => {
+          link.addEventListener("click", closeMobileNav);
+        });
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeMobileNav();
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 1024) closeMobileNav();
+        });
+      }
+
+      function initFaqAccordion() {
+        const items = document.querySelectorAll(".faq-item");
+
+        items.forEach((item) => {
+          const button = item.querySelector(".faq-toggle");
+          const panel = item.querySelector(".faq-panel");
+          if (!button || !panel) return;
+
+          button.addEventListener("click", () => {
+            const isOpen = item.classList.contains("open");
+
+            items.forEach((otherItem) => {
+              const otherButton = otherItem.querySelector(".faq-toggle");
+              const otherPanel = otherItem.querySelector(".faq-panel");
+              otherItem.classList.remove("open");
+              if (otherButton) otherButton.setAttribute("aria-expanded", "false");
+              if (otherPanel) otherPanel.setAttribute("aria-hidden", "true");
+            });
+
+            if (!isOpen) {
+              item.classList.add("open");
+              button.setAttribute("aria-expanded", "true");
+              panel.setAttribute("aria-hidden", "false");
+            }
+          });
+        });
+      }
+
+      function initSilkCursor() {
+        if (!finePointer || prefersReducedMotion || !cursorRing || !cursorDot) return;
+
+        document.body.classList.add("has-silk-cursor");
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let ringX = -100;
+        let ringY = -100;
+        let dotX = -100;
+        let dotY = -100;
+        let ringScale = 1;
+        let hoverScale = 1;
+        let pressScale = 1;
+
+        const ringEase = 0.15;
+        const scaleEase = 0.18;
+
+        const interactiveElements = document.querySelectorAll("a, button, input, select");
+
+        const updateRingTone = () => {
+          cursorRing.style.borderColor = hoverScale > 1 ? "rgba(188,122,76,0.42)" : "rgba(45,58,47,0.22)";
+        };
+
+        interactiveElements.forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            hoverScale = 1.18;
+            updateRingTone();
+          });
+
+          el.addEventListener("mouseleave", () => {
+            hoverScale = 1;
+            updateRingTone();
+          });
+        });
+
+        window.addEventListener("mousemove", (event) => {
+          mouseX = event.clientX;
+          mouseY = event.clientY;
+          document.body.classList.add("cursor-active");
+        });
+
+        window.addEventListener("mouseleave", () => {
+          document.body.classList.remove("cursor-active");
+        });
+
+        window.addEventListener("mousedown", () => {
+          pressScale = 0.8;
+        });
+
+        window.addEventListener("mouseup", () => {
+          pressScale = 1;
+        });
+
+        window.addEventListener("blur", () => {
+          pressScale = 1;
+          hoverScale = 1;
+          updateRingTone();
+        });
+
+        function renderCursor() {
+          ringX += (mouseX - ringX) * ringEase;
+          ringY += (mouseY - ringY) * ringEase;
+          dotX += (mouseX - dotX) * 0.28;
+          dotY += (mouseY - dotY) * 0.28;
+
+          const targetScale = hoverScale * pressScale;
+          ringScale += (targetScale - ringScale) * scaleEase;
+
+          cursorRing.style.transform = `translate3d(${ringX - 18}px, ${ringY - 18}px, 0) scale(${ringScale})`;
+          cursorDot.style.transform = `translate3d(${dotX - 3}px, ${dotY - 3}px, 0)`;
+
+          requestAnimationFrame(renderCursor);
+        }
+
+        renderCursor();
+      }
+
+      function initFloatingWhatsappEntrance() {
+        if (!floatingWhatsapp) return;
+
+        const show = () => floatingWhatsapp.classList.add("is-visible");
+
+        if (prefersReducedMotion) {
+          show();
+          return;
+        }
+
+        window.setTimeout(show, 600);
+      }
+
+      function initMagneticButton() {
+        if (!floatingWhatsapp || !finePointer || prefersReducedMotion) return;
+
+        const radius = 180;
+        const radiusSq = radius * radius;
+        const strength = 0.34;
+
+        const reset = () => {
+          floatingWhatsapp.style.transition = "transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease, background-color 0.35s ease, box-shadow 0.35s ease";
+          floatingWhatsapp.style.setProperty("--mag-x", "0px");
+          floatingWhatsapp.style.setProperty("--mag-y", "0px");
+          floatingWhatsapp.style.boxShadow = "0 1px 1px rgba(31,175,90,0.10),0 6px 12px rgba(31,175,90,0.18),0 14px 28px rgba(31,175,90,0.22),0 30px 58px rgba(31,175,90,0.28),0 54px 94px rgba(31,175,90,0.26)";
+        };
+
+        document.addEventListener("mousemove", (event) => {
+          const rect = floatingWhatsapp.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const a = event.clientX - centerX;
+          const b = event.clientY - centerY;
+          const cSq = (a * a) + (b * b);
+
+          if (cSq < radiusSq) {
+            const distance = Math.sqrt(cSq);
+            const pull = 1 - (distance / radius);
+            const moveX = a * strength * pull;
+            const moveY = b * strength * pull;
+
+            floatingWhatsapp.style.transition = "transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, background-color 0.35s ease, box-shadow 0.35s ease";
+            floatingWhatsapp.style.setProperty("--mag-x", `${moveX}px`);
+            floatingWhatsapp.style.setProperty("--mag-y", `${moveY}px`);
+            floatingWhatsapp.style.boxShadow = "0 1px 1px rgba(31,175,90,0.10),0 8px 16px rgba(31,175,90,0.20),0 18px 36px rgba(31,175,90,0.26),0 38px 72px rgba(31,175,90,0.32),0 68px 112px rgba(31,175,90,0.30)";
+          } else {
+            reset();
+          }
+        });
+
+        document.addEventListener("mouseleave", reset);
+        window.addEventListener("blur", reset);
+      }
+
+      function initAnchors(lenisInstance) {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", (event) => {
+            const href = anchor.getAttribute("href");
+            if (!href || !href.startsWith("#") || href === "#") return;
+            const target = document.querySelector(href);
+            if (!target) return;
+
+            event.preventDefault();
+            closeMobileNav();
+
+            if (lenisInstance && !prefersReducedMotion) {
+              lenisInstance.scrollTo(target, { offset: -72, duration: 1.35 });
+            } else {
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          });
+        });
+      }
+
+      assignStaggers();
+      initRevealObserver();
+      initMobileNav();
+      initFaqAccordion();
+      initSilkCursor();
+      initFloatingWhatsappEntrance();
+      initMagneticButton();
+      setHeaderState(window.scrollY || 0);
+      updateHeroParallax();
+
+      let lenis = null;
+
+      if (!prefersReducedMotion && window.Lenis) {
+        lenis = new Lenis({
+          duration: 1.28,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          wheelMultiplier: 0.9,
+          touchMultiplier: 1.6
+        });
+
+        lenis.on("scroll", ({ scroll }) => {
+          setHeaderState(scroll || 0);
+          updateHeroParallax();
+        });
+
+        const raf = (time) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+      } else {
+        window.addEventListener("scroll", () => {
+          setHeaderState(window.scrollY || 0);
+          updateHeroParallax();
+        }, { passive: true });
+      }
+
+      initAnchors(lenis);
+      window.addEventListener("resize", updateHeroParallax);
+    })();
+  </script>
+</body>
+</html>
