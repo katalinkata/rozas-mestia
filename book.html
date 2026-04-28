@@ -1,0 +1,2836 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Book Direct | Roza's Guest House</title>
+  <meta
+    name="description"
+    content="Book direct with Roza's Guest House in Mestia. Search live room products, compare direct prices, and confirm your booking instantly."
+  />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#2D3A2F" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:site_name" content="Roza's Guest House" />
+  <meta property="og:title" content="Book Direct | Roza's Guest House" />
+  <meta
+    property="og:description"
+    content="Search live room products and confirm your direct booking with Roza's Guest House."
+  />
+  <meta property="og:url" content="./book.html" />
+  <meta property="og:image" content="hero.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Book Direct | Roza's Guest House" />
+  <meta
+    name="twitter:description"
+    content="Search live room products and confirm your direct booking with Roza's Guest House."
+  />
+  <meta name="twitter:image" content="hero.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: "#2D3A2F",
+            cream: "#FDF8F2",
+            slate: "#5F6C72",
+            sun: "#BC7A4C",
+            mist: "#F5EFE6"
+          },
+          fontFamily: {
+            display: ["Fraunces", "Georgia", "serif"],
+            sans: ["Manrope", "Segoe UI", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --forest: #2D3A2F;
+      --forest-deep: #202b22;
+      --cream: #FDF8F2;
+      --slate: #5F6C72;
+      --sun: #BC7A4C;
+      --mist: #F5EFE6;
+      --line: rgba(45,58,47,0.10);
+      --line-strong: rgba(45,58,47,0.16);
+      --shadow-soft: 0 16px 36px rgba(18,26,20,0.08);
+      --shadow-card: 0 10px 24px rgba(18,26,20,0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: #1f2c21;
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(188,122,76,0.12), transparent 24%),
+        linear-gradient(180deg, #fffdf9 0%, #fdf8f2 48%, #f7f1e7 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a,
+    button,
+    input,
+    select,
+    textarea {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .booking-honeypot {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+    .page-shell {
+      max-width: 76rem;
+      margin: 0 auto;
+      padding: 0 1.25rem 4rem;
+    }
+
+    .page-topbar {
+      max-width: 76rem;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 0;
+    }
+
+    .page-topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 22px rgba(18,26,20,0.04);
+      padding: 0.7rem 0.9rem;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      color: var(--forest);
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.65), rgba(255,255,255,0.08)),
+        linear-gradient(135deg, rgba(188,122,76,0.92), rgba(45,58,47,0.95));
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 8px 16px rgba(45,58,47,0.12);
+      flex-shrink: 0;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.2;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 0.18rem;
+      color: var(--slate);
+      font-size: 0.8rem;
+    }
+
+    .topbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      justify-content: flex-end;
+    }
+
+    .topbar-link,
+    .booking-button,
+    .booking-button-secondary,
+    .booking-button-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .topbar-link:hover,
+    .booking-button:hover,
+    .booking-button-secondary:hover,
+    .booking-button-whatsapp:hover {
+      transform: translateY(-1px);
+    }
+
+    .topbar-link {
+      min-height: 2.7rem;
+      padding: 0 1rem;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.92);
+      color: var(--forest);
+      font-size: 0.88rem;
+    }
+
+    .page-intro {
+      padding-top: 1.15rem;
+    }
+
+    .intro-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.7fr);
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: rgba(45,58,47,0.72);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .page-title {
+      margin: 0.35rem 0 0;
+      color: var(--forest);
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(1.95rem, 3.2vw, 2.85rem);
+      font-weight: 500;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+    }
+
+    .page-copy {
+      margin: 0.55rem 0 0;
+      max-width: 31rem;
+      color: var(--slate);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .mini-value-box {
+      border-radius: 1.2rem;
+      border: 1px solid rgba(45,58,47,0.12);
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 10px 24px rgba(18,26,20,0.05);
+      padding: 0.78rem 0.9rem;
+    }
+
+    .mini-value-box p {
+      margin: 0;
+    }
+
+    .mini-value-lead {
+      margin-top: 0.24rem;
+      color: var(--forest);
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .value-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.42rem;
+      margin-top: 0.6rem;
+    }
+
+    .value-item {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(45,58,47,0.1);
+      background: rgba(255,255,255,0.9);
+      padding: 0.45rem 0.7rem;
+    }
+
+    .value-item strong {
+      display: inline;
+      color: var(--forest);
+      font-size: 0.72rem;
+      line-height: 1.2;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .value-item span {
+      display: none;
+    }
+
+    .booking-shell {
+      margin-top: 1rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .booking-card {
+      border-radius: 1.35rem;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 10px 24px rgba(18,26,20,0.05);
+      padding: 1.05rem;
+    }
+
+    .booking-card-search {
+      border-color: rgba(45,58,47,0.12);
+      box-shadow: 0 12px 28px rgba(18,26,20,0.06);
+    }
+
+    .booking-card-final {
+      border-color: rgba(45,58,47,0.14);
+      box-shadow: 0 10px 24px rgba(18,26,20,0.05);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      margin: 0.28rem 0 0;
+      color: var(--forest);
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.28rem;
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+
+    .section-copy {
+      margin: 0.32rem 0 0;
+      max-width: 34rem;
+      color: var(--slate);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(248,244,237,0.86);
+      color: rgba(45,58,47,0.82);
+      padding: 0.34rem 0.68rem;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .search-grid {
+      display: grid;
+      gap: 0.65rem;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 1.08fr) minmax(7rem, 0.62fr) minmax(0, 0.9fr) minmax(10.6rem, 0.86fr);
+      align-items: end;
+      margin-top: 0.75rem;
+    }
+
+    .field-group {
+      display: grid;
+      gap: 0.42rem;
+      min-width: 0;
+    }
+
+    .field-label {
+      color: var(--forest);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .field-input,
+    .field-select,
+    .field-textarea {
+      width: 100%;
+      min-width: 0;
+      border-radius: 1rem;
+      border: 1px solid rgba(45,58,47,0.14);
+      background: rgba(255,255,255,0.96);
+      color: var(--forest);
+      font: inherit;
+      padding: 0.95rem 1rem;
+      font-size: 0.95rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.78);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      outline: none;
+      border-color: rgba(188,122,76,0.58);
+      box-shadow: 0 0 0 3px rgba(188,122,76,0.14);
+    }
+
+    .field-select-shell {
+      position: relative;
+      display: block;
+    }
+
+    .field-select-shell::after {
+      content: "";
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-right: 2px solid rgba(45,58,47,0.48);
+      border-bottom: 2px solid rgba(45,58,47,0.48);
+      transform: translateY(-65%) rotate(45deg);
+      pointer-events: none;
+    }
+
+    .field-select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 2.7rem;
+    }
+
+    .booking-button,
+    .booking-button-secondary,
+    .booking-button-whatsapp {
+      min-height: 3.35rem;
+      padding: 0 1.35rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .booking-button {
+      background: linear-gradient(180deg, #314236 0%, #263328 100%);
+      color: var(--cream);
+      box-shadow: 0 18px 34px rgba(45,58,47,0.18);
+    }
+
+    .booking-card-search .booking-button {
+      min-height: 3.45rem;
+      font-size: 1rem;
+      padding: 0 1.55rem;
+      box-shadow: 0 16px 30px rgba(45,58,47,0.18);
+    }
+
+    .booking-button-secondary {
+      background: rgba(255,255,255,0.95);
+      border-color: rgba(45,58,47,0.12);
+      color: var(--forest);
+    }
+
+    .booking-button-whatsapp {
+      background: #1FAA5A;
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(31,170,90,0.18);
+    }
+
+    .booking-button:disabled,
+    .booking-button-secondary:disabled,
+    .booking-button-whatsapp:disabled {
+      cursor: not-allowed;
+      opacity: 0.62;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .search-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+      margin-top: 0.65rem;
+    }
+
+    .search-actions .booking-button-secondary,
+    .search-actions .booking-button-whatsapp,
+    .search-actions .topbar-link {
+      min-height: 2.65rem;
+      font-size: 0.84rem;
+      padding: 0 0.92rem;
+    }
+
+    .search-actions .helper-copy {
+      order: 3;
+      flex-basis: 100%;
+    }
+
+    .helper-copy {
+      color: var(--slate);
+      font-size: 0.78rem;
+      line-height: 1.45;
+      flex: 1 1 18rem;
+    }
+
+    .summary-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .summary-item {
+      min-width: 0;
+      flex: 1 1 9rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(45,58,47,0.08);
+      background: rgba(250,247,241,0.72);
+      padding: 0.58rem 0.68rem;
+    }
+
+    .summary-item-strong {
+      flex-basis: 11rem;
+      background:
+        linear-gradient(180deg, rgba(253,248,242,0.98), rgba(255,255,255,0.98)),
+        radial-gradient(circle at top right, rgba(188,122,76,0.1), transparent 42%);
+      border-color: rgba(45,58,47,0.12);
+    }
+
+    .summary-key {
+      display: block;
+      color: rgba(45,58,47,0.62);
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .summary-value {
+      display: block;
+      margin-top: 0.22rem;
+      color: var(--forest);
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1.32;
+      word-break: break-word;
+    }
+
+    .notice {
+      margin-top: 1rem;
+      border-radius: 1rem;
+      border: 1px solid transparent;
+      padding: 0.92rem 1rem;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .notice.info {
+      border-color: rgba(98,112,105,0.16);
+      background: rgba(247,242,232,0.95);
+      color: #5d5b4e;
+    }
+
+    .notice.success {
+      border-color: rgba(53,119,74,0.2);
+      background: rgba(233,245,235,0.95);
+      color: #255236;
+    }
+
+    .notice.error {
+      border-color: rgba(161,78,52,0.2);
+      background: rgba(252,241,236,0.95);
+      color: #8f4b2f;
+    }
+
+    .results-meta {
+      margin: 0.4rem 0 0;
+      color: var(--slate);
+      font-size: 0.88rem;
+      line-height: 1.52;
+    }
+
+    .results-grid {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+    }
+
+    .product-card {
+      border-radius: 1rem;
+      border: 1px solid rgba(45,58,47,0.1);
+      background: rgba(255,255,255,0.99);
+      padding: 0.75rem;
+      box-shadow: 0 3px 10px rgba(18,26,20,0.035);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .product-card.is-selected {
+      border-color: rgba(45,58,47,0.32);
+      box-shadow: 0 0 0 3px rgba(45,58,47,0.05), 0 8px 18px rgba(18,26,20,0.05);
+      transform: translateY(-1px);
+    }
+
+    .product-card.is-unavailable {
+      border-color: rgba(161,78,52,0.16);
+      background: rgba(255,251,248,0.96);
+    }
+
+    .product-layout {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: minmax(4.8rem, 5.8rem) minmax(0, 1fr) minmax(10.8rem, 12.4rem);
+      align-items: stretch;
+    }
+
+    .product-image {
+      overflow: hidden;
+      border-radius: 1.1rem;
+      background: rgba(245,239,230,0.82);
+      min-height: 6.35rem;
+      border: 1px solid rgba(45,58,47,0.08);
+      aspect-ratio: 4 / 5;
+    }
+
+    .product-media {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-self: start;
+    }
+
+    .product-image-button {
+      display: block;
+      width: 100%;
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .product-image-button:hover,
+    .product-image-button:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(18,26,20,0.08);
+      border-color: rgba(45,58,47,0.16);
+      outline: none;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-gallery-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.32rem;
+      align-self: stretch;
+      border: 1px solid rgba(45,58,47,0.13);
+      border-radius: 0.72rem;
+      background: rgba(253,248,242,0.72);
+      color: rgba(45,58,47,0.78);
+      padding: 0.36rem 0.52rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.3;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .product-gallery-link:hover,
+    .product-gallery-link:focus-visible {
+      color: var(--forest);
+      border-color: rgba(45,58,47,0.24);
+      background: rgba(255,255,255,0.92);
+      transform: translateX(1px);
+      outline: none;
+    }
+
+    .product-gallery-link svg {
+      width: 0.9rem;
+      height: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .product-image-fallback {
+      width: 100%;
+      height: 100%;
+      min-height: 6.35rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 0.7rem;
+      background:
+        linear-gradient(145deg, rgba(245,239,230,0.96), rgba(253,248,242,0.92)),
+        radial-gradient(circle at top right, rgba(188,122,76,0.1), transparent 44%);
+      color: rgba(45,58,47,0.84);
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .product-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: center;
+    }
+
+    .product-main {
+      border-radius: 1rem;
+      border: 1px solid rgba(45,58,47,0.08);
+      background: rgba(250,247,241,0.78);
+      padding: 0.8rem 0.9rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .product-chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(45,58,47,0.12);
+      background: rgba(245,251,246,0.96);
+      color: rgba(45,91,54,0.92);
+      padding: 0.38rem 0.7rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .product-chip.limited {
+      border-color: rgba(188,122,76,0.22);
+      background: rgba(251,247,238,0.96);
+      color: rgba(101,83,58,0.92);
+    }
+
+    .product-chip.last {
+      border-color: rgba(188,122,76,0.28);
+      background: rgba(255,244,237,0.96);
+      color: rgba(143,75,47,0.96);
+    }
+
+    .product-chip.unavailable {
+      border-color: rgba(161,78,52,0.22);
+      background: rgba(252,241,236,0.96);
+      color: rgba(143,75,47,0.96);
+    }
+
+    .product-title {
+      margin: 0.32rem 0 0;
+      color: var(--forest);
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 1.16;
+    }
+
+    .product-copy {
+      margin: 0.16rem 0 0;
+      color: var(--slate);
+      font-size: 0.76rem;
+      line-height: 1.38;
+      max-width: 24rem;
+    }
+
+    .product-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.9rem;
+      margin-top: 0.45rem;
+    }
+
+    .product-fact {
+      min-width: 0;
+    }
+
+    .product-fact small {
+      display: block;
+      color: rgba(45,58,47,0.62);
+      font-size: 0.53rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .product-fact strong {
+      display: block;
+      margin-top: 0.08rem;
+      color: var(--forest);
+      font-size: 0.82rem;
+      line-height: 1.28;
+    }
+
+    .product-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.65rem;
+    }
+
+    .product-highlight {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(253,248,242,0.92);
+      color: rgba(45,58,47,0.84);
+      padding: 0.34rem 0.65rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .product-side {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 0.45rem;
+      text-align: left;
+    }
+
+    .product-price-panel {
+      padding: 0.05rem 0;
+    }
+
+    .product-price-label {
+      display: block;
+      color: rgba(45,58,47,0.66);
+      font-size: 0.52rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .product-price-note {
+      margin: 0.12rem 0 0;
+      color: var(--slate);
+      font-size: 0.66rem;
+      line-height: 1.3;
+    }
+
+    .product-price {
+      color: var(--forest);
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 2.28rem;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .product-reference-price {
+      margin-top: 0.1rem;
+      color: rgba(45,58,47,0.62);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-decoration: line-through;
+    }
+
+    .product-saving-label {
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 0.22rem;
+      border-radius: 999px;
+      background: rgba(31,170,90,0.1);
+      color: #167847;
+      font-size: 0.68rem;
+      font-weight: 800;
+      line-height: 1.2;
+      padding: 0.26rem 0.48rem;
+    }
+
+    .product-price-support {
+      margin-top: 0.08rem;
+      color: var(--slate);
+      font-size: 0.68rem;
+      line-height: 1.32;
+    }
+
+    .product-side p {
+      margin: 0.22rem 0 0;
+      color: var(--slate);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .room-gallery {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+
+    .room-gallery.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .room-gallery-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(18,26,20,0.66);
+      backdrop-filter: blur(10px);
+    }
+
+    .room-gallery-panel {
+      position: relative;
+      width: min(76rem, 100%);
+      max-height: calc(100vh - 2.4rem);
+      overflow: hidden;
+      border-radius: 1.6rem;
+      border: 1px solid rgba(45,58,47,0.12);
+      background: rgba(255,252,247,0.98);
+      box-shadow: 0 28px 60px rgba(18,26,20,0.22);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .room-gallery-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1rem 0.75rem;
+      border-bottom: 1px solid rgba(45,58,47,0.08);
+    }
+
+    .room-gallery-header p {
+      margin: 0;
+      color: rgba(45,58,47,0.72);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .room-gallery-header h3 {
+      margin: 0.28rem 0 0;
+      color: var(--forest);
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .room-gallery-close,
+    .room-gallery-nav button {
+      border: 1px solid rgba(45,58,47,0.1);
+      background: rgba(255,255,255,0.9);
+      color: var(--forest);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .room-gallery-close {
+      width: 2.6rem;
+      height: 2.6rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .room-gallery-body {
+      padding: 0.9rem 1rem 1rem;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .room-gallery-main {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.35rem;
+      background: rgba(245,239,230,0.9);
+      min-height: 20rem;
+    }
+
+    .room-gallery-main img {
+      width: 100%;
+      max-height: 68vh;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      background: rgba(245,239,230,0.9);
+    }
+
+    .room-gallery-nav {
+      position: absolute;
+      inset: auto 0 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem;
+    }
+
+    .room-gallery-nav button {
+      width: 2.6rem;
+      height: 2.6rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .room-gallery-thumbs {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: repeat(auto-fit, minmax(5.2rem, 1fr));
+    }
+
+    .room-gallery-thumb {
+      border: 1px solid rgba(45,58,47,0.08);
+      border-radius: 0.95rem;
+      overflow: hidden;
+      background: rgba(255,255,255,0.88);
+      padding: 0;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .room-gallery-thumb img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .room-gallery-thumb.is-active {
+      border-color: rgba(45,58,47,0.28);
+      box-shadow: 0 0 0 3px rgba(45,58,47,0.06);
+    }
+
+    .product-select-button {
+      width: 100%;
+      min-height: 2.9rem;
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .product-select-button.booking-button {
+      box-shadow: 0 14px 24px rgba(45,58,47,0.16);
+    }
+
+    .selected-summary {
+      margin-top: 0.8rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(45,58,47,0.1);
+      background: rgba(250,247,241,0.82);
+      padding: 0.86rem 0.9rem;
+    }
+
+    .selected-summary strong {
+      display: block;
+      color: var(--forest);
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+
+    .selected-summary p {
+      margin: 0.28rem 0 0;
+      color: var(--slate);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .selected-summary-label {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(45,58,47,0.1);
+      background: rgba(255,255,255,0.86);
+      color: rgba(45,58,47,0.78);
+      padding: 0.28rem 0.58rem;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .selected-summary-facts {
+      display: grid;
+      gap: 0.42rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 0.62rem;
+    }
+
+    .selected-summary-fact {
+      border-radius: 0.85rem;
+      border: 1px solid rgba(45,58,47,0.08);
+      background: rgba(255,255,255,0.78);
+      padding: 0.58rem 0.64rem;
+    }
+
+    .selected-summary-fact small {
+      display: block;
+      color: rgba(45,58,47,0.62);
+      font-size: 0.56rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .selected-summary-fact strong {
+      margin-top: 0.18rem;
+      font-size: 0.86rem;
+    }
+
+    .guest-grid {
+      display: grid;
+      gap: 0.9rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+
+    .field-textarea {
+      min-height: 7.4rem;
+      resize: vertical;
+    }
+
+    .booking-note {
+      margin-top: 0.72rem;
+      color: var(--slate);
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .page-footnote {
+      margin-top: 1rem;
+      color: rgba(45,58,47,0.7);
+      font-size: 0.8rem;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    @media (max-width: 1139px) {
+      .intro-grid,
+      .search-grid,
+      .summary-strip,
+      .guest-grid,
+      .selected-summary-facts {
+        grid-template-columns: 1fr;
+      }
+
+      .search-grid .booking-button {
+        width: 100%;
+      }
+
+      .summary-item,
+      .summary-item-strong {
+        flex-basis: 100%;
+      }
+    }
+
+    @media (max-width: 899px) {
+      .product-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .product-image {
+        min-height: 7rem;
+      }
+
+      .product-main {
+        padding: 0.78rem 0.82rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .page-topbar,
+      .page-shell {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .page-topbar-inner {
+        border-radius: 1.2rem;
+        padding: 0.8rem;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .topbar-actions {
+        justify-content: stretch;
+      }
+
+      .topbar-link,
+      .booking-button,
+      .booking-button-secondary,
+      .booking-button-whatsapp {
+        width: 100%;
+      }
+
+      .booking-card {
+        padding: 1rem;
+        border-radius: 1.4rem;
+      }
+
+      .product-image {
+        min-height: 7.25rem;
+      }
+
+      .room-gallery {
+        padding: 0.7rem;
+      }
+
+      .room-gallery-panel {
+        max-height: calc(100vh - 1.4rem);
+      }
+
+      .room-gallery-header,
+      .room-gallery-body {
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+      }
+
+      .room-gallery-main {
+        min-height: 14rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-topbar">
+    <div class="page-topbar-inner">
+      <a href="index.html" class="brand-link">
+        <span class="brand-mark">R</span>
+        <span class="brand-copy">
+          <strong>Roza's Guest House</strong>
+          <span>Mestia, Georgia</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <a href="index.html" class="topbar-link">Back to homepage</a>
+        <a id="top-whatsapp" href="#" class="topbar-link">WhatsApp help</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="page-intro">
+      <div class="intro-grid">
+        <div>
+          <p class="eyebrow">Book direct</p>
+          <h1 class="page-title">Book direct in Mestia.</h1>
+          <p class="page-copy">Search dates, compare live room options, and confirm directly with Roza's Guest House.</p>
+        </div>
+
+        <div class="mini-value-box">
+          <p class="eyebrow">Book direct</p>
+          <p class="mini-value-lead">Best direct price. Instant confirmation.</p>
+        </div>
+      </div>
+
+      <div class="value-strip">
+        <div class="value-item">
+          <strong>Best direct price</strong>
+          <span>Live PMS-backed pricing for the stay you search.</span>
+        </div>
+        <div class="value-item">
+          <strong>Instant confirmation</strong>
+          <span>If the room is still valid, the booking confirms directly into Roza's PMS.</span>
+        </div>
+        <div class="value-item">
+          <strong>Direct with Roza</strong>
+          <span>Choose from guest-friendly room products with internal room codes hidden.</span>
+        </div>
+        <div class="value-item">
+          <strong>WhatsApp help</strong>
+          <span>Direct help stays available as a fallback if you need it.</span>
+        </div>
+      </div>
+    </section>
+
+    <form id="availability-form" class="booking-shell">
+      <input id="room_type" name="room_type" type="hidden" />
+      <input id="sellable_product_id" name="sellable_product_id" type="hidden" />
+      <input id="website_url" name="website_url" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" class="booking-honeypot" />
+      <input id="client_session_id" name="client_session_id" type="hidden" />
+      <input id="form_started_at" name="form_started_at" type="hidden" />
+
+      <section class="booking-card booking-card-search">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Step 1</p>
+            <h2 class="section-title">Search your stay</h2>
+            <p class="section-copy">Choose dates and guests to load live room products for your stay.</p>
+          </div>
+          <span class="section-tag">Live direct search</span>
+        </div>
+
+        <div class="search-grid">
+          <label class="field-group">
+            <span class="field-label">Check-in</span>
+            <input id="check_in" name="check_in" type="date" class="field-input" required />
+          </label>
+
+          <label class="field-group">
+            <span class="field-label">Check-out</span>
+            <input id="check_out" name="check_out" type="date" class="field-input" required />
+          </label>
+
+          <label class="field-group">
+            <span class="field-label">Guests</span>
+            <span class="field-select-shell">
+              <select id="guests" name="guests" class="field-select" required>
+                <option value="">Select</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </span>
+          </label>
+
+          <label class="field-group">
+            <span class="field-label">Bed preference</span>
+            <span class="field-select-shell">
+              <select id="bed_setup" name="bed_setup" class="field-select"></select>
+            </span>
+          </label>
+
+          <button id="availability-check" type="button" class="booking-button">Check availability</button>
+        </div>
+
+        <div class="search-actions">
+          <button id="reset-search" type="button" class="booking-button-secondary">Reset</button>
+          <button id="whatsapp-submit" type="button" class="booking-button-whatsapp">Need help on WhatsApp?</button>
+          <span id="bed-setup-helper" class="helper-copy">Optional preference. Search only returns live room products that fit your dates and guest count.</span>
+        </div>
+
+        <div id="availability-result" class="notice hidden" aria-live="polite"></div>
+      </section>
+
+      <section class="booking-card">
+        <div id="availability-products-intro" aria-live="polite">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Step 2</p>
+              <h2 class="section-title">Choose a room product</h2>
+            </div>
+            <span class="section-tag">Live direct rates</span>
+          </div>
+          <p class="section-copy">Valid room products for your stay appear here with live direct pricing.</p>
+          <p id="availability-results-meta" class="results-meta">Search to load the live room products for your stay.</p>
+        </div>
+
+        <div id="availability-products" class="results-grid hidden" aria-live="polite"></div>
+      </section>
+
+      <section id="website-booking-step" class="booking-card booking-card-final hidden">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Step 3</p>
+            <h2 class="section-title">Complete booking</h2>
+            <p class="section-copy">Review your room and enter the final guest details to confirm.</p>
+          </div>
+          <span class="section-tag">Final step</span>
+        </div>
+
+        <div id="selected-product-summary" class="selected-summary">
+          <span class="selected-summary-label">Selected room</span>
+          <strong>No room selected yet</strong>
+          <p>Select a room product above to unlock the final confirmation fields.</p>
+        </div>
+
+        <div class="guest-grid">
+          <label class="field-group">
+            <span class="field-label">Full name</span>
+            <input id="guest_name" name="guest_name" type="text" autocomplete="name" class="field-input" placeholder="Your full name" />
+          </label>
+
+          <label class="field-group">
+            <span class="field-label">Phone number</span>
+            <input id="guest_phone" name="guest_phone" type="tel" inputmode="tel" autocomplete="tel" class="field-input" placeholder="+995..." />
+          </label>
+
+          <label class="field-group">
+            <span class="field-label">Country</span>
+            <input id="guest_country" name="guest_country" type="text" autocomplete="country-name" class="field-input" placeholder="Country" />
+          </label>
+
+          <label class="field-group">
+            <span class="field-label">Email for confirmation</span>
+            <input id="guest_email" name="guest_email" type="email" inputmode="email" autocomplete="email" class="field-input" placeholder="name@example.com" />
+          </label>
+        </div>
+
+        <label class="field-group" style="margin-top:1rem;">
+          <span class="field-label">Notes <span style="font-weight:500;color:var(--slate);">(optional)</span></span>
+          <textarea id="guest_notes" name="guest_notes" class="field-textarea" placeholder="Arrival timing, transfer note, or anything helpful for the family to know"></textarea>
+        </label>
+
+        <div class="booking-note">Your selected room is rechecked before confirmation. Need help instead? Switch to WhatsApp.</div>
+
+        <div class="search-actions">
+          <button id="website-submit" type="button" class="booking-button" disabled>Complete direct booking</button>
+          <button id="guest-whatsapp" type="button" class="booking-button-whatsapp">Switch to WhatsApp</button>
+          <a id="email-link" class="topbar-link" href="mailto:rozashukvani@gmail.com?subject=Availability%20request%20for%20Roza%27s%20Guest%20House">Prefer email?</a>
+        </div>
+
+        <div id="form-feedback" class="notice hidden" role="status" aria-live="polite"></div>
+      </section>
+    </form>
+
+    <div id="room-gallery" class="room-gallery" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="room-gallery-title">
+      <div class="room-gallery-backdrop" data-room-gallery-close></div>
+      <div class="room-gallery-panel">
+        <div class="room-gallery-header">
+          <div>
+            <p>Room gallery</p>
+            <h3 id="room-gallery-title">Room photos</h3>
+          </div>
+          <button id="room-gallery-close" type="button" class="room-gallery-close" aria-label="Close room gallery">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <path d="M3.5 3.5L12.5 12.5M12.5 3.5L3.5 12.5" />
+            </svg>
+          </button>
+        </div>
+        <div class="room-gallery-body">
+          <div class="room-gallery-main">
+            <img id="room-gallery-image" src="" alt="" />
+            <div class="room-gallery-nav">
+              <button id="room-gallery-prev" type="button" aria-label="Previous room image">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9.5 3.5L5 8l4.5 4.5" />
+                </svg>
+              </button>
+              <button id="room-gallery-next" type="button" aria-label="Next room image">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6.5 3.5L11 8l-4.5 4.5" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div id="room-gallery-thumbs" class="room-gallery-thumbs"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="page-footnote">Website bookings save with Roza's fixed website booking times of 15:00 check-in and 11:00 check-out. WhatsApp remains available if you need help before or after booking.</p>
+  </main>
+
+  <script>
+    const CONTACT = {
+      phone: "+995599641455",
+      whatsappNumber: "+995599641455",
+      email: "rozashukvani@gmail.com"
+    };
+
+    const BACKEND_URL = "https://script.google.com/macros/s/AKfycbyzPfNZSno0tPd0dDtxN-PbWtej1iOw6CI_Ee47cpYFr0odIFuSA2sABX4DzepbeQqgXw/exec";
+    const PUBLIC_MAX_STAY_NIGHTS = 30;
+    const PUBLIC_MAX_LOOKAHEAD_DAYS = 365;
+
+    const BED_PREFERENCE_DEFINITIONS = [
+      { value: "Best available", label: "Best available" },
+      { value: "Double", label: "Double" },
+      { value: "Twin", label: "Twin" },
+      { value: "Triple", label: "Triple / Family" }
+    ];
+
+    const form = document.getElementById("availability-form");
+    const checkIn = document.getElementById("check_in");
+    const checkOut = document.getElementById("check_out");
+    const guests = document.getElementById("guests");
+    const bedSetup = document.getElementById("bed_setup");
+    const bedSetupHelper = document.getElementById("bed-setup-helper");
+    const roomType = document.getElementById("room_type");
+    const sellableProductField = document.getElementById("sellable_product_id");
+    const websiteUrlField = document.getElementById("website_url");
+    const clientSessionIdField = document.getElementById("client_session_id");
+    const formStartedAtField = document.getElementById("form_started_at");
+    const availabilityCheck = document.getElementById("availability-check");
+    const availabilityResult = document.getElementById("availability-result");
+    const availabilityProductsIntro = document.getElementById("availability-products-intro");
+    const availabilityProducts = document.getElementById("availability-products");
+    const availabilityResultsMeta = document.getElementById("availability-results-meta");
+    const resetSearch = document.getElementById("reset-search");
+    const whatsappSubmit = document.getElementById("whatsapp-submit");
+    const websiteBookingStep = document.getElementById("website-booking-step");
+    const selectedProductSummary = document.getElementById("selected-product-summary");
+    const websiteSubmit = document.getElementById("website-submit");
+    const guestWhatsapp = document.getElementById("guest-whatsapp");
+    const guestName = document.getElementById("guest_name");
+    const guestPhone = document.getElementById("guest_phone");
+    const guestCountry = document.getElementById("guest_country");
+    const guestEmail = document.getElementById("guest_email");
+    const guestNotes = document.getElementById("guest_notes");
+    const feedback = document.getElementById("form-feedback");
+    const emailLink = document.getElementById("email-link");
+    const roomGallery = document.getElementById("room-gallery");
+    const roomGalleryImage = document.getElementById("room-gallery-image");
+    const roomGalleryTitle = document.getElementById("room-gallery-title");
+    const roomGalleryThumbs = document.getElementById("room-gallery-thumbs");
+    const roomGalleryClose = document.getElementById("room-gallery-close");
+    const roomGalleryPrev = document.getElementById("room-gallery-prev");
+    const roomGalleryNext = document.getElementById("room-gallery-next");
+    const roomGalleryBackdrop = document.querySelector("[data-room-gallery-close]");
+
+    const bookingState = {
+      availabilityChecked: false,
+      availabilityAvailable: false,
+      availabilitySignature: "",
+      bookingComplete: false,
+      lastAvailability: null,
+      selectedProductId: "",
+      selectedProductLabel: ""
+    };
+
+    let availabilityBusy = false;
+    let websiteSubmitBusy = false;
+    let availabilityProgressTimers = [];
+    let bookingProgressTimers = [];
+    let activeGalleryImages = [];
+    let activeGalleryIndex = 0;
+
+    const PRODUCT_GALLERIES = {
+      classic: [
+        { src: "Classic/classic double .png", alt: "Classic Room (Shared Bathroom) at Roza's Guest House" },
+        { src: "Classic/IMG_9118.PNG", alt: "Shared bathroom shower available to guests of the Classic Room (Shared Bathroom)" },
+        { src: "Classic/IMG_9122.PNG", alt: "Shared bathroom vanity available to guests of the Classic Room (Shared Bathroom)" }
+      ],
+      mountain: [
+        { src: "Peack Mountain View/IMG_9124.PNG", alt: "Peak Mountain View Room at Roza's Guest House" },
+        { src: "Peack Mountain View/IMG_9127.PNG", alt: "Additional bedroom view in the Peak Mountain View Room" },
+        { src: "Peack Mountain View/IMG_9157.PNG", alt: "Additional bedroom view in the Peak Mountain View Room" },
+        { src: "Peack Mountain View/peak triple .png", alt: "Alternative bed setup in the Peak Mountain View Room" },
+        { src: "Peack Mountain View/IMG_1512.jpg", alt: "Additional room view in the Peak Mountain View Room" },
+        { src: "Peack Mountain View/IMG_9118.PNG", alt: "Representative ensuite bathroom shower for the Peak Mountain View Room" },
+        { src: "Peack Mountain View/IMG_9122.PNG", alt: "Vanity detail for the Peak Mountain View Room bathroom" }
+      ],
+      balcony: [
+        { src: "Peack Mountain View with Balcony/peak double 2.png", alt: "Peak Mountain View Room with Balcony at Roza's Guest House" },
+        { src: "Peack Mountain View with Balcony/peak twin .png", alt: "Twin-bed view in the Peak Mountain View Room with Balcony" },
+        { src: "Peack Mountain View with Balcony/Premium Triple .png", alt: "Triple-bed setup in the Peak Mountain View Room with Balcony" },
+        { src: "Peack Mountain View with Balcony/Premium triple 2 .png", alt: "Additional triple-room view in the Peak Mountain View Room with Balcony" },
+        { src: "Peack Mountain View with Balcony/Gemini_Generated_Image_ixg0ozixg0ozixg0.png", alt: "Additional room view in the Peak Mountain View Room with Balcony" },
+        { src: "Peack Mountain View with Balcony/IMG_9118.PNG", alt: "Representative ensuite bathroom shower for the Peak Mountain View Room with Balcony" },
+        { src: "Peack Mountain View with Balcony/IMG_9122.PNG", alt: "Vanity detail for the Peak Mountain View Room with Balcony bathroom" }
+      ],
+      cottage: [
+        { src: "cottage refined/IMG_9193.PNG", alt: "Peak Cottage with Mountain View at Roza's Guest House" },
+        { src: "cottage refined/IMG_9177.PNG", alt: "Exterior view of the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_9179.PNG", alt: "Private deck at the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_9190.PNG", alt: "Lounge area with mountain-view windows in the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_9181.PNG", alt: "Sleeping area with mountain view in the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_9183.PNG", alt: "Twin sleeping loft in the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_9189.PNG", alt: "Dining area inside the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_9184.PNG", alt: "Kitchen area inside the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_9186.PNG", alt: "Kitchen counter detail in the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_9185.PNG", alt: "Bathroom with washing machine in the Peak Cottage with Mountain View" },
+        { src: "cottage refined/IMG_1560_result.jpeg", alt: "Private bathroom shower in the Peak Cottage with Mountain View" }
+      ]
+    };
+
+    function getOrCreateClientSessionId() {
+      try {
+        const storageKey = "roza-booking-client-session";
+        const existing = window.sessionStorage ? sessionStorage.getItem(storageKey) : "";
+        if (existing) return existing;
+        const next = `roza-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+        if (window.sessionStorage) sessionStorage.setItem(storageKey, next);
+        return next;
+      } catch (error) {
+        return `roza-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      }
+    }
+
+    function initializePublicProtectionFields() {
+      const startedAt = String(Date.now());
+      if (websiteUrlField) websiteUrlField.value = "";
+      if (clientSessionIdField && !clientSessionIdField.value) {
+        clientSessionIdField.value = getOrCreateClientSessionId();
+      }
+      if (formStartedAtField && !formStartedAtField.value) {
+        formStartedAtField.value = startedAt;
+      }
+    }
+
+    function sanitizeNumber(number) {
+      return String(number || "").replace(/[^\d]/g, "");
+    }
+
+    function escapeHtml(value) {
+      return String(value == null ? "" : value).replace(/[&<>\"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      }[character]));
+    }
+
+    function toLocalIso(date) {
+      const offsetDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+      return offsetDate.toISOString().split("T")[0];
+    }
+
+    function parseIsoDate(value) {
+      const raw = String(value || "").trim();
+      const match = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!match) return null;
+      const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+      if (
+        date.getFullYear() !== Number(match[1]) ||
+        date.getMonth() !== Number(match[2]) - 1 ||
+        date.getDate() !== Number(match[3])
+      ) {
+        return null;
+      }
+      return date;
+    }
+
+    function addDays(date, days) {
+      const result = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      result.setDate(result.getDate() + Number(days || 0));
+      return result;
+    }
+
+    function validatePublicStayDateBounds(checkInValue, checkOutValue) {
+      const checkInDate = parseIsoDate(checkInValue);
+      const checkOutDate = parseIsoDate(checkOutValue);
+      if (!checkInDate || !checkOutDate) return "Please enter valid check-in and check-out dates.";
+      if (checkOutDate.getTime() <= checkInDate.getTime()) return "Check-out must be after check-in.";
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (checkInDate.getTime() < today.getTime()) return "Check-in cannot be in the past.";
+
+      const nights = Math.round((checkOutDate.getTime() - checkInDate.getTime()) / 86400000);
+      if (nights > PUBLIC_MAX_STAY_NIGHTS) {
+        return `Online booking currently supports stays up to ${PUBLIC_MAX_STAY_NIGHTS} nights. Please continue on WhatsApp for longer stays.`;
+      }
+
+      const latestCheckIn = addDays(today, PUBLIC_MAX_LOOKAHEAD_DAYS);
+      if (checkInDate.getTime() > latestCheckIn.getTime()) {
+        return `Online booking currently supports check-in dates up to ${PUBLIC_MAX_LOOKAHEAD_DAYS} days ahead. Please continue on WhatsApp for later dates.`;
+      }
+
+      return "";
+    }
+
+    function formatDateForGuest(value) {
+      if (!value) return null;
+      const date = parseIsoDate(value);
+      if (!date) return null;
+      return new Intl.DateTimeFormat("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function formatCurrency(amount, currency) {
+      const numeric = Number(amount);
+      if (!Number.isFinite(numeric)) return "";
+
+      try {
+        return new Intl.NumberFormat("en-GB", {
+          style: "currency",
+          currency: currency || "EUR",
+          maximumFractionDigits: 2
+        }).format(numeric);
+      } catch (error) {
+        return `${numeric.toFixed(2)} ${currency || ""}`.trim();
+      }
+    }
+
+    function getDirectSavingDisplay(product) {
+      const directPrice = Number(product && (product.directPrice != null ? product.directPrice : product.estimatedPrice));
+      const comparisonPrice = Number(product && (product.comparisonPrice != null ? product.comparisonPrice : product.publicReferencePrice));
+      const savingsAmount = Number(product && product.savingsAmount || 0);
+      if (!Number.isFinite(directPrice) || !Number.isFinite(comparisonPrice) || comparisonPrice <= directPrice || savingsAmount <= 0) {
+        return null;
+      }
+      return {
+        referencePrice: formatCurrency(comparisonPrice, product.currency),
+        label: String(product.savingsLabel || "").trim() || `Save ${formatCurrency(savingsAmount, product.currency)} when booking direct`
+      };
+    }
+
+    function shortenText(value, maxLength) {
+      const text = String(value || "").replace(/\s+/g, " ").trim();
+      if (!text || text.length <= maxLength) return text;
+
+      const clipped = text.slice(0, maxLength);
+      const sentenceEnd = Math.max(clipped.lastIndexOf("."), clipped.lastIndexOf("!"), clipped.lastIndexOf("?"));
+      if (sentenceEnd >= Math.max(48, Math.floor(maxLength * 0.45))) {
+        return clipped.slice(0, sentenceEnd + 1).trim();
+      }
+
+      return `${clipped.replace(/[,:;\s-]+$/g, "")}...`;
+    }
+
+    function normalizeBedPreferenceValue(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "Best available";
+      const lower = raw.toLowerCase();
+      if (lower === "best available" || lower === "best-available" || lower === "best_available") return "Best available";
+      if (lower === "double" || lower === "dbl") return "Double";
+      if (lower === "twin") return "Twin";
+      if (
+        lower === "triple" ||
+        lower === "trpl" ||
+        lower === "triple / family" ||
+        lower === "triple/family" ||
+        lower === "triple-family" ||
+        lower === "family"
+      ) return "Triple";
+      return raw;
+    }
+
+    function formatBedPreferenceLabel(value) {
+      return normalizeBedPreferenceValue(value) === "Triple" ? "Triple / Family" : (normalizeBedPreferenceValue(value) || "Best available");
+    }
+
+    function getAllowedBedPreferences(guestCount) {
+      if (guestCount >= 4) return ["Best available"];
+      if (guestCount === 3) return ["Best available", "Triple"];
+      return ["Best available", "Double", "Twin"];
+    }
+
+    function renderBedPreferenceOptions(selectedValue) {
+      if (!bedSetup) return;
+      const guestCount = Number(guests && guests.value ? guests.value : 0);
+      const allowed = getAllowedBedPreferences(guestCount);
+      const current = normalizeBedPreferenceValue(selectedValue || bedSetup.value || "Best available");
+      const safeValue = allowed.includes(current) ? current : "Best available";
+      bedSetup.innerHTML = BED_PREFERENCE_DEFINITIONS
+        .filter((item) => allowed.includes(item.value))
+        .map((item) => `<option value="${escapeHtml(item.value)}">${escapeHtml(item.label)}</option>`)
+        .join("");
+      bedSetup.value = safeValue;
+      bedSetup.disabled = allowed.length === 1;
+      bedSetup.setAttribute("aria-disabled", bedSetup.disabled ? "true" : "false");
+
+      if (bedSetupHelper) {
+        if (guestCount >= 4) {
+          bedSetupHelper.textContent = "For 4 guests, the search focuses on the valid Peak Cottage option.";
+        } else if (guestCount === 3) {
+          bedSetupHelper.textContent = "For 3 guests, Best available or Triple / Family keeps results aligned with valid 3-guest room products.";
+        } else {
+          bedSetupHelper.textContent = "Optional preference. Search only returns live room products that fit your dates and guest count.";
+        }
+      }
+    }
+
+    function readDateInputValue(input) {
+      if (!input) return "";
+      if (input.value) return input.value;
+      if (input.valueAsDate instanceof Date && !Number.isNaN(input.valueAsDate.getTime())) {
+        return toLocalIso(input.valueAsDate);
+      }
+      const rawValue = input.getAttribute("value");
+      return rawValue || "";
+    }
+
+    function getCurrentStaySearchState() {
+      return {
+        checkIn: readDateInputValue(checkIn),
+        checkOut: readDateInputValue(checkOut),
+        guests: guests ? String(guests.value || "").trim() : "",
+        bedSetup: normalizeBedPreferenceValue(bedSetup ? bedSetup.value : "Best available")
+      };
+    }
+
+    function buildAvailabilitySignature() {
+      const state = getCurrentStaySearchState();
+      return JSON.stringify({
+        checkIn: state.checkIn,
+        checkOut: state.checkOut,
+        guests: state.guests,
+        bedSetup: state.bedSetup
+      });
+    }
+
+    function buildSearchPayload() {
+      const state = getCurrentStaySearchState();
+      return {
+        check_in: state.checkIn,
+        check_out: state.checkOut,
+        guests: state.guests,
+        bed_setup: state.bedSetup,
+        client_session_id: clientSessionIdField ? clientSessionIdField.value : ""
+      };
+    }
+
+    function buildStayPayload() {
+      return Object.assign({}, buildSearchPayload(), {
+        room_type: roomType ? roomType.value : "",
+        sellable_product_id: sellableProductField ? sellableProductField.value : "",
+        website_url: websiteUrlField ? websiteUrlField.value : "",
+        form_started_at: formStartedAtField ? formStartedAtField.value : ""
+      });
+    }
+
+    function buildRequestPayload() {
+      const notes = [];
+      if (guestCountry && guestCountry.value.trim()) notes.push(`Country: ${guestCountry.value.trim()}`);
+      if (guestNotes && guestNotes.value.trim()) notes.push(`Guest notes: ${guestNotes.value.trim()}`);
+
+      return Object.assign({
+        action: "createRequest",
+        guest_name: guestName && guestName.value.trim() ? guestName.value.trim() : "Website Guest",
+        guest_phone: guestPhone ? guestPhone.value.trim() : "",
+        guest_email: guestEmail ? guestEmail.value.trim() : "",
+        request_source: "whatsapp",
+        notes: notes.join(" | ") || "Website enquiry submitted via WhatsApp path"
+      }, buildStayPayload());
+    }
+
+    function buildWebsiteBookingPayload() {
+      return Object.assign({
+        action: "createWebsiteBooking",
+        guest_name: guestName ? guestName.value.trim() : "",
+        guest_phone: guestPhone ? guestPhone.value.trim() : "",
+        guest_email: guestEmail ? guestEmail.value.trim() : "",
+        country: guestCountry ? guestCountry.value.trim() : "",
+        notes: guestNotes ? guestNotes.value.trim() : ""
+      }, buildStayPayload());
+    }
+
+    function buildBackendGetUrl(payload) {
+      const url = new URL(BACKEND_URL);
+      Object.entries(payload || {}).forEach(([key, value]) => {
+        if (value === undefined || value === null || value === "") return;
+        url.searchParams.set(key, value);
+      });
+      return url.toString();
+    }
+
+    async function getFromBackend(payload, defaultMessage) {
+      if (!BACKEND_URL) {
+        throw new Error("The website booking engine is not connected right now. Please continue on WhatsApp.");
+      }
+
+      const response = await fetch(buildBackendGetUrl(payload), {
+        method: "GET",
+        credentials: "omit",
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`${defaultMessage} The server returned ${response.status}.`);
+      }
+
+      const raw = await response.text();
+      let parsed;
+      try {
+        parsed = raw ? JSON.parse(raw) : {};
+      } catch (error) {
+        throw new Error(`${defaultMessage} The response could not be read.`);
+      }
+
+      if (!parsed.ok) {
+        throw new Error(parsed.error || defaultMessage);
+      }
+
+      return parsed.data || {};
+    }
+
+    async function postToBackend(payload, defaultMessage) {
+      if (!BACKEND_URL) {
+        throw new Error("The website booking engine is not connected right now. Please continue on WhatsApp.");
+      }
+
+      const entries = Object.entries(payload).filter(([, value]) => value !== undefined && value !== null);
+      const response = await fetch(BACKEND_URL, {
+        method: "POST",
+        body: new URLSearchParams(entries),
+        credentials: "omit",
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`${defaultMessage} The server returned ${response.status}.`);
+      }
+
+      const raw = await response.text();
+      let parsed;
+      try {
+        parsed = raw ? JSON.parse(raw) : {};
+      } catch (error) {
+        throw new Error(`${defaultMessage} The response could not be read.`);
+      }
+
+      if (!parsed.ok) {
+        throw new Error(parsed.error || defaultMessage);
+      }
+
+      return parsed.data || {};
+    }
+
+    async function searchAvailabilityProductsOnline() {
+      return getFromBackend(Object.assign({
+        action: "searchAvailabilityProducts",
+        request_ts: String(Date.now())
+      }, buildSearchPayload()), "We could not check live availability right now.");
+    }
+
+    function queueRequestSave(payload) {
+      if (!BACKEND_URL) return;
+
+      const entries = Object.entries(payload).filter(([, value]) => value !== undefined && value !== null);
+      let queued = false;
+
+      if (navigator.sendBeacon) {
+        try {
+          queued = navigator.sendBeacon(BACKEND_URL, new URLSearchParams(entries));
+        } catch (error) {
+          console.warn("Background request beacon failed.", error);
+        }
+      }
+
+      if (queued) return;
+
+      fetch(BACKEND_URL, {
+        method: "POST",
+        body: new URLSearchParams(entries),
+        mode: "no-cors",
+        keepalive: true,
+        credentials: "omit"
+      }).catch((error) => {
+        console.warn("Background request save failed.", error);
+      });
+    }
+
+    function queueWebsiteBookingEmailFollowUp(result) {
+      const bookingId = result && result.bookingId ? String(result.bookingId).trim() : "";
+      const email = guestEmail ? guestEmail.value.trim() : "";
+      if (!bookingId || !email) return;
+
+      queueRequestSave({
+        action: "sendWebsiteBookingEmailFollowUp",
+        booking_id: bookingId,
+        guest_email: email,
+        client_session_id: clientSessionIdField ? clientSessionIdField.value : "",
+        website_url: websiteUrlField ? websiteUrlField.value : ""
+      });
+    }
+
+    function setButtonBusy(button, isBusy, busyLabel) {
+      if (!button) return;
+      if (!button.dataset.idleLabel) {
+        button.dataset.idleLabel = button.textContent.trim();
+      }
+      button.disabled = isBusy || button.disabled;
+      button.setAttribute("aria-busy", isBusy ? "true" : "false");
+      button.textContent = isBusy && busyLabel ? busyLabel : button.dataset.idleLabel;
+    }
+
+    function setNoticeState(element, message, tone, detailHtml) {
+      if (!element) return;
+      if (!message) {
+        element.className = "notice hidden";
+        element.innerHTML = "";
+        return;
+      }
+      element.className = `notice ${tone || "info"}`;
+      element.innerHTML = `
+        <strong>${escapeHtml(message)}</strong>
+        ${detailHtml ? `<div>${detailHtml}</div>` : ""}
+      `;
+    }
+
+    function setAvailabilityResult(message, tone, detailHtml) {
+      setNoticeState(availabilityResult, message, tone || "info", detailHtml);
+    }
+
+    function setFeedback(message, tone, detailHtml) {
+      setNoticeState(feedback, message, tone || "info", detailHtml);
+    }
+
+    function clearAvailabilityProgressMessages() {
+      availabilityProgressTimers.forEach((timerId) => window.clearTimeout(timerId));
+      availabilityProgressTimers = [];
+    }
+
+    function startAvailabilityProgressMessages() {
+      clearAvailabilityProgressMessages();
+      const steps = [
+        { delay: 0, message: "Roza is checking the rooms for you…" },
+        { delay: 5000, message: "Good things take a moment in the mountains — almost there." },
+        { delay: 10000, message: "Still with you — Mestia internet has its own pace. Worth the wait, promise." }
+      ];
+
+      steps.forEach((step) => {
+        if (step.delay === 0) {
+          if (availabilityBusy) setAvailabilityResult(step.message, "info");
+          return;
+        }
+        availabilityProgressTimers.push(window.setTimeout(() => {
+          if (availabilityBusy) setAvailabilityResult(step.message, "info");
+        }, step.delay));
+      });
+    }
+
+    function clearBookingProgressMessages() {
+      bookingProgressTimers.forEach((timerId) => window.clearTimeout(timerId));
+      bookingProgressTimers = [];
+    }
+
+    function startBookingProgressMessages() {
+      clearBookingProgressMessages();
+      const steps = [
+        { delay: 0, message: "Roza is writing your name in the book…" },
+        { delay: 5000, message: "Still saving — she’s making sure everything is just right for you." },
+        { delay: 10000, message: "Almost done — your room in the Caucasus is nearly yours." }
+      ];
+
+      steps.forEach((step) => {
+        if (step.delay === 0) {
+          if (websiteSubmitBusy) setFeedback(step.message, "info");
+          return;
+        }
+        bookingProgressTimers.push(window.setTimeout(() => {
+          if (websiteSubmitBusy) setFeedback(step.message, "info");
+        }, step.delay));
+      });
+    }
+
+    function clearAvailabilityProducts() {
+      if (availabilityResultsMeta) {
+        availabilityResultsMeta.textContent = "Search to load the live room products for your stay.";
+      }
+      if (!availabilityProducts) return;
+      availabilityProducts.className = "results-grid hidden";
+      availabilityProducts.innerHTML = "";
+    }
+
+    function isProductBookable(product) {
+      if (!product) return false;
+      if (product.bookable === false || product.available === false) return false;
+      if (product.availableRooms !== undefined && product.availableRooms !== null && Number(product.availableRooms) < 1) return false;
+      if (product.estimatedPrice === null || product.estimatedPrice === "") return false;
+      return true;
+    }
+
+    function getProductUnavailableMessage(product) {
+      return String(
+        product && (product.disabledReason || product.unavailableReason || product.message || product.availabilityLabel) ||
+        "This room is no longer available for your selected dates. Please choose another room."
+      ).trim();
+    }
+
+    function getBookableProductCount(products) {
+      return (Array.isArray(products) ? products : []).filter(isProductBookable).length;
+    }
+
+    function markProductUnavailable(productId, message) {
+      const products = bookingState.lastAvailability && Array.isArray(bookingState.lastAvailability.products)
+        ? bookingState.lastAvailability.products
+        : [];
+      const targetId = String(productId || "");
+      if (!targetId || !products.length) return;
+
+      products.forEach((product) => {
+        if (String(product.productId || "") !== targetId) return;
+        product.available = false;
+        product.bookable = false;
+        product.availableRooms = 0;
+        product.availabilityTone = "unavailable";
+        product.availabilityLabel = "No longer available";
+        product.buttonLabel = "Unavailable";
+        product.disabledReason = message || "This room is no longer available for your selected dates. Please choose another room.";
+      });
+
+      const bookableCount = getBookableProductCount(products);
+      bookingState.availabilityAvailable = bookableCount > 0;
+      if (bookingState.lastAvailability) {
+        bookingState.lastAvailability.available = bookableCount > 0;
+        bookingState.lastAvailability.availableProductCount = bookableCount;
+        bookingState.lastAvailability.unavailableProductCount = Math.max(0, products.length - bookableCount);
+      }
+    }
+
+    function getSelectedProduct() {
+      const products = bookingState.lastAvailability && Array.isArray(bookingState.lastAvailability.products)
+        ? bookingState.lastAvailability.products
+        : [];
+      const selected = products.find((product) => String(product.productId || "") === String(bookingState.selectedProductId || "")) || null;
+      return isProductBookable(selected) ? selected : null;
+    }
+
+    function updateSelectedProductSummary() {
+      if (!selectedProductSummary) return;
+      const selected = getSelectedProduct();
+      if (!selected) {
+        selectedProductSummary.innerHTML = "<span class=\"selected-summary-label\">Selected room</span><strong>No room selected yet</strong><p>Select a room product above to unlock the final confirmation fields.</p>";
+        return;
+      }
+
+      const nights = Math.max(0, Number(selected.nights || 0));
+      const totalPrice = selected.estimatedPrice != null ? formatCurrency(selected.estimatedPrice, selected.currency) : "Price unavailable";
+      const savingDisplay = getDirectSavingDisplay(selected);
+      const bedSummary = selected.bedSummary || selected.bedSetup || "Best available";
+      const productSummary = shortenText(selected.productSummary || "", 110);
+
+      selectedProductSummary.innerHTML = `
+        <span class="selected-summary-label">Selected room</span>
+        <strong>${escapeHtml(selected.productLabel || selected.productName || "Selected room product")}</strong>
+        ${productSummary ? `<p>${escapeHtml(productSummary)}</p>` : ""}
+        <div class="selected-summary-facts">
+          <div class="selected-summary-fact">
+            <small>Direct total</small>
+            <strong>${escapeHtml(totalPrice)}</strong>
+            ${savingDisplay ? `<span>${escapeHtml(savingDisplay.label)}</span>` : ""}
+          </div>
+          <div class="selected-summary-fact">
+            <small>Stay</small>
+            <strong>${nights} night${nights === 1 ? "" : "s"}</strong>
+          </div>
+          <div class="selected-summary-fact">
+            <small>Bed setup</small>
+            <strong>${escapeHtml(bedSummary)}</strong>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateBookingSummary() {
+      updateSelectedProductSummary();
+    }
+
+    function clearSelectedProduct() {
+      bookingState.selectedProductId = "";
+      bookingState.selectedProductLabel = "";
+      if (roomType) roomType.value = "";
+      if (sellableProductField) sellableProductField.value = "";
+      updateBookingSummary();
+    }
+
+    function syncWebsiteBookingStep() {
+      if (!websiteBookingStep) return;
+      websiteBookingStep.classList.toggle("hidden", !bookingState.selectedProductId);
+    }
+
+    function syncWebsiteSubmitState() {
+      if (!websiteSubmit) return;
+      syncWebsiteBookingStep();
+
+      if (bookingState.bookingComplete) {
+        websiteSubmit.disabled = true;
+        websiteSubmit.setAttribute("aria-disabled", "true");
+        websiteSubmit.textContent = "Booking confirmed";
+        return;
+      }
+
+      const hasFreshAvailability =
+        bookingState.availabilityChecked &&
+        bookingState.availabilityAvailable &&
+        bookingState.availabilitySignature === buildAvailabilitySignature() &&
+        Boolean(bookingState.selectedProductId) &&
+        Boolean(getSelectedProduct());
+
+      websiteSubmit.disabled = websiteSubmitBusy || availabilityBusy || !hasFreshAvailability;
+      websiteSubmit.setAttribute("aria-disabled", websiteSubmit.disabled ? "true" : "false");
+      setButtonBusy(websiteSubmit, websiteSubmitBusy, "Confirming...");
+    }
+
+    function setAvailabilityCheckBusy(isBusy) {
+      availabilityBusy = isBusy;
+      if (availabilityCheck) {
+        availabilityCheck.disabled = isBusy;
+        availabilityCheck.setAttribute("aria-disabled", availabilityCheck.disabled ? "true" : "false");
+        setButtonBusy(availabilityCheck, isBusy, "Checking...");
+      }
+      syncWebsiteSubmitState();
+    }
+
+    function buildAvailabilitySignal(product) {
+      const tone = String(product.availabilityTone || "available").trim();
+      const label = String(product.availabilityLabel || "Available").trim() || "Available";
+      return {
+        tone,
+        label,
+        className: `product-chip ${tone}`
+      };
+    }
+
+    function resolveProductGalleryKey(product) {
+      const haystack = [
+        product && product.roomTypeId,
+        product && product.productLabel,
+        product && product.productName,
+        product && product.productSummary
+      ].join(" ").toLowerCase();
+
+      if (haystack.includes("shared bathroom") || haystack.includes("classic")) return "classic";
+      if (haystack.includes("balcony")) return "balcony";
+      if (haystack.includes("cottage")) return "cottage";
+      if (haystack.includes("mountain")) return "mountain";
+      return "";
+    }
+
+    function renderRoomGallery() {
+      if (!roomGalleryImage || !roomGalleryThumbs || !activeGalleryImages.length) return;
+      const safeIndex = Math.max(0, Math.min(activeGalleryIndex, activeGalleryImages.length - 1));
+      activeGalleryIndex = safeIndex;
+      const current = activeGalleryImages[safeIndex];
+      roomGalleryImage.src = current.src;
+      roomGalleryImage.alt = current.alt || "";
+      if (roomGalleryTitle) {
+        roomGalleryTitle.textContent = current.title || "Room photos";
+      }
+      roomGalleryThumbs.innerHTML = activeGalleryImages.map((image, index) => `
+        <button type="button" class="room-gallery-thumb ${index === safeIndex ? "is-active" : ""}" data-room-gallery-index="${index}" aria-label="View room photo ${index + 1}">
+          <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt || "")}" loading="lazy" decoding="async" />
+        </button>
+      `).join("");
+    }
+
+    function closeRoomGallery() {
+      if (!roomGallery) return;
+      roomGallery.classList.remove("open");
+      roomGallery.setAttribute("aria-hidden", "true");
+    }
+
+    function openRoomGallery(galleryKey, title) {
+      const images = PRODUCT_GALLERIES[galleryKey] || [];
+      if (!roomGallery || !images.length) return;
+      activeGalleryImages = images.map((image) => Object.assign({ title }, image));
+      activeGalleryIndex = 0;
+      renderRoomGallery();
+      roomGallery.classList.add("open");
+      roomGallery.setAttribute("aria-hidden", "false");
+    }
+
+    function renderAvailabilityProducts(products) {
+      if (!availabilityProducts) return;
+      if (!Array.isArray(products) || !products.length) {
+        clearAvailabilityProducts();
+        return;
+      }
+
+      availabilityProducts.className = "results-grid";
+      availabilityProducts.innerHTML = products.map((product) => {
+        const isBookable = isProductBookable(product);
+        const isSelected = isBookable && String(product.productId || "") === String(bookingState.selectedProductId || "");
+        const signal = buildAvailabilitySignal(product);
+        const totalPrice = product.estimatedPrice != null ? formatCurrency(product.estimatedPrice, product.currency) : "";
+        const nightlyPrice = product.nightlyPrice != null ? formatCurrency(product.nightlyPrice, product.currency) : "";
+        const savingDisplay = getDirectSavingDisplay(product);
+        const nights = Math.max(0, Number(product.nights || 0));
+        const productSummary = shortenText(product.productSummary || "", 72);
+        const bedSummary = String(product.bedSummary || "").trim();
+        const capacityLabel = String(product.capacityLabel || "").trim();
+        const galleryKey = resolveProductGalleryKey(product);
+        const galleryImages = galleryKey ? (PRODUCT_GALLERIES[galleryKey] || []) : [];
+        const leadGalleryImage = galleryImages[0] || null;
+        const imageSrc = String((leadGalleryImage && leadGalleryImage.src) || product.imageSrc || "").trim();
+        const imageAlt = String((leadGalleryImage && leadGalleryImage.alt) || product.imageAlt || product.productLabel || product.productName || "").trim();
+        const buttonClass = isBookable && !isSelected ? "booking-button" : "booking-button-secondary";
+        const buttonLabel = isBookable ? (isSelected ? "Selected" : (product.buttonLabel || "Book this room")) : (product.buttonLabel || "Unavailable");
+        const stayPriceNote = nights > 0
+          ? `${nights} night${nights === 1 ? "" : "s"}`
+          : "for your stay";
+        const showSignal = !isBookable || signal.tone !== "available" || /limited|last/i.test(signal.label);
+        const mediaMarkup = imageSrc
+          ? (galleryKey
+            ? `<div class="product-media"><button type="button" class="product-image product-image-button" data-product-gallery="${escapeHtml(galleryKey)}" data-product-gallery-title="${escapeHtml(product.productLabel || product.productName || "Room photos")}" aria-label="View photos for ${escapeHtml(product.productLabel || product.productName || "this room")}"><img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(imageAlt)}" loading="lazy" decoding="async" /></button><button type="button" class="product-gallery-link" data-product-gallery="${escapeHtml(galleryKey)}" data-product-gallery-title="${escapeHtml(product.productLabel || product.productName || "Room photos")}"><span>View photos</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.5L12.5 3.5M12.5 3.5H6.5M12.5 3.5V9.5"/></svg></button></div>`
+            : `<div class="product-image"><img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(imageAlt)}" loading="lazy" decoding="async" /></div>`)
+          : `<div class="product-image"><div class="product-image-fallback">Direct room</div></div>`;
+
+        return `
+          <article class="product-card ${isSelected ? "is-selected" : ""} ${!isBookable ? "is-unavailable" : ""}">
+            <div class="product-layout">
+              ${mediaMarkup}
+
+              <div class="product-main">
+                ${showSignal ? `<div class="product-header"><span class="${escapeHtml(signal.className)}">${escapeHtml(signal.label)}</span></div>` : ""}
+                <h3 class="product-title">${escapeHtml(product.productLabel || product.productName || "")}</h3>
+                ${productSummary ? `<p class="product-copy">${escapeHtml(productSummary)}</p>` : ""}
+                <div class="product-facts">
+                  ${capacityLabel ? `<div class="product-fact"><small>Sleeps</small><strong>${escapeHtml(capacityLabel)}</strong></div>` : ""}
+                  ${bedSummary ? `<div class="product-fact"><small>Bed setup</small><strong>${escapeHtml(bedSummary)}</strong></div>` : ""}
+                </div>
+              </div>
+
+              <div class="product-side">
+                <div class="product-price-panel">
+                  <span class="product-price-label">Direct total</span>
+                  ${savingDisplay ? `<div class="product-reference-price">${escapeHtml(savingDisplay.referencePrice)}</div>` : ""}
+                  <div class="product-price">${escapeHtml(totalPrice || "Price unavailable")}</div>
+                  ${savingDisplay ? `<div class="product-saving-label">${escapeHtml(savingDisplay.label)}</div>` : ""}
+                  <p class="product-price-note">${escapeHtml(stayPriceNote)}</p>
+                  ${nightlyPrice && nights > 0 ? `<p class="product-price-support">${escapeHtml(nightlyPrice)} average nightly</p>` : ""}
+                </div>
+
+                <button
+                  type="button"
+                  class="${buttonClass} product-select-button"
+                  data-product-select="${escapeHtml(product.productId || "")}"
+                  ${isBookable ? "" : "disabled aria-disabled=\"true\""}
+                >${escapeHtml(buttonLabel)}</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function buildWebsiteSuccessMessage(result) {
+      const bookingId = result && result.bookingId ? result.bookingId : "Pending confirmation number";
+      const confirmation = result && result.guestConfirmation ? result.guestConfirmation : {};
+      const email = guestEmail ? guestEmail.value.trim() : "";
+      if (result && result.recoveryNeeded) {
+        if (confirmation.status === "sent") {
+          return `Booking confirmed. Confirmation number: ${bookingId}. We sent your confirmation email to ${email}. Please save this number while we finish an internal update on our side.`;
+        }
+        if (confirmation.status === "pending" || confirmation.status === "queued" || confirmation.status === "deferred") {
+          if (confirmation.error) {
+            return `Booking confirmed. Confirmation number: ${bookingId}. Your email confirmation is pending for staff follow-up. Please save this number while we finish an internal update on our side.`;
+          }
+          return `Booking confirmed. Confirmation number: ${bookingId}. Your email confirmation should follow shortly. Please save this number while we finish an internal update on our side.`;
+        }
+        return `Booking confirmed. Confirmation number: ${bookingId}. Please save this number while we finish an internal update on our side, and contact us on WhatsApp if you need immediate help.`;
+      }
+
+      if (confirmation.status === "sent") {
+        return `Booking confirmed. Confirmation number: ${bookingId}. We sent your confirmation email to ${email}.`;
+      }
+      if (confirmation.status === "pending" || confirmation.status === "queued" || confirmation.status === "deferred") {
+        if (confirmation.error) {
+          return `Booking confirmed. Confirmation number: ${bookingId}. Your email confirmation is pending for staff follow-up, so please save this number for your arrival.`;
+        }
+        return `Booking confirmed. Confirmation number: ${bookingId}. Your email confirmation should follow shortly. Please save this number for your arrival.`;
+      }
+      if (confirmation.status === "failed") {
+        return `Booking confirmed. Confirmation number: ${bookingId}. We could not send the confirmation email right now, so please save this number and contact us on WhatsApp if needed.`;
+      }
+      if (confirmation.status === "invalid-email") {
+        return `Booking confirmed. Confirmation number: ${bookingId}. Please save this number because the email address provided could not be used for the confirmation email.`;
+      }
+      return `Booking confirmed. Confirmation number: ${bookingId}. Please save this number for your arrival.`;
+    }
+
+    function validateForm() {
+      const state = getCurrentStaySearchState();
+      if (!state.checkIn || !state.checkOut || !state.guests) {
+        return "Please complete all required stay details before checking availability.";
+      }
+      return validatePublicStayDateBounds(state.checkIn, state.checkOut);
+    }
+
+    function validateWebsiteForm() {
+      const baseError = validateForm();
+      if (baseError) return baseError;
+      if (!guestName || !guestName.value.trim()) return "Please enter the guest full name for the website booking.";
+      if (!guestPhone || !guestPhone.value.trim()) return "Please enter a phone number for the website booking.";
+      if (!guestCountry || !guestCountry.value.trim()) return "Please enter the guest country for the website booking.";
+      const email = guestEmail ? guestEmail.value.trim() : "";
+      if (!email) return "Please enter your email so we can send the booking confirmation.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Please enter a valid email address for the website booking.";
+      return "";
+    }
+
+    function resetBookingState() {
+      bookingState.availabilityChecked = false;
+      bookingState.availabilityAvailable = false;
+      bookingState.availabilitySignature = "";
+      bookingState.bookingComplete = false;
+      bookingState.lastAvailability = null;
+      clearSelectedProduct();
+      clearAvailabilityProducts();
+      setAvailabilityResult("", "info");
+      syncWebsiteBookingStep();
+      syncWebsiteSubmitState();
+    }
+
+    function selectAvailabilityProduct(productId) {
+      const products = bookingState.lastAvailability && Array.isArray(bookingState.lastAvailability.products)
+        ? bookingState.lastAvailability.products
+        : [];
+      const selected = products.find((product) => String(product.productId || "") === String(productId || ""));
+      if (!selected) return;
+      if (!isProductBookable(selected)) {
+        clearSelectedProduct();
+        renderAvailabilityProducts(products);
+        const message = getProductUnavailableMessage(selected);
+        setAvailabilityResult(message, "error", "<div>Please choose another available room.</div>");
+        setFeedback(message, "error");
+        syncWebsiteBookingStep();
+        syncWebsiteSubmitState();
+        return;
+      }
+
+      bookingState.selectedProductId = selected.productId || "";
+      bookingState.selectedProductLabel = selected.productLabel || selected.productName || "";
+      if (roomType) roomType.value = selected.roomTypeId || "";
+      if (sellableProductField) sellableProductField.value = selected.productId || "";
+      renderAvailabilityProducts(products);
+      syncWebsiteBookingStep();
+      updateBookingSummary();
+      setFeedback(`Selected ${bookingState.selectedProductLabel}. Enter the final guest details below to complete the direct booking.`, "success");
+      syncWebsiteSubmitState();
+      if (guestName && !guestName.value.trim()) {
+        guestName.focus();
+      }
+    }
+
+    async function checkLiveAvailability() {
+      const error = validateForm();
+      if (error) {
+        resetBookingState();
+        setAvailabilityResult(error, "error");
+        return null;
+      }
+
+      setFeedback("", "");
+      clearSelectedProduct();
+      clearAvailabilityProducts();
+      setAvailabilityCheckBusy(true);
+      if (availabilityResultsMeta) {
+        availabilityResultsMeta.textContent = "Checking live room products...";
+      }
+      startAvailabilityProgressMessages();
+
+      try {
+        const result = await searchAvailabilityProductsOnline();
+        bookingState.availabilityChecked = true;
+        bookingState.availabilityAvailable = Boolean(result.available);
+        bookingState.availabilitySignature = buildAvailabilitySignature();
+        bookingState.bookingComplete = false;
+        bookingState.lastAvailability = result;
+        clearSelectedProduct();
+
+        const products = Array.isArray(result.products) ? result.products : [];
+        const bookableCount = Number(result.availableProductCount != null ? result.availableProductCount : getBookableProductCount(products));
+
+        if (products.length) {
+          const details = [];
+          const metaBits = [`${bookableCount} bookable room product${bookableCount === 1 ? "" : "s"} found.`];
+          if (Number(result.nights) > 0) {
+            metaBits.push(`${result.nights} night${Number(result.nights) === 1 ? "" : "s"}.`);
+          }
+          if (result.bedSetupRequested && result.bedSetupApplied && result.bedSetupRequested !== result.bedSetupApplied) {
+            metaBits.push(`Bed preference treated as ${formatBedPreferenceLabel(result.bedSetupApplied)}.`);
+            details.push(`<div>Bed preference was treated as <span class="font-semibold">${escapeHtml(formatBedPreferenceLabel(result.bedSetupApplied))}</span> for this guest count.</div>`);
+          }
+          details.push(`<div>${escapeHtml(String(bookableCount))} room option${bookableCount === 1 ? "" : "s"} available to book.</div>`);
+          if (availabilityResultsMeta) {
+            availabilityResultsMeta.textContent = metaBits.join(" ");
+          }
+          renderAvailabilityProducts(products);
+          if (bookableCount > 0) {
+            setAvailabilityResult("Choose your room product to continue", "success", details.join(""));
+          } else {
+            setAvailabilityResult(result.message || "Selected stay is not available online right now.", "error", "Unavailable room products are shown for context only.");
+          }
+        } else {
+          clearAvailabilityProducts();
+          if (availabilityProductsIntro) availabilityProductsIntro.classList.remove("hidden");
+          if (availabilityResultsMeta) {
+            availabilityResultsMeta.textContent = result.message || "No valid room products are available online for these dates.";
+          }
+          setAvailabilityResult(result.message || "Selected stay is not available online right now.", "error", "Use WhatsApp if you want help with alternatives or choosing another room product.");
+        }
+
+        updateBookingSummary();
+        syncWebsiteSubmitState();
+        return result;
+      } catch (availabilityError) {
+        console.warn("Availability check failed.", availabilityError);
+        resetBookingState();
+        if (availabilityProductsIntro) availabilityProductsIntro.classList.remove("hidden");
+        if (availabilityResultsMeta) {
+          availabilityResultsMeta.textContent = "We could not load live room products right now.";
+        }
+        setAvailabilityResult(availabilityError.message || "We could not check availability right now. Please continue on WhatsApp.", "error");
+        return null;
+      } finally {
+        clearAvailabilityProgressMessages();
+        setAvailabilityCheckBusy(false);
+      }
+    }
+
+    function buildAvailabilityMessage() {
+      const state = getCurrentStaySearchState();
+      const room = bookingState.selectedProductLabel || "a suitable room";
+      const from = formatDateForGuest(state.checkIn) || "[Check-in]";
+      const to = formatDateForGuest(state.checkOut) || "[Check-out]";
+      const guestCount = state.guests || "[Guests]";
+      const preferredBedSetup = formatBedPreferenceLabel(state.bedSetup);
+      const parts = [
+        `Hi Roza! I'd like to check availability for the ${room} from ${from} to ${to} for ${guestCount} people. Preferred bed setup: ${preferredBedSetup}.`
+      ];
+      if (guestName && guestName.value.trim()) parts.push(`My name is ${guestName.value.trim()}.`);
+      if (guestPhone && guestPhone.value.trim()) parts.push(`My phone number is ${guestPhone.value.trim()}.`);
+      if (guestEmail && guestEmail.value.trim()) parts.push(`My email is ${guestEmail.value.trim()}.`);
+      if (guestCountry && guestCountry.value.trim()) parts.push(`I am travelling from ${guestCountry.value.trim()}.`);
+      if (guestNotes && guestNotes.value.trim()) parts.push(`Notes: ${guestNotes.value.trim()}.`);
+      parts.push("Is it available?");
+      return parts.join(" ");
+    }
+
+    function buildQuestionMessage() {
+      return "Hi Roza! I have a quick question about staying at Roza's Guest House. Could you please help me on WhatsApp?";
+    }
+
+    function buildWhatsappUrl(message) {
+      const number = sanitizeNumber(CONTACT.whatsappNumber || CONTACT.phone);
+      return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+    }
+
+    function updateDirectLinks() {
+      const questionUrl = buildWhatsappUrl(buildQuestionMessage());
+      ["top-whatsapp"].forEach((id) => {
+        const link = document.getElementById(id);
+        if (link) link.href = questionUrl;
+      });
+      if (emailLink) {
+        emailLink.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent("Availability request for Roza's Guest House")}`;
+      }
+      updateBookingSummary();
+    }
+
+    function openWhatsappBookingPath(triggerButton) {
+      const error = validateForm();
+      const hasStructuredStay = !error;
+      const message = hasStructuredStay ? buildAvailabilityMessage() : buildQuestionMessage();
+      const busyTarget = triggerButton || whatsappSubmit;
+
+      setFeedback(
+        hasStructuredStay ? "Opening WhatsApp with your booking details..." : "Opening WhatsApp for a direct question...",
+        "success"
+      );
+      setButtonBusy(busyTarget, true, "Opening WhatsApp...");
+      window.open(buildWhatsappUrl(message), "_blank", "noopener,noreferrer");
+
+      if (hasStructuredStay && !bookingState.bookingComplete && roomType && roomType.value && bookingState.selectedProductId) {
+        queueRequestSave(buildRequestPayload());
+      }
+
+      window.setTimeout(() => {
+        if (busyTarget) {
+          busyTarget.disabled = false;
+          setButtonBusy(busyTarget, false);
+        }
+      }, 1200);
+    }
+
+    function syncCheckOutMin() {
+      if (!checkIn || !checkOut || !checkIn.value) return;
+      const checkInDate = parseIsoDate(checkIn.value);
+      if (!checkInDate) return;
+      const nextDay = addDays(checkInDate, 1);
+      const maxCheckOut = addDays(checkInDate, PUBLIC_MAX_STAY_NIGHTS);
+      checkOut.min = toLocalIso(nextDay);
+      checkOut.max = toLocalIso(maxCheckOut);
+      if (checkOut.value && checkOut.value <= checkIn.value) {
+        checkOut.value = "";
+      }
+      if (checkOut.value && parseIsoDate(checkOut.value) && parseIsoDate(checkOut.value).getTime() > maxCheckOut.getTime()) {
+        checkOut.value = "";
+      }
+    }
+
+    function setDateDefaults() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = addDays(today, 1);
+      const nextDay = addDays(today, 2);
+      checkIn.min = toLocalIso(today);
+      checkIn.max = toLocalIso(addDays(today, PUBLIC_MAX_LOOKAHEAD_DAYS));
+      checkOut.min = toLocalIso(tomorrow);
+      if (!checkIn.value) checkIn.value = toLocalIso(tomorrow);
+      if (!checkOut.value) checkOut.value = toLocalIso(nextDay);
+      syncCheckOutMin();
+    }
+
+    function updateUrlFromSearchState() {
+      const state = getCurrentStaySearchState();
+      const url = new URL(window.location.href);
+      ["checkin", "checkout", "guests", "bed_setup"].forEach((key) => url.searchParams.delete(key));
+      if (state.checkIn) url.searchParams.set("checkin", state.checkIn);
+      if (state.checkOut) url.searchParams.set("checkout", state.checkOut);
+      if (state.guests) url.searchParams.set("guests", state.guests);
+      if (state.bedSetup && state.bedSetup !== "Best available") url.searchParams.set("bed_setup", state.bedSetup);
+      history.replaceState({}, "", url.toString());
+    }
+
+    function applyQueryState() {
+      const url = new URL(window.location.href);
+      const queryCheckIn = url.searchParams.get("checkin") || url.searchParams.get("check_in") || "";
+      const queryCheckOut = url.searchParams.get("checkout") || url.searchParams.get("check_out") || "";
+      const queryGuests = url.searchParams.get("guests") || "";
+      const queryBedSetup = normalizeBedPreferenceValue(url.searchParams.get("bed_setup") || url.searchParams.get("bed") || "");
+
+      if (queryCheckIn) checkIn.value = queryCheckIn;
+      if (queryCheckOut) checkOut.value = queryCheckOut;
+      if (queryGuests) guests.value = queryGuests;
+      renderBedPreferenceOptions(queryBedSetup || "Best available");
+      if (queryBedSetup) {
+        const allowed = Array.from(bedSetup.options).map((option) => option.value);
+        bedSetup.value = allowed.includes(queryBedSetup) ? queryBedSetup : "Best available";
+      }
+    }
+
+    function resetSearchForm() {
+      if (guests) guests.value = "";
+      renderBedPreferenceOptions("Best available");
+      if (guestName) guestName.value = "";
+      if (guestPhone) guestPhone.value = "";
+      if (guestCountry) guestCountry.value = "";
+      if (guestEmail) guestEmail.value = "";
+      if (guestNotes) guestNotes.value = "";
+      setDateDefaults();
+      resetBookingState();
+      setFeedback("", "");
+      updateUrlFromSearchState();
+      updateDirectLinks();
+    }
+
+    function handleSearchInputChange() {
+      renderBedPreferenceOptions(bedSetup ? bedSetup.value : "Best available");
+      syncCheckOutMin();
+      resetBookingState();
+      setFeedback("", "");
+      updateUrlFromSearchState();
+      updateDirectLinks();
+    }
+
+    const searchFields = [checkIn, checkOut, guests, bedSetup];
+    searchFields.forEach((field) => {
+      if (!field) return;
+      field.addEventListener("change", handleSearchInputChange);
+      field.addEventListener("input", handleSearchInputChange);
+    });
+
+    [guestName, guestPhone, guestCountry, guestEmail, guestNotes].forEach((field) => {
+      if (!field) return;
+      field.addEventListener("input", () => {
+        setFeedback("", "");
+        updateDirectLinks();
+      });
+    });
+
+    if (availabilityCheck) {
+      availabilityCheck.addEventListener("click", async () => {
+        await checkLiveAvailability();
+      });
+    }
+
+    if (availabilityProducts) {
+      availabilityProducts.addEventListener("click", (event) => {
+        const galleryTrigger = event.target.closest("[data-product-gallery]");
+        if (galleryTrigger) {
+          const galleryKey = galleryTrigger.getAttribute("data-product-gallery") || "";
+          const title = galleryTrigger.getAttribute("data-product-gallery-title") || "Room photos";
+          if (galleryKey) {
+            openRoomGallery(galleryKey, title);
+          }
+          return;
+        }
+        const button = event.target.closest("[data-product-select]");
+        if (!button) return;
+        if (button.disabled || button.getAttribute("aria-disabled") === "true") return;
+        selectAvailabilityProduct(button.getAttribute("data-product-select"));
+      });
+    }
+
+    if (roomGalleryThumbs) {
+      roomGalleryThumbs.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-room-gallery-index]");
+        if (!button) return;
+        activeGalleryIndex = Number(button.getAttribute("data-room-gallery-index") || 0);
+        renderRoomGallery();
+      });
+    }
+
+    if (roomGalleryPrev) {
+      roomGalleryPrev.addEventListener("click", () => {
+        if (!activeGalleryImages.length) return;
+        activeGalleryIndex = (activeGalleryIndex - 1 + activeGalleryImages.length) % activeGalleryImages.length;
+        renderRoomGallery();
+      });
+    }
+
+    if (roomGalleryNext) {
+      roomGalleryNext.addEventListener("click", () => {
+        if (!activeGalleryImages.length) return;
+        activeGalleryIndex = (activeGalleryIndex + 1) % activeGalleryImages.length;
+        renderRoomGallery();
+      });
+    }
+
+    if (roomGalleryClose) {
+      roomGalleryClose.addEventListener("click", closeRoomGallery);
+    }
+
+    if (roomGalleryBackdrop) {
+      roomGalleryBackdrop.addEventListener("click", closeRoomGallery);
+    }
+
+    if (resetSearch) {
+      resetSearch.addEventListener("click", resetSearchForm);
+    }
+
+    if (whatsappSubmit) {
+      whatsappSubmit.addEventListener("click", () => openWhatsappBookingPath(whatsappSubmit));
+    }
+
+    if (guestWhatsapp) {
+      guestWhatsapp.addEventListener("click", () => openWhatsappBookingPath(guestWhatsapp));
+    }
+
+    if (websiteSubmit) {
+      websiteSubmit.addEventListener("click", async () => {
+        const error = validateWebsiteForm();
+        if (error) {
+          setFeedback(error, "error");
+          return;
+        }
+
+        const currentSignature = buildAvailabilitySignature();
+        if (!bookingState.availabilityChecked || bookingState.availabilitySignature !== currentSignature) {
+          setFeedback("Please check live availability for these stay details before booking via website.", "error");
+          return;
+        }
+
+        if (!bookingState.availabilityAvailable) {
+          setFeedback("This stay is not available to book online right now. Please continue on WhatsApp for alternatives.", "error");
+          return;
+        }
+
+        const selectedProduct = getSelectedProduct();
+        if (!bookingState.selectedProductId || !roomType.value || !selectedProduct) {
+          setFeedback("Please choose one of the available room options before booking via website.", "error");
+          return;
+        }
+
+        websiteSubmitBusy = true;
+        syncWebsiteSubmitState();
+        startBookingProgressMessages();
+
+        try {
+          const result = await postToBackend(buildWebsiteBookingPayload(), "We could not complete the website booking.");
+          bookingState.bookingComplete = true;
+          syncWebsiteSubmitState();
+          setFeedback(buildWebsiteSuccessMessage(result), result && result.recoveryNeeded ? "warning" : "success");
+          updateBookingSummary();
+          queueWebsiteBookingEmailFollowUp(result);
+        } catch (submitError) {
+          console.warn("Website booking failed.", submitError);
+          const message = submitError.message || "We could not complete the website booking right now.";
+          if (/no longer available|not available|unavailable/i.test(message)) {
+            const rejectedProductId = bookingState.selectedProductId;
+            bookingState.availabilityChecked = true;
+            bookingState.availabilityAvailable = false;
+            bookingState.bookingComplete = false;
+            markProductUnavailable(rejectedProductId, "This room is no longer available for your selected dates. Please choose another room.");
+            clearSelectedProduct();
+            const products = bookingState.lastAvailability && Array.isArray(bookingState.lastAvailability.products)
+              ? bookingState.lastAvailability.products
+              : [];
+            if (products.length) {
+              renderAvailabilityProducts(products);
+            } else {
+              clearAvailabilityProducts();
+            }
+            syncWebsiteBookingStep();
+            setAvailabilityResult(message, "error", "<div>Please continue on WhatsApp if you would like help with alternatives.</div>");
+          }
+          setFeedback(message, "error");
+        } finally {
+          clearBookingProgressMessages();
+          websiteSubmitBusy = false;
+          syncWebsiteSubmitState();
+        }
+      });
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!websiteBookingStep.classList.contains("hidden") && websiteSubmit && !websiteSubmit.disabled) {
+        websiteSubmit.click();
+        return;
+      }
+      checkLiveAvailability();
+    });
+
+    const bookingQueryPresent = (() => {
+      const url = new URL(window.location.href);
+      return ["checkin", "check_in", "checkout", "check_out", "guests", "bed_setup", "bed"].some((key) => url.searchParams.has(key));
+    })();
+
+    renderBedPreferenceOptions("Best available");
+    initializePublicProtectionFields();
+    setDateDefaults();
+    applyQueryState();
+    syncCheckOutMin();
+    if (bookingQueryPresent) {
+      updateUrlFromSearchState();
+    }
+    resetBookingState();
+    updateDirectLinks();
+    syncWebsiteBookingStep();
+    syncWebsiteSubmitState();
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeRoomGallery();
+      }
+    });
+
+    const initialState = getCurrentStaySearchState();
+    if (initialState.checkIn && initialState.checkOut && initialState.guests) {
+      checkLiveAvailability();
+    }
+  </script>
+</body>
+</html>
