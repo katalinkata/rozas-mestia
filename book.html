@@ -34,6 +34,8 @@
   <meta name="twitter:image" content="https://www.rozaguesthouse.com/hero-social.jpg" />
   <meta name="twitter:image:alt" content="Sunset over the mountains of Svaneti near Roza's Guest House in Mestia" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://script.google.com" crossorigin />
+  <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -2040,6 +2042,10 @@
 
     let availabilityBusy = false;
     let websiteSubmitBusy = false;
+    let websiteBookingAttemptId = "";
+    let websiteBookingAttemptSignature = "";
+    let availabilityRequestSequence = 0;
+    let activeAvailabilityRequest = null;
     let availabilityProgressTimers = [];
     let bookingProgressTimers = [];
     let activeGalleryImages = [];
@@ -2047,6 +2053,12 @@
     let galleryReturnFocus = null;
     const renderedProductGalleries = Object.create(null);
     const whatsappRequestSaveStates = {};
+    const availabilityResponseCache = new Map();
+    const BACKEND_GET_TIMEOUT_MS = 30000;
+    const BACKEND_POST_TIMEOUT_MS = 45000;
+    const BACKEND_GET_RETRY_DELAY_MS = 450;
+    const AVAILABILITY_CACHE_TTL_MS = 15000;
+    const WEBSITE_BOOKING_ATTEMPT_STORAGE_KEY = "roza-booking-attempt-v1";
     const WEBSITE_BOOKING_WHATSAPP_FALLBACK_MESSAGE = "We could not complete the website booking automatically right now. Your room details are ready — please send them to Roza on WhatsApp so she can confirm manually.";
 
     // Galleries are keyed by the exact sellable product IDs returned by the backend.
@@ -2399,6 +2411,100 @@
       }
     }
 
+    function createWebsiteBookingAttemptId() {
+      if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+      }
+      return `booking-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
+    }
+
+    function buildWebsiteBookingAttemptClientSignature(payload) {
+      const input = payload || {};
+      const canonical = JSON.stringify({
+        version: 1,
+        action: String(input.action || ""),
+        checkIn: String(input.check_in || ""),
+        checkOut: String(input.check_out || ""),
+        guests: String(input.guests || ""),
+        bedSetup: String(input.bed_setup || ""),
+        roomType: String(input.room_type || ""),
+        productId: String(input.sellable_product_id || ""),
+        combinationId: String(input.room_combination || ""),
+        expectedRoomTotal: input.expected_room_total == null ? "" : String(input.expected_room_total),
+        guestName: String(input.guest_name || "").trim(),
+        guestPhone: String(input.guest_phone || "").trim(),
+        guestEmail: String(input.guest_email || "").trim().toLowerCase(),
+        country: String(input.country || "").trim(),
+        notes: String(input.notes || "").trim(),
+        breakfastSelected: Boolean(input.breakfast_selected),
+        breakfastQuoteRef: input.breakfast_selected ? String(input.breakfast_quote_ref || "") : ""
+      });
+      let first = 0x811c9dc5;
+      let second = 0x9e3779b9;
+      for (let index = 0; index < canonical.length; index += 1) {
+        const code = canonical.charCodeAt(index);
+        first = Math.imul(first ^ code, 0x01000193);
+        second = Math.imul(second ^ code, 0x85ebca6b);
+        second ^= second >>> 13;
+      }
+      return `${(first >>> 0).toString(16).padStart(8, "0")}${(second >>> 0).toString(16).padStart(8, "0")}-${canonical.length}`;
+    }
+
+    function readPersistedWebsiteBookingAttempt() {
+      try {
+        const raw = window.sessionStorage ? sessionStorage.getItem(WEBSITE_BOOKING_ATTEMPT_STORAGE_KEY) : "";
+        if (!raw) return null;
+        const stored = JSON.parse(raw);
+        const id = String(stored && stored.id || "").trim();
+        const signature = String(stored && stored.signature || "").trim();
+        if (!/^[A-Za-z0-9_-]{12,120}$/.test(id) || !/^[a-f0-9]{16}-\d+$/.test(signature)) return null;
+        return { id, signature };
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function persistWebsiteBookingAttempt(id, signature) {
+      try {
+        if (window.sessionStorage) {
+          sessionStorage.setItem(WEBSITE_BOOKING_ATTEMPT_STORAGE_KEY, JSON.stringify({ id, signature }));
+        }
+      } catch (error) {
+        // In-memory replay protection still works when browser storage is unavailable.
+      }
+    }
+
+    function getOrCreateWebsiteBookingAttemptId(signature) {
+      const normalizedSignature = String(signature || "").trim();
+      if (websiteBookingAttemptId && websiteBookingAttemptSignature === normalizedSignature) {
+        return websiteBookingAttemptId;
+      }
+      const stored = readPersistedWebsiteBookingAttempt();
+      if (stored && stored.signature === normalizedSignature) {
+        websiteBookingAttemptId = stored.id;
+        websiteBookingAttemptSignature = stored.signature;
+        return websiteBookingAttemptId;
+      }
+      websiteBookingAttemptId = createWebsiteBookingAttemptId();
+      websiteBookingAttemptSignature = normalizedSignature;
+      persistWebsiteBookingAttempt(websiteBookingAttemptId, websiteBookingAttemptSignature);
+      return websiteBookingAttemptId;
+    }
+
+    function resetWebsiteBookingAttemptId() {
+      websiteBookingAttemptId = "";
+      websiteBookingAttemptSignature = "";
+    }
+
+    function clearPersistedWebsiteBookingAttempt() {
+      resetWebsiteBookingAttemptId();
+      try {
+        if (window.sessionStorage) sessionStorage.removeItem(WEBSITE_BOOKING_ATTEMPT_STORAGE_KEY);
+      } catch (error) {
+        // Nothing else is required when browser storage is unavailable.
+      }
+    }
+
     function getAllowedBedPreferences(guestCount) {
       if (guestCount >= 4) return ["Best available"];
       if (guestCount === 3) return ["Best available", "Triple"];
@@ -2453,8 +2559,7 @@
       };
     }
 
-    function buildAvailabilitySignature() {
-      const state = getCurrentStaySearchState();
+    function buildAvailabilitySignatureFromState(state) {
       return JSON.stringify({
         checkIn: state.checkIn,
         checkOut: state.checkOut,
@@ -2463,8 +2568,11 @@
       });
     }
 
-    function buildSearchPayload() {
-      const state = getCurrentStaySearchState();
+    function buildAvailabilitySignature() {
+      return buildAvailabilitySignatureFromState(getCurrentStaySearchState());
+    }
+
+    function buildSearchPayloadFromState(state) {
       return {
         check_in: state.checkIn,
         check_out: state.checkOut,
@@ -2472,6 +2580,10 @@
         bed_setup: state.bedSetup,
         client_session_id: clientSessionIdField ? clientSessionIdField.value : ""
       };
+    }
+
+    function buildSearchPayload() {
+      return buildSearchPayloadFromState(getCurrentStaySearchState());
     }
 
     function buildStayPayload() {
@@ -2502,8 +2614,10 @@
     function buildWebsiteBookingPayload() {
       const breakfastOffer = getBreakfastOffer();
       const selected = getSelectedProduct();
-      return Object.assign({
+      const priceSummary = getBookingPriceSummary();
+      const payload = Object.assign({
         action: selected && selected.kind === "combination" ? "createWebsiteGroupBooking" : "createWebsiteBooking",
+        expected_room_total: priceSummary ? priceSummary.roomTotal : "",
         guest_name: guestName ? guestName.value.trim() : "",
         guest_phone: guestPhone ? guestPhone.value.trim() : "",
         guest_email: guestEmail ? guestEmail.value.trim() : "",
@@ -2512,6 +2626,10 @@
         breakfast_selected: isBreakfastSelected(),
         breakfast_quote_ref: breakfastOffer.quoteRef || ""
       }, buildStayPayload());
+      payload.booking_attempt_id = getOrCreateWebsiteBookingAttemptId(
+        buildWebsiteBookingAttemptClientSignature(payload)
+      );
+      return payload;
     }
 
     function buildBackendGetUrl(payload) {
@@ -2523,36 +2641,146 @@
       return url.toString();
     }
 
-    async function getFromBackend(payload, defaultMessage) {
+    function createBackendRequestError(message, details) {
+      const error = new Error(message);
+      Object.assign(error, details || {});
+      return error;
+    }
+
+    function createWebsiteBookingOutcomeUnknownError() {
+      return createBackendRequestError(
+        "The booking request did not return a reliable confirmation. It may still have reached Roza's booking system. Please do not submit it again yet; contact Roza on WhatsApp so she can check before you retry.",
+        { code: "POST_OUTCOME_UNKNOWN" }
+      );
+    }
+
+    function createAvailabilityAbortError() {
+      return createBackendRequestError("This availability request was replaced by a newer search.", {
+        name: "AbortError",
+        code: "REQUEST_ABORTED",
+        retryable: false
+      });
+    }
+
+    function isBackendAbortError(error) {
+      return Boolean(error && (error.name === "AbortError" || error.code === "REQUEST_ABORTED"));
+    }
+
+    function isRetryableBackendReadStatus(status) {
+      return status === 408 || status === 425 || status === 429 || status >= 500;
+    }
+
+    function normalizeBackendReadError(error, defaultMessage) {
+      if (error && typeof error.retryable === "boolean") return error;
+      return createBackendRequestError(`${defaultMessage} A network error interrupted the request.`, {
+        code: "READ_NETWORK_ERROR",
+        retryable: true,
+        cause: error
+      });
+    }
+
+    function waitForBackendReadRetry(signal) {
+      return new Promise((resolve, reject) => {
+        if (signal.aborted) {
+          reject(createAvailabilityAbortError());
+          return;
+        }
+
+        const onAbort = () => {
+          window.clearTimeout(timerId);
+          reject(createAvailabilityAbortError());
+        };
+        const timerId = window.setTimeout(() => {
+          signal.removeEventListener("abort", onAbort);
+          resolve();
+        }, BACKEND_GET_RETRY_DELAY_MS);
+        signal.addEventListener("abort", onAbort, { once: true });
+      });
+    }
+
+    async function getFromBackend(payload, defaultMessage, options) {
       if (!BACKEND_URL) {
         throw new Error("The website booking engine is not connected right now. Please continue on WhatsApp.");
       }
 
-      const response = await fetch(buildBackendGetUrl(payload), {
-        method: "GET",
-        credentials: "omit",
-        headers: {
-          "Accept": "application/json"
-        }
-      });
+      const controller = options && options.controller ? options.controller : new AbortController();
+      const signal = controller.signal;
+      let timeoutTriggered = false;
+      const timeoutId = window.setTimeout(() => {
+        timeoutTriggered = true;
+        controller.abort();
+      }, BACKEND_GET_TIMEOUT_MS);
 
-      if (!response.ok) {
-        throw new Error(`${defaultMessage} The server returned ${response.status}.`);
-      }
-
-      const raw = await response.text();
-      let parsed;
       try {
-        parsed = raw ? JSON.parse(raw) : {};
+        for (let attempt = 0; attempt < 2; attempt += 1) {
+          try {
+            const response = await fetch(buildBackendGetUrl(payload), {
+              method: "GET",
+              credentials: "omit",
+              signal,
+              headers: {
+                "Accept": "application/json"
+              }
+            });
+
+            if (!response.ok) {
+              throw createBackendRequestError(`${defaultMessage} The server returned ${response.status}.`, {
+                status: response.status,
+                retryable: isRetryableBackendReadStatus(response.status)
+              });
+            }
+
+            let raw;
+            try {
+              raw = await response.text();
+            } catch (error) {
+              throw createBackendRequestError(`${defaultMessage} The response could not be read.`, {
+                code: "READ_RESPONSE_ERROR",
+                retryable: true,
+                cause: error
+              });
+            }
+
+            let parsed;
+            try {
+              parsed = raw ? JSON.parse(raw) : {};
+            } catch (error) {
+              throw createBackendRequestError(`${defaultMessage} The response could not be read.`, {
+                code: "READ_PARSE_ERROR",
+                retryable: true,
+                cause: error
+              });
+            }
+
+            if (!parsed.ok) {
+              throw createBackendRequestError(parsed.error || defaultMessage, { retryable: false });
+            }
+
+            return parsed.data || {};
+          } catch (error) {
+            if (timeoutTriggered || signal.aborted) throw error;
+            const readError = normalizeBackendReadError(error, defaultMessage);
+            if (attempt === 0 && readError.retryable) {
+              await waitForBackendReadRetry(signal);
+              continue;
+            }
+            throw readError;
+          }
+        }
       } catch (error) {
-        throw new Error(`${defaultMessage} The response could not be read.`);
+        if (timeoutTriggered) {
+          throw createBackendRequestError("Live availability timed out. Please try again or continue on WhatsApp.", {
+            code: "REQUEST_TIMEOUT",
+            retryable: false
+          });
+        }
+        if (signal.aborted || isBackendAbortError(error)) {
+          throw createAvailabilityAbortError();
+        }
+        throw error;
+      } finally {
+        window.clearTimeout(timeoutId);
       }
-
-      if (!parsed.ok) {
-        throw new Error(parsed.error || defaultMessage);
-      }
-
-      return parsed.data || {};
     }
 
     async function postToBackend(payload, defaultMessage) {
@@ -2560,41 +2788,116 @@
         throw new Error("The website booking engine is not connected right now. Please continue on WhatsApp.");
       }
 
+      const controller = new AbortController();
+      let timeoutTriggered = false;
+      const timeoutId = window.setTimeout(() => {
+        timeoutTriggered = true;
+        controller.abort();
+      }, BACKEND_POST_TIMEOUT_MS);
       const entries = Object.entries(payload).filter(([, value]) => value !== undefined && value !== null);
-      const response = await fetch(BACKEND_URL, {
-        method: "POST",
-        body: new URLSearchParams(entries),
-        credentials: "omit",
-        headers: {
-          "Accept": "application/json"
-        }
-      });
+      const action = String(payload && payload.action || "");
+      const isWebsiteBookingMutation = action === "createWebsiteBooking" || action === "createWebsiteGroupBooking";
 
-      if (!response.ok) {
-        throw new Error(`${defaultMessage} The server returned ${response.status}.`);
-      }
-
-      const raw = await response.text();
-      let parsed;
       try {
-        parsed = raw ? JSON.parse(raw) : {};
+        const response = await fetch(BACKEND_URL, {
+          method: "POST",
+          body: new URLSearchParams(entries),
+          credentials: "omit",
+          signal: controller.signal,
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (!response.ok) {
+          throw createBackendRequestError(`${defaultMessage} The server returned ${response.status}.`, {
+            status: response.status,
+            outcomeUnknown: isWebsiteBookingMutation && isRetryableBackendReadStatus(response.status)
+          });
+        }
+
+        const raw = await response.text();
+        let parsed;
+        try {
+          parsed = raw ? JSON.parse(raw) : {};
+        } catch (error) {
+          throw createBackendRequestError(`${defaultMessage} The response could not be read.`, {
+            outcomeUnknown: isWebsiteBookingMutation,
+            cause: error
+          });
+        }
+
+        if (!parsed.ok) {
+          throw new Error(parsed.error || defaultMessage);
+        }
+
+        return parsed.data || {};
       } catch (error) {
-        throw new Error(`${defaultMessage} The response could not be read.`);
+        if (isWebsiteBookingMutation && (timeoutTriggered || error && error.outcomeUnknown || error instanceof TypeError)) {
+          throw createWebsiteBookingOutcomeUnknownError();
+        }
+        if (timeoutTriggered) {
+          throw createBackendRequestError(`${defaultMessage} The request timed out. Please try again.`, { code: "REQUEST_TIMEOUT" });
+        }
+        if (error instanceof TypeError) {
+          throw createBackendRequestError(`${defaultMessage} A network error interrupted the request.`, {
+            code: "POST_NETWORK_ERROR",
+            cause: error
+          });
+        }
+        throw error;
+      } finally {
+        window.clearTimeout(timeoutId);
       }
-
-      if (!parsed.ok) {
-        throw new Error(parsed.error || defaultMessage);
-      }
-
-      return parsed.data || {};
     }
 
-    async function searchAvailabilityProductsOnline() {
-      const state = getCurrentStaySearchState();
-      return getFromBackend(Object.assign({
-        action: Number(state.guests || 0) >= 4 ? "searchAvailabilityCombinations" : "searchAvailabilityProducts",
-        request_ts: String(Date.now())
-      }, buildSearchPayload()), "We could not check live availability right now.");
+    async function searchAvailabilityProductsOnline(payload, controller) {
+      return getFromBackend(payload, "We could not check live availability right now.", { controller });
+    }
+
+    function cloneAvailabilityData(data) {
+      return JSON.parse(JSON.stringify(data || {}));
+    }
+
+    function getCachedAvailabilityResult(signature) {
+      const cached = availabilityResponseCache.get(signature);
+      if (!cached) return null;
+      if (cached.expiresAt <= Date.now()) {
+        availabilityResponseCache.delete(signature);
+        return null;
+      }
+      return cloneAvailabilityData(cached.data);
+    }
+
+    function cacheAvailabilityResult(signature, data) {
+      const now = Date.now();
+      availabilityResponseCache.forEach((cached, key) => {
+        if (!cached || cached.expiresAt <= now) availabilityResponseCache.delete(key);
+      });
+      availabilityResponseCache.set(signature, {
+        expiresAt: now + AVAILABILITY_CACHE_TTL_MS,
+        data: cloneAvailabilityData(data)
+      });
+    }
+
+    function isAvailabilityRequestCurrent(request) {
+      return Boolean(
+        request &&
+        activeAvailabilityRequest === request &&
+        availabilityRequestSequence === request.sequence &&
+        buildAvailabilitySignature() === request.signature
+      );
+    }
+
+    function cancelActiveAvailabilityRequest() {
+      const request = activeAvailabilityRequest;
+      if (!request) return;
+      activeAvailabilityRequest = null;
+      if (request.controller && !request.controller.signal.aborted) {
+        request.controller.abort();
+      }
+      clearAvailabilityProgressMessages();
+      setAvailabilityCheckBusy(false);
     }
 
     function queueRequestSave(payload) {
@@ -2661,7 +2964,8 @@
     function queueWebsiteBookingEmailFollowUp(result) {
       const bookingId = result && result.bookingId ? String(result.bookingId).trim() : "";
       const email = guestEmail ? guestEmail.value.trim() : "";
-      if (!bookingId || !email) return;
+      const confirmationStatus = String(result && result.guestConfirmation && result.guestConfirmation.status || "").trim().toLowerCase();
+      if (!bookingId || !email || confirmationStatus === "sent") return;
 
       queueRequestSave({
         action: "sendWebsiteBookingEmailFollowUp",
@@ -3160,6 +3464,7 @@
     }
 
     function clearSelectedProduct() {
+      resetWebsiteBookingAttemptId();
       bookingState.selectedProductId = "";
       bookingState.selectedProductLabel = "";
       if (roomType) roomType.value = "";
@@ -3215,6 +3520,48 @@
       websiteSubmit.disabled = websiteSubmitBusy || availabilityBusy || !hasFreshAvailability || !hasValidWebsiteBookingInputs();
       websiteSubmit.setAttribute("aria-disabled", websiteSubmit.disabled ? "true" : "false");
       setButtonBusy(websiteSubmit, websiteSubmitBusy, "Confirming...");
+    }
+
+    function setWebsiteBookingInteractionLocked(isLocked) {
+      const controls = [
+        checkIn,
+        checkOut,
+        guests,
+        groupGuestCount,
+        bedSetup,
+        resetSearch,
+        availabilityCheck,
+        guestName,
+        guestPhone,
+        guestCountry,
+        guestEmail,
+        guestNotes,
+        roomOnlyPlan,
+        breakfastPlan,
+        bookingTermsAccepted
+      ].filter(Boolean);
+      if (availabilityProducts) {
+        controls.push(...availabilityProducts.querySelectorAll("[data-product-select]"));
+      }
+
+      controls.forEach((control) => {
+        if (isLocked) {
+          if (!("bookingLockWasDisabled" in control.dataset)) {
+            control.dataset.bookingLockWasDisabled = control.disabled ? "true" : "false";
+          }
+          control.disabled = true;
+          control.setAttribute("aria-disabled", "true");
+          return;
+        }
+
+        if (!("bookingLockWasDisabled" in control.dataset)) return;
+        const wasDisabled = control.dataset.bookingLockWasDisabled === "true";
+        delete control.dataset.bookingLockWasDisabled;
+        control.disabled = wasDisabled;
+        control.setAttribute("aria-disabled", wasDisabled ? "true" : "false");
+      });
+
+      if (form) form.setAttribute("aria-busy", isLocked ? "true" : "false");
     }
 
     function setAvailabilityCheckBusy(isBusy) {
@@ -3596,6 +3943,7 @@
         return;
       }
 
+      resetWebsiteBookingAttemptId();
       resetBookingExtras();
       bookingState.selectedProductId = selected.productId || "";
       bookingState.selectedProductLabel = selected.productLabel || selected.productName || "";
@@ -3619,10 +3967,30 @@
     async function checkLiveAvailability() {
       const error = validateForm();
       if (error) {
+        cancelActiveAvailabilityRequest();
         resetBookingState();
         setAvailabilityResult(error, "error");
         return null;
       }
+
+      const requestState = getCurrentStaySearchState();
+      const requestSignature = buildAvailabilitySignatureFromState(requestState);
+      if (activeAvailabilityRequest && activeAvailabilityRequest.signature === requestSignature) {
+        return activeAvailabilityRequest.promise;
+      }
+      cancelActiveAvailabilityRequest();
+
+      const requestPayload = Object.assign({
+        action: Number(requestState.guests || 0) >= 4 ? "searchAvailabilityCombinations" : "searchAvailabilityProducts"
+      }, buildSearchPayloadFromState(requestState));
+      const cachedResult = getCachedAvailabilityResult(requestSignature);
+      const request = {
+        sequence: ++availabilityRequestSequence,
+        signature: requestSignature,
+        controller: cachedResult ? null : new AbortController(),
+        promise: null
+      };
+      activeAvailabilityRequest = request;
 
       setFeedback("", "");
       clearSelectedProduct();
@@ -3633,68 +4001,81 @@
       }
       startAvailabilityProgressMessages();
 
-      try {
-        const result = normalizeAvailabilityResultProducts(await searchAvailabilityProductsOnline());
-        bookingState.availabilityChecked = true;
-        bookingState.availabilityAvailable = Boolean(result.available);
-        bookingState.availabilitySignature = buildAvailabilitySignature();
-        bookingState.bookingComplete = false;
-        bookingState.lastAvailability = result;
-        clearSelectedProduct();
+      request.promise = (async () => {
+        try {
+          const rawResult = cachedResult
+            ? await Promise.resolve(cachedResult)
+            : await searchAvailabilityProductsOnline(requestPayload, request.controller);
+          if (!isAvailabilityRequestCurrent(request)) return null;
+          if (!cachedResult) cacheAvailabilityResult(requestSignature, rawResult);
 
-        const products = Array.isArray(result.products) ? result.products : [];
-        const bookableCount = Number(result.availableProductCount != null ? result.availableProductCount : getBookableProductCount(products));
+          const result = normalizeAvailabilityResultProducts(rawResult);
+          bookingState.availabilityChecked = true;
+          bookingState.availabilityAvailable = Boolean(result.available);
+          bookingState.availabilitySignature = requestSignature;
+          bookingState.bookingComplete = false;
+          bookingState.lastAvailability = result;
+          clearSelectedProduct();
 
-        const isCombinationSearch = Number(getCurrentStaySearchState().guests || 0) >= 4;
+          const products = Array.isArray(result.products) ? result.products : [];
+          const bookableCount = Number(result.availableProductCount != null ? result.availableProductCount : getBookableProductCount(products));
+          const isCombinationSearch = Number(requestState.guests || 0) >= 4;
 
-        if (products.length) {
-          const details = [];
-          const optionLabel = isCombinationSearch ? "complete stay option" : "bookable room option";
-          const metaBits = [`${bookableCount} ${optionLabel}${bookableCount === 1 ? "" : "s"} found.`];
-          if (Number(result.nights) > 0) {
-            metaBits.push(`${result.nights} night${Number(result.nights) === 1 ? "" : "s"}.`);
-          }
-          if (result.bedSetupRequested && result.bedSetupApplied && result.bedSetupRequested !== result.bedSetupApplied) {
-            metaBits.push(`Bed preference treated as ${formatBedPreferenceLabel(result.bedSetupApplied)}.`);
-            details.push(`<div>Bed preference was treated as <span class="font-semibold">${escapeHtml(formatBedPreferenceLabel(result.bedSetupApplied))}</span> for this guest count.</div>`);
-          }
-          details.push(isCombinationSearch
-            ? `<div>${escapeHtml(String(bookableCount))} complete room combination${bookableCount === 1 ? "" : "s"} available with one checkout.</div>`
-            : `<div>${escapeHtml(String(bookableCount))} room option${bookableCount === 1 ? "" : "s"} available to book.</div>`);
-          if (availabilityResultsMeta) {
-            availabilityResultsMeta.textContent = metaBits.join(" ");
-          }
-          renderAvailabilityProducts(products);
-          if (bookableCount > 0) {
-            setAvailabilityResult(isCombinationSearch ? "Choose your complete stay" : "Choose your room option to continue", "success", details.join(""));
+          if (products.length) {
+            const details = [];
+            const optionLabel = isCombinationSearch ? "complete stay option" : "bookable room option";
+            const metaBits = [`${bookableCount} ${optionLabel}${bookableCount === 1 ? "" : "s"} found.`];
+            if (Number(result.nights) > 0) {
+              metaBits.push(`${result.nights} night${Number(result.nights) === 1 ? "" : "s"}.`);
+            }
+            if (result.bedSetupRequested && result.bedSetupApplied && result.bedSetupRequested !== result.bedSetupApplied) {
+              metaBits.push(`Bed preference treated as ${formatBedPreferenceLabel(result.bedSetupApplied)}.`);
+              details.push(`<div>Bed preference was treated as <span class="font-semibold">${escapeHtml(formatBedPreferenceLabel(result.bedSetupApplied))}</span> for this guest count.</div>`);
+            }
+            details.push(isCombinationSearch
+              ? `<div>${escapeHtml(String(bookableCount))} complete room combination${bookableCount === 1 ? "" : "s"} available with one checkout.</div>`
+              : `<div>${escapeHtml(String(bookableCount))} room option${bookableCount === 1 ? "" : "s"} available to book.</div>`);
+            if (availabilityResultsMeta) {
+              availabilityResultsMeta.textContent = metaBits.join(" ");
+            }
+            renderAvailabilityProducts(products);
+            if (bookableCount > 0) {
+              setAvailabilityResult(isCombinationSearch ? "Choose your complete stay" : "Choose your room option to continue", "success", details.join(""));
+            } else {
+              setAvailabilityResult(result.message || "Selected stay is not available online right now.", "error", "Unavailable room options are shown for context only.");
+            }
           } else {
-            setAvailabilityResult(result.message || "Selected stay is not available online right now.", "error", "Unavailable room options are shown for context only.");
+            clearAvailabilityProducts();
+            if (availabilityProductsIntro) availabilityProductsIntro.classList.remove("hidden");
+            if (availabilityResultsMeta) {
+              availabilityResultsMeta.textContent = result.message || "No valid room options are available online for these dates.";
+            }
+            setAvailabilityResult(result.message || "Selected stay is not available online right now.", "error", "Use WhatsApp if you want help with alternatives or choosing another room option.");
           }
-        } else {
-          clearAvailabilityProducts();
+
+          updateBookingSummary();
+          syncWebsiteSubmitState();
+          return result;
+        } catch (availabilityError) {
+          if (isBackendAbortError(availabilityError) || !isAvailabilityRequestCurrent(request)) return null;
+          console.warn("Availability check failed.", availabilityError);
+          resetBookingState();
           if (availabilityProductsIntro) availabilityProductsIntro.classList.remove("hidden");
           if (availabilityResultsMeta) {
-            availabilityResultsMeta.textContent = result.message || "No valid room options are available online for these dates.";
+            availabilityResultsMeta.textContent = "We could not load live availability right now.";
           }
-          setAvailabilityResult(result.message || "Selected stay is not available online right now.", "error", "Use WhatsApp if you want help with alternatives or choosing another room option.");
+          setAvailabilityResult(availabilityError.message || "We could not check availability right now. Please continue on WhatsApp.", "error");
+          return null;
+        } finally {
+          if (activeAvailabilityRequest === request) {
+            activeAvailabilityRequest = null;
+            clearAvailabilityProgressMessages();
+            setAvailabilityCheckBusy(false);
+          }
         }
+      })();
 
-        updateBookingSummary();
-        syncWebsiteSubmitState();
-        return result;
-      } catch (availabilityError) {
-        console.warn("Availability check failed.", availabilityError);
-        resetBookingState();
-        if (availabilityProductsIntro) availabilityProductsIntro.classList.remove("hidden");
-        if (availabilityResultsMeta) {
-          availabilityResultsMeta.textContent = "We could not load live availability right now.";
-        }
-        setAvailabilityResult(availabilityError.message || "We could not check availability right now. Please continue on WhatsApp.", "error");
-        return null;
-      } finally {
-        clearAvailabilityProgressMessages();
-        setAvailabilityCheckBusy(false);
-      }
+      return request.promise;
     }
 
     function buildAvailabilityMessage() {
@@ -3797,14 +4178,15 @@
     }
 
     function isWebsiteBookingTemporarySystemError(error) {
+      if (error && error.code === "POST_OUTCOME_UNKNOWN") return true;
       const message = String(error && (error.message || error) || "");
       return /timeout|timed out|request timed out|network failure|network error|failed to fetch|load failed|apps script service unavailable|service unavailable|google service quota|service invoked too many times|quota exceeded|server returned (429|500|502|503|504)|temporary server|temporary cloud|server\/cloud|cloud issue|booking engine is not connected|not connected right now|response could not be read/i.test(message);
     }
 
-    function showWebsiteBookingWhatsappFallback() {
+    function showWebsiteBookingWhatsappFallback(message) {
       const buttonId = "website-booking-whatsapp-fallback";
       setFeedback(
-        WEBSITE_BOOKING_WHATSAPP_FALLBACK_MESSAGE,
+        message || WEBSITE_BOOKING_WHATSAPP_FALLBACK_MESSAGE,
         "warning",
         `<button id="${buttonId}" type="button" class="booking-button-whatsapp">Send details on WhatsApp</button>`
       );
@@ -3878,6 +4260,7 @@
     }
 
     function resetSearchForm() {
+      cancelActiveAvailabilityRequest();
       if (guests) guests.value = "";
       if (groupGuestCount) groupGuestCount.value = "";
       syncGroupStayUi();
@@ -3895,6 +4278,7 @@
     }
 
     function handleSearchInputChange() {
+      cancelActiveAvailabilityRequest();
       syncGroupStayUi();
       renderBedPreferenceOptions(bedSetup ? bedSetup.value : "Best available");
       syncCheckOutMin();
@@ -3918,6 +4302,7 @@
     [guestName, guestPhone, guestCountry, guestEmail, guestNotes].forEach((field) => {
       if (!field) return;
       field.addEventListener("input", () => {
+        resetWebsiteBookingAttemptId();
         setFeedback("", "");
         updateDirectLinks();
         syncWebsiteSubmitState();
@@ -3928,6 +4313,7 @@
     [roomOnlyPlan, breakfastPlan].forEach((option) => {
       if (!option) return;
       option.addEventListener("change", () => {
+        resetWebsiteBookingAttemptId();
         if (bookingTermsAccepted) bookingTermsAccepted.checked = false;
         setFeedback("", "");
         updateBookingSummary();
@@ -4049,46 +4435,66 @@
         }
 
         websiteSubmitBusy = true;
+        setWebsiteBookingInteractionLocked(true);
         syncWebsiteSubmitState();
         startBookingProgressMessages();
 
         try {
-          const result = await postToBackend(buildWebsiteBookingPayload(), "We could not complete the website booking.");
-          bookingState.bookingComplete = true;
-          syncWebsiteSubmitState();
-          setFeedback(buildWebsiteSuccessMessage(result), result && result.recoveryNeeded ? "warning" : "success");
-          updateBookingSummary();
-          showPostBookingFeedback(result);
-          queueWebsiteBookingEmailFollowUp(result);
-        } catch (submitError) {
-          console.warn("Website booking failed.", submitError);
-          const message = submitError.message || "We could not complete the website booking right now.";
-          if (isWebsiteBookingTemporarySystemError(submitError)) {
-            showWebsiteBookingWhatsappFallback();
-          } else if (isWebsiteBookingUnavailableError(message)) {
-            const rejectedProductId = bookingState.selectedProductId;
-            bookingState.availabilityChecked = true;
-            bookingState.availabilityAvailable = false;
-            bookingState.bookingComplete = false;
-            markProductUnavailable(rejectedProductId, "This stay option is no longer available for your selected dates. Please choose another option.");
-            clearSelectedProduct();
-            const products = bookingState.lastAvailability && Array.isArray(bookingState.lastAvailability.products)
-              ? bookingState.lastAvailability.products
-              : [];
-            if (products.length) {
-              renderAvailabilityProducts(products);
+          let result;
+          try {
+            result = await postToBackend(buildWebsiteBookingPayload(), "We could not complete the website booking.");
+          } catch (submitError) {
+            console.warn("Website booking failed.", submitError);
+            const message = submitError.message || "We could not complete the website booking right now.";
+            if (isWebsiteBookingTemporarySystemError(submitError)) {
+              showWebsiteBookingWhatsappFallback(submitError.code === "POST_OUTCOME_UNKNOWN" ? message : "");
+            } else if (isWebsiteBookingUnavailableError(message)) {
+              const rejectedProductId = bookingState.selectedProductId;
+              bookingState.availabilityChecked = true;
+              bookingState.availabilityAvailable = false;
+              bookingState.bookingComplete = false;
+              markProductUnavailable(rejectedProductId, "This stay option is no longer available for your selected dates. Please choose another option.");
+              clearSelectedProduct();
+              const products = bookingState.lastAvailability && Array.isArray(bookingState.lastAvailability.products)
+                ? bookingState.lastAvailability.products
+                : [];
+              if (products.length) {
+                renderAvailabilityProducts(products);
+              } else {
+                clearAvailabilityProducts();
+              }
+              syncWebsiteBookingStep();
+              setAvailabilityResult(message, "error", "<div>Please continue on WhatsApp if you would like help with alternatives.</div>");
+              setFeedback(message, "error");
             } else {
-              clearAvailabilityProducts();
+              setFeedback(message, "error");
             }
-            syncWebsiteBookingStep();
-            setAvailabilityResult(message, "error", "<div>Please continue on WhatsApp if you would like help with alternatives.</div>");
-            setFeedback(message, "error");
-          } else {
-            setFeedback(message, "error");
+            return;
+          }
+
+          // From this point the backend has returned a definite confirmation.
+          // UI/email follow-up errors must never be presented as booking failure.
+          bookingState.bookingComplete = true;
+          clearPersistedWebsiteBookingAttempt();
+          try {
+            syncWebsiteSubmitState();
+            setFeedback(buildWebsiteSuccessMessage(result), result && result.recoveryNeeded ? "warning" : "success");
+            updateBookingSummary();
+            showPostBookingFeedback(result);
+            queueWebsiteBookingEmailFollowUp(result);
+          } catch (successUiError) {
+            console.warn("Booking was confirmed, but the confirmation UI could not fully update.", successUiError);
+            const confirmationId = result && (result.confirmationId || result.groupBookingId || result.bookingId) || "your saved confirmation";
+            try {
+              setFeedback(`Booking confirmed. Confirmation number: ${confirmationId}. Please save this number.`, "success");
+            } catch (ignoredUiError) {
+              // bookingComplete remains true, so the confirmed booking cannot be resubmitted.
+            }
           }
         } finally {
           clearBookingProgressMessages();
           websiteSubmitBusy = false;
+          setWebsiteBookingInteractionLocked(false);
           syncWebsiteSubmitState();
         }
       });
