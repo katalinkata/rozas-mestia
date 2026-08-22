@@ -3459,7 +3459,7 @@
             <div class="selected-summary-fact">
               <small>Book direct</small>
               <strong>${escapeHtml(totalPrice)}</strong>
-              ${savingDisplay ? `<span class="selected-price-reference">Public price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
+              ${savingDisplay ? `<span class="selected-price-reference">Booking.com price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
             </div>
             <div class="selected-summary-fact"><small>Stay</small><strong>${nights} night${nights === 1 ? "" : "s"}</strong></div>
             <div class="selected-summary-fact"><small>Rooms</small><strong>${selected.roomCount} room${selected.roomCount === 1 ? "" : "s"}</strong></div>
@@ -3484,7 +3484,7 @@
           <div class="selected-summary-fact">
             <small>Book direct</small>
             <strong>${escapeHtml(totalPrice)}</strong>
-            ${savingDisplay ? `<span class="selected-price-reference">Public price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
+            ${savingDisplay ? `<span class="selected-price-reference">Booking.com price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
           </div>
           <div class="selected-summary-fact">
             <small>Stay</small>
@@ -3776,7 +3776,7 @@
             </div>
             <div class="product-side">
               <div class="product-price-panel">
-                ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">Public price</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
+                ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">Booking.com price</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
                 <span class="product-price-label">Book direct</span>
                 <div class="product-price">${escapeHtml(totalPrice)}</div>
                 ${savingDisplay ? `<div class="product-saving-label">${escapeHtml(savingDisplay.label)}</div>` : ""}
@@ -3854,7 +3854,7 @@
 
               <div class="product-side">
                 <div class="product-price-panel">
-                  ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">Public price</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
+                  ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">Booking.com price</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
                   <span class="product-price-label">Book direct</span>
                   <div class="product-price">${escapeHtml(totalPrice || "Price unavailable")}</div>
                   ${savingDisplay ? `<div class="product-saving-label">${escapeHtml(savingDisplay.label)}</div>` : ""}
