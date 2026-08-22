@@ -4193,7 +4193,6 @@
       if (emailLink) {
         emailLink.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent("Availability request for Roza's Guest House")}`;
       }
-      updateBookingSummary();
     }
 
     function openWhatsappBookingPath(triggerButton) {
@@ -4339,7 +4338,6 @@
       resetBookingState();
       setFeedback("", "");
       updateUrlFromSearchState();
-      updateDirectLinks();
     }
 
     function handleSearchInputChange() {
@@ -4348,28 +4346,24 @@
       renderBedPreferenceOptions(bedSetup ? bedSetup.value : "Best available");
       syncCheckOutMin();
       resetBookingState();
-      syncGroupStayUi();
       if (isGroupStaySelected()) {
         setAvailabilityResult("One booking for your whole group", "info", "Enter the exact number of guests, then choose Check group options to compare complete live room combinations.");
       }
       setFeedback("", "");
       updateUrlFromSearchState();
-      updateDirectLinks();
     }
 
-    const searchFields = [checkIn, checkOut, guests, groupGuestCount, bedSetup];
-    searchFields.forEach((field) => {
+    [checkIn, checkOut, guests, bedSetup].forEach((field) => {
       if (!field) return;
       field.addEventListener("change", handleSearchInputChange);
-      field.addEventListener("input", handleSearchInputChange);
     });
+    if (groupGuestCount) groupGuestCount.addEventListener("input", handleSearchInputChange);
 
     [guestName, guestPhone, guestCountry, guestEmail, guestNotes].forEach((field) => {
       if (!field) return;
       field.addEventListener("input", () => {
         resetWebsiteBookingAttemptId();
         setFeedback("", "");
-        updateDirectLinks();
         syncWebsiteSubmitState();
       });
       field.addEventListener("change", syncWebsiteSubmitState);
@@ -4382,7 +4376,6 @@
         if (bookingTermsAccepted) bookingTermsAccepted.checked = false;
         setFeedback("", "");
         updateBookingSummary();
-        updateDirectLinks();
         syncWebsiteSubmitState();
       });
     });
