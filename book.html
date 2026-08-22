@@ -1008,8 +1008,8 @@
 
     .product-price-label {
       display: block;
-      color: rgba(45,58,47,0.66);
-      font-size: 0.52rem;
+      color: #4f5b51;
+      font-size: 0.64rem;
       font-weight: 800;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -1032,10 +1032,24 @@
     }
 
     .product-reference-price {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.28rem;
       margin-top: 0.1rem;
-      color: rgba(45,58,47,0.62);
+      color: #566158;
       font-size: 0.72rem;
       font-weight: 700;
+    }
+
+    .product-reference-label {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .product-reference-value {
       text-decoration: line-through;
     }
 
@@ -1049,7 +1063,9 @@
       font-size: 0.68rem;
       font-weight: 800;
       line-height: 1.2;
+      max-width: 100%;
       padding: 0.26rem 0.48rem;
+      white-space: normal;
     }
 
     .product-price-support {
@@ -1290,6 +1306,23 @@
     .selected-summary-fact strong {
       margin-top: 0.18rem;
       font-size: 0.86rem;
+    }
+
+    .selected-price-reference,
+    .selected-price-saving {
+      display: block;
+      margin-top: 0.24rem;
+      font-size: 0.7rem;
+      line-height: 1.35;
+    }
+
+    .selected-price-reference {
+      color: #566158;
+    }
+
+    .selected-price-saving {
+      color: #167847;
+      font-weight: 800;
     }
 
     .booking-extras {
@@ -1654,13 +1687,13 @@
 
         <div class="mini-value-box">
           <p class="eyebrow">Book direct</p>
-          <p class="mini-value-lead">Save 10% on the listed public rate. Instant confirmation number.</p>
+          <p class="mini-value-lead">See your saving against the listed public rate. Instant confirmation number.</p>
         </div>
       </div>
 
       <div class="value-strip">
         <div class="value-item">
-          <strong>Save 10% direct</strong>
+          <strong>Save when booking direct</strong>
           <span>Live PMS-backed pricing for the stay you search.</span>
         </div>
         <div class="value-item">
@@ -2338,15 +2371,19 @@
     }
 
     function getDirectSavingDisplay(product) {
-      const directPrice = Number(product && (product.directPrice != null ? product.directPrice : product.estimatedPrice));
+      const directPrice = Number(product && (product.estimatedPrice != null ? product.estimatedPrice : product.directPrice));
       const comparisonPrice = Number(product && (product.comparisonPrice != null ? product.comparisonPrice : product.publicReferencePrice));
-      const savingsAmount = Number(product && product.savingsAmount || 0);
-      if (!Number.isFinite(directPrice) || !Number.isFinite(comparisonPrice) || comparisonPrice <= directPrice || savingsAmount <= 0) {
+      const savingsAmount = comparisonPrice - directPrice;
+      if (!Number.isFinite(directPrice) || !Number.isFinite(comparisonPrice) || !Number.isFinite(savingsAmount) || comparisonPrice <= directPrice || savingsAmount <= 0) {
         return null;
       }
+      const savingsPercentage = comparisonPrice > 0 ? (savingsAmount / comparisonPrice) * 100 : 0;
+      const percentageLabel = new Intl.NumberFormat("en-GB", {
+        maximumFractionDigits: 2
+      }).format(savingsPercentage);
       return {
         referencePrice: formatCurrency(comparisonPrice, product.currency),
-        label: String(product.savingsLabel || "").trim() || `Save ${formatCurrency(savingsAmount, product.currency)} when booking direct`
+        label: `You save ${formatCurrency(savingsAmount, product.currency)} (${percentageLabel}%)`
       };
     }
 
@@ -3410,6 +3447,7 @@
       if (selected.kind === "combination") {
         const nights = Math.max(0, Number(selected.nights || 0));
         const totalPrice = selected.estimatedPrice != null ? formatCurrency(selected.estimatedPrice, selected.currency) : "Price unavailable";
+        const savingDisplay = getDirectSavingDisplay(selected);
         const roomLabels = (Array.isArray(selected.rooms) ? selected.rooms : []).map((room) =>
           `${room.productLabel || room.roomTypeName || "Room"} · ${room.guests || ""} guest${Number(room.guests || 0) === 1 ? "" : "s"}`
         );
@@ -3418,7 +3456,11 @@
           <strong>${escapeHtml(selected.productLabel || "Room combination")}</strong>
           <p>${escapeHtml(roomLabels.join(" + "))}</p>
           <div class="selected-summary-facts">
-            <div class="selected-summary-fact"><small>Complete stay price</small><strong>${escapeHtml(totalPrice)}</strong></div>
+            <div class="selected-summary-fact">
+              <small>Book direct</small>
+              <strong>${escapeHtml(totalPrice)}</strong>
+              ${savingDisplay ? `<span class="selected-price-reference">Public price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
+            </div>
             <div class="selected-summary-fact"><small>Stay</small><strong>${nights} night${nights === 1 ? "" : "s"}</strong></div>
             <div class="selected-summary-fact"><small>Rooms</small><strong>${selected.roomCount} room${selected.roomCount === 1 ? "" : "s"}</strong></div>
             <div class="selected-summary-fact"><small>Guests</small><strong>${selected.totalGuests} guests</strong></div>
@@ -3440,9 +3482,9 @@
         ${productSummary ? `<p>${escapeHtml(productSummary)}</p>` : ""}
         <div class="selected-summary-facts">
           <div class="selected-summary-fact">
-            <small>Direct stay price</small>
+            <small>Book direct</small>
             <strong>${escapeHtml(totalPrice)}</strong>
-            ${savingDisplay ? `<span>${escapeHtml(savingDisplay.label)}</span>` : ""}
+            ${savingDisplay ? `<span class="selected-price-reference">Public price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
           </div>
           <div class="selected-summary-fact">
             <small>Stay</small>
@@ -3734,8 +3776,8 @@
             </div>
             <div class="product-side">
               <div class="product-price-panel">
-                <span class="product-price-label">Complete direct stay</span>
-                ${savingDisplay ? `<div class="product-reference-price">${escapeHtml(savingDisplay.referencePrice)}</div>` : ""}
+                ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">Public price</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
+                <span class="product-price-label">Book direct</span>
                 <div class="product-price">${escapeHtml(totalPrice)}</div>
                 ${savingDisplay ? `<div class="product-saving-label">${escapeHtml(savingDisplay.label)}</div>` : ""}
                 <p class="product-price-note">${product.nights} night${Number(product.nights) === 1 ? "" : "s"} · all rooms</p>
@@ -3812,8 +3854,8 @@
 
               <div class="product-side">
                 <div class="product-price-panel">
-                  <span class="product-price-label">Direct stay price</span>
-                  ${savingDisplay ? `<div class="product-reference-price">${escapeHtml(savingDisplay.referencePrice)}</div>` : ""}
+                  ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">Public price</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
+                  <span class="product-price-label">Book direct</span>
                   <div class="product-price">${escapeHtml(totalPrice || "Price unavailable")}</div>
                   ${savingDisplay ? `<div class="product-saving-label">${escapeHtml(savingDisplay.label)}</div>` : ""}
                   <p class="product-price-note">${escapeHtml(stayPriceNote)}</p>
