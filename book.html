@@ -47,6 +47,10 @@
     :root {
       --forest: #2D3A2F;
       --forest-deep: #202b22;
+      --booking-blue: #003b95;
+      --booking-blue-muted: #315a85;
+      --direct-green: #1f633d;
+      --direct-green-deep: #155236;
       --cream: #FDF8F2;
       --slate: #5F6C72;
       --sun: #BC7A4C;
@@ -1008,7 +1012,7 @@
 
     .product-price-label {
       display: block;
-      color: #4f5b51;
+      color: var(--direct-green);
       font-size: 0.64rem;
       font-weight: 800;
       letter-spacing: 0.14em;
@@ -1023,7 +1027,7 @@
     }
 
     .product-price {
-      color: var(--forest);
+      color: var(--direct-green-deep);
       font-family: "Fraunces", Georgia, serif;
       font-size: 2.28rem;
       font-weight: 600;
@@ -1037,12 +1041,13 @@
       flex-wrap: wrap;
       gap: 0.28rem;
       margin-top: 0.1rem;
-      color: #566158;
+      color: var(--booking-blue-muted);
       font-size: 0.72rem;
       font-weight: 700;
     }
 
     .product-reference-label {
+      color: var(--booking-blue);
       font-size: 0.6rem;
       font-weight: 800;
       letter-spacing: 0.1em;
@@ -1308,6 +1313,19 @@
       font-size: 0.86rem;
     }
 
+    .selected-price-fact {
+      border-color: rgba(23,107,69,0.16);
+      background: rgba(23,107,69,0.045);
+    }
+
+    .selected-price-fact small {
+      color: var(--direct-green);
+    }
+
+    .selected-price-fact > strong {
+      color: var(--direct-green-deep);
+    }
+
     .selected-price-reference,
     .selected-price-saving {
       display: block;
@@ -1317,7 +1335,12 @@
     }
 
     .selected-price-reference {
-      color: #566158;
+      color: var(--booking-blue);
+      font-weight: 700;
+    }
+
+    .selected-price-reference s {
+      color: var(--booking-blue-muted);
     }
 
     .selected-price-saving {
@@ -3456,7 +3479,7 @@
           <strong>${escapeHtml(selected.productLabel || "Room combination")}</strong>
           <p>${escapeHtml(roomLabels.join(" + "))}</p>
           <div class="selected-summary-facts">
-            <div class="selected-summary-fact">
+            <div class="selected-summary-fact selected-price-fact">
               <small>Book direct</small>
               <strong>${escapeHtml(totalPrice)}</strong>
               ${savingDisplay ? `<span class="selected-price-reference">Booking.com price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
@@ -3481,7 +3504,7 @@
         <strong>${escapeHtml(selected.productLabel || selected.productName || "Selected room option")}</strong>
         ${productSummary ? `<p>${escapeHtml(productSummary)}</p>` : ""}
         <div class="selected-summary-facts">
-          <div class="selected-summary-fact">
+          <div class="selected-summary-fact selected-price-fact">
             <small>Book direct</small>
             <strong>${escapeHtml(totalPrice)}</strong>
             ${savingDisplay ? `<span class="selected-price-reference">Booking.com price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
