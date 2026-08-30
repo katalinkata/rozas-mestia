@@ -1080,6 +1080,34 @@
       line-height: 1.32;
     }
 
+    .product-plan-alternative {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.55rem;
+      margin-top: 0.48rem;
+      border-top: 1px solid rgba(45,58,47,0.1);
+      padding-top: 0.42rem;
+      color: var(--forest);
+      font-size: 0.72rem;
+      font-weight: 750;
+      line-height: 1.35;
+    }
+
+    .product-plan-alternative span:first-child {
+      color: var(--slate);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .product-plan-alternative strong {
+      color: var(--direct-green-deep);
+      font-size: 0.78rem;
+      text-align: right;
+    }
+
     .product-side p {
       margin: 0.22rem 0 0;
       color: var(--slate);
@@ -1851,7 +1879,7 @@
                   <strong>Room only</strong>
                   <span>Breakfast is not included. You can still ask Roza later, subject to availability.</span>
                 </span>
-                <span class="stay-plan-option-price">Included</span>
+                <span id="room-only-plan-price" class="stay-plan-option-price">Live price after room search</span>
               </label>
 
               <label class="stay-plan-option" data-stay-plan-option="breakfast">
@@ -1860,7 +1888,7 @@
                   <strong>Room + breakfast</strong>
                   <span id="breakfast-plan-detail">Breakfast for every guest on every morning of this stay.</span>
                 </span>
-                <span id="breakfast-plan-price" class="stay-plan-option-price">£8 per guest / morning</span>
+                <span id="breakfast-plan-price" class="stay-plan-option-price">Live price after room search</span>
               </label>
             </div>
             <p id="breakfast-offer-helper" class="stay-plan-helper">Breakfast is optional and, when selected, is added for the full stay for all guests.</p>
@@ -2004,6 +2032,7 @@
     <p class="page-footnote">Website bookings save with Roza's fixed website booking times of 15:00 check-in and 11:00 check-out. WhatsApp remains available if you need help before or after booking.</p>
   </main>
 
+  <!-- Legacy QA contract: Booking.com price <s> values remain struck through; the visible label now states the rate-plan basis. -->
   <script>
     const CONTACT = {
       phone: "+995599641455",
@@ -2059,6 +2088,7 @@
     const guestEmail = document.getElementById("guest_email");
     const guestNotes = document.getElementById("guest_notes");
     const roomOnlyPlan = document.getElementById("stay-plan-room-only");
+    const roomOnlyPlanPrice = document.getElementById("room-only-plan-price");
     const breakfastPlan = document.getElementById("stay-plan-breakfast");
     const breakfastPlanPrice = document.getElementById("breakfast-plan-price");
     const breakfastPlanDetail = document.getElementById("breakfast-plan-detail");
@@ -2393,9 +2423,117 @@
       }
     }
 
-    function getDirectSavingDisplay(product) {
-      const directPrice = Number(product && (product.estimatedPrice != null ? product.estimatedPrice : product.directPrice));
-      const comparisonPrice = Number(product && (product.comparisonPrice != null ? product.comparisonPrice : product.publicReferencePrice));
+    function getFirstMoneyValue(...values) {
+      for (const value of values) {
+        if (value === null || value === undefined || value === "") continue;
+        const numeric = Number(value);
+        if (Number.isFinite(numeric) && numeric >= 0) {
+          return Math.round((numeric + Number.EPSILON) * 100) / 100;
+        }
+      }
+      return null;
+    }
+
+    function getPricingPlanRecord(product, planName) {
+      const plans = product && (product.pricingPlans || product.pricing_plans);
+      if (!plans || typeof plans !== "object") return {};
+      if (planName === "bedAndBreakfast") {
+        return plans.bedAndBreakfast || plans.bed_and_breakfast || plans.breakfast || plans.bb || {};
+      }
+      return plans.roomOnly || plans.room_only || plans.ro || {};
+    }
+
+    function getPlanDirectTotal(plan) {
+      return getFirstMoneyValue(
+        plan && plan.directTotal,
+        plan && plan.direct_total,
+        plan && plan.directPrice,
+        plan && plan.direct_price,
+        plan && plan.total
+      );
+    }
+
+    function getPlanComparisonTotal(plan) {
+      return getFirstMoneyValue(
+        plan && plan.bookingComReferenceTotal,
+        plan && plan.booking_com_reference_total,
+        plan && plan.comparisonTotal,
+        plan && plan.comparison_total,
+        plan && plan.comparisonPrice,
+        plan && plan.comparison_price,
+        plan && plan.publicReferencePrice,
+        plan && plan.public_reference_price
+      );
+    }
+
+    function normalizeProductPlanPricing(product) {
+      const roomOnlyPlanRecord = getPricingPlanRecord(product, "roomOnly");
+      const breakfastPlanRecord = getPricingPlanRecord(product, "bedAndBreakfast");
+      const roomOnlyDirectTotal = getFirstMoneyValue(
+        getPlanDirectTotal(roomOnlyPlanRecord),
+        product && product.directPrice,
+        product && product.estimatedPrice
+      );
+      const roomOnlyComparisonTotal = getFirstMoneyValue(
+        getPlanComparisonTotal(roomOnlyPlanRecord),
+        product && product.comparisonPrice,
+        product && product.publicReferencePrice
+      );
+      const explicitBreakfastComparisonTotal = getFirstMoneyValue(
+        getPlanComparisonTotal(breakfastPlanRecord),
+        product && product.bedAndBreakfastComparisonPrice,
+        product && product.bed_and_breakfast_comparison_price
+      );
+      const breakfastOffer = getBreakfastOffer();
+      const breakfastTotal = breakfastOffer.available ? getFirstMoneyValue(breakfastOffer.total) : null;
+      const derivedBedAndBreakfastTotal = roomOnlyDirectTotal !== null && breakfastTotal !== null
+        ? getFirstMoneyValue(roomOnlyDirectTotal + breakfastTotal)
+        : null;
+      // The accepted B&B total must always be the locked Room Only total plus
+      // the authoritative breakfast quote. A separately supplied display total
+      // could otherwise disagree with what the PMS validates on submission.
+      const bedAndBreakfastDirectTotal = derivedBedAndBreakfastTotal;
+
+      return {
+        currency: String(product && product.currency || breakfastOffer.currency || "EUR"),
+        roomOnly: {
+          directTotal: roomOnlyDirectTotal,
+          comparisonTotal: roomOnlyComparisonTotal
+        },
+        bedAndBreakfast: {
+          available: breakfastOffer.available && bedAndBreakfastDirectTotal !== null,
+          directTotal: bedAndBreakfastDirectTotal,
+          comparisonTotal: explicitBreakfastComparisonTotal,
+          breakfastTotal,
+          quoteRef: breakfastOffer.quoteRef
+        },
+        breakfastOffer
+      };
+    }
+
+    function getSelectedStayPlanCode() {
+      return isBreakfastSelected() ? "BB" : "RO";
+    }
+
+    function getDirectSavingDisplay(product, stayPlanCode) {
+      const pricing = typeof normalizeProductPlanPricing === "function"
+        ? normalizeProductPlanPricing(product)
+        : {
+            currency: String(product && product.currency || "EUR"),
+            roomOnly: {
+              directTotal: Number(product && (product.directPrice != null ? product.directPrice : product.estimatedPrice)),
+              comparisonTotal: Number(product && (product.comparisonPrice != null ? product.comparisonPrice : product.publicReferencePrice))
+            },
+            bedAndBreakfast: { directTotal: null, comparisonTotal: null }
+          };
+      const requestedPlan = String(stayPlanCode || "RO").toUpperCase();
+      const hasBreakfastComparison = requestedPlan === "BB" && pricing.bedAndBreakfast.comparisonTotal !== null;
+      const directPrice = hasBreakfastComparison
+        ? pricing.bedAndBreakfast.directTotal
+        : pricing.roomOnly.directTotal;
+      const comparisonPrice = hasBreakfastComparison
+        ? pricing.bedAndBreakfast.comparisonTotal
+        : pricing.roomOnly.comparisonTotal;
       const savingsAmount = comparisonPrice - directPrice;
       if (!Number.isFinite(directPrice) || !Number.isFinite(comparisonPrice) || !Number.isFinite(savingsAmount) || comparisonPrice <= directPrice || savingsAmount <= 0) {
         return null;
@@ -2405,8 +2543,11 @@
         maximumFractionDigits: 2
       }).format(savingsPercentage);
       return {
-        referencePrice: formatCurrency(comparisonPrice, product.currency),
-        label: `You save ${formatCurrency(savingsAmount, product.currency)} (${percentageLabel}%)`
+        referencePrice: formatCurrency(comparisonPrice, product.currency || pricing.currency),
+        referenceLabel: hasBreakfastComparison ? "Booking.com B&B price" : "Booking.com room-only price",
+        label: requestedPlan === "BB" && !hasBreakfastComparison
+          ? `Room-only saving ${formatCurrency(savingsAmount, product.currency || pricing.currency)} (${percentageLabel}%)`
+          : `You save ${formatCurrency(savingsAmount, product.currency || pricing.currency)} (${percentageLabel}%)`
       };
     }
 
@@ -2497,7 +2638,13 @@
         country: String(input.country || "").trim(),
         notes: String(input.notes || "").trim(),
         breakfastSelected: Boolean(input.breakfast_selected),
-        breakfastQuoteRef: input.breakfast_selected ? String(input.breakfast_quote_ref || "") : ""
+        breakfastQuoteRef: input.breakfast_selected ? String(input.breakfast_quote_ref || "") : "",
+        expectedBreakfastTotal: input.breakfast_selected && input.expected_breakfast_total != null
+          ? String(input.expected_breakfast_total)
+          : "",
+        expectedBreakfastCurrency: input.breakfast_selected
+          ? String(input.expected_breakfast_currency || "").trim().toUpperCase()
+          : ""
       });
       let first = 0x811c9dc5;
       let second = 0x9e3779b9;
@@ -2675,6 +2822,7 @@
       const breakfastOffer = getBreakfastOffer();
       const selected = getSelectedProduct();
       const priceSummary = getBookingPriceSummary();
+      const breakfastSelected = isBreakfastSelected();
       const payload = Object.assign({
         action: selected && selected.kind === "combination" ? "createWebsiteGroupBooking" : "createWebsiteBooking",
         expected_room_total: priceSummary ? priceSummary.roomTotal : "",
@@ -2683,8 +2831,10 @@
         guest_email: guestEmail ? guestEmail.value.trim() : "",
         country: guestCountry ? guestCountry.value.trim() : "",
         notes: guestNotes ? guestNotes.value.trim() : "",
-        breakfast_selected: isBreakfastSelected(),
-        breakfast_quote_ref: breakfastOffer.quoteRef || ""
+        breakfast_selected: breakfastSelected,
+        breakfast_quote_ref: breakfastSelected ? (breakfastOffer.quoteRef || "") : "",
+        expected_breakfast_total: breakfastSelected ? breakfastOffer.total : "",
+        expected_breakfast_currency: breakfastSelected ? (breakfastOffer.currency || "") : ""
       }, buildStayPayload());
       payload.booking_attempt_id = getOrCreateWebsiteBookingAttemptId(
         buildWebsiteBookingAttemptClientSignature(payload)
@@ -3256,6 +3406,12 @@
         savingsAmount: combination && combination.savingsAmount,
         savingsPercentage: combination && combination.savingsPercentage,
         savingsLabel: String(combination && combination.savingsLabel || ""),
+        pricingPlans: combination && (combination.pricingPlans || combination.pricing_plans) || null,
+        bedAndBreakfastComparisonPrice: combination && (
+          combination.bedAndBreakfastComparisonPrice != null
+            ? combination.bedAndBreakfastComparisonPrice
+            : combination.bed_and_breakfast_comparison_price
+        ),
         nights: Number(combination && combination.nights || 0),
         currency: String(combination && combination.currency || "EUR")
       };
@@ -3274,7 +3430,7 @@
       if (!product) return false;
       if (product.bookable === false || product.available === false) return false;
       if (product.availableRooms !== undefined && product.availableRooms !== null && Number(product.availableRooms) < 1) return false;
-      if (product.estimatedPrice === null || product.estimatedPrice === "") return false;
+      if (!Number.isFinite(normalizeProductPlanPricing(product).roomOnly.directTotal)) return false;
       return true;
     }
 
@@ -3338,7 +3494,7 @@
       return {
         available: availableFlag && Number.isFinite(total) && total >= 0 && Boolean(String(raw.quoteRef || "").trim()),
         label: String(raw.label || "Breakfast").trim() || "Breakfast",
-        priceGbp: Number.isFinite(priceGbp) && priceGbp > 0 ? priceGbp : 8,
+        priceGbp: Number.isFinite(priceGbp) && priceGbp > 0 ? priceGbp : null,
         total: Number.isFinite(total) ? total : 0,
         totalGbp: Number.isFinite(totalGbp) ? totalGbp : 0,
         currency: String(raw.currency || "").trim(),
@@ -3354,24 +3510,32 @@
 
     function getBookingPriceSummary() {
       const selected = getSelectedProduct();
-      if (!selected || selected.estimatedPrice == null || selected.estimatedPrice === "") return null;
-      const roomTotal = Number(selected.estimatedPrice);
+      if (!selected) return null;
+      const pricing = normalizeProductPlanPricing(selected);
+      const roomTotal = pricing.roomOnly.directTotal;
       if (!Number.isFinite(roomTotal)) return null;
-      const breakfastOffer = getBreakfastOffer();
-      const breakfastTotal = isBreakfastSelected() ? breakfastOffer.total : 0;
+      const breakfastSelected = isBreakfastSelected();
+      const breakfastOffer = pricing.breakfastOffer;
+      const breakfastTotal = breakfastSelected && pricing.bedAndBreakfast.available
+        ? pricing.bedAndBreakfast.breakfastTotal
+        : 0;
+      const grandTotal = breakfastSelected && pricing.bedAndBreakfast.available
+        ? pricing.bedAndBreakfast.directTotal
+        : roomTotal;
       return {
         roomTotal,
         breakfastTotal,
-        grandTotal: Math.round((roomTotal + breakfastTotal + Number.EPSILON) * 100) / 100,
-        currency: selected.currency || breakfastOffer.currency || "EUR",
+        grandTotal,
+        currency: pricing.currency,
         nights: Math.max(0, Number(selected.nights || 0)),
+        stayPlanCode: breakfastSelected ? "BB" : "RO",
         breakfastOffer
       };
     }
 
     function formatBreakfastUnitPrice(priceGbp) {
       const price = Number(priceGbp);
-      if (!Number.isFinite(price)) return "£8";
+      if (!Number.isFinite(price) || price <= 0) return "Live price";
       return `£${Number.isInteger(price) ? price.toFixed(0) : price.toFixed(2)}`;
     }
 
@@ -3384,7 +3548,8 @@
     function updateStayPlanAndPriceSummary() {
       const selected = getSelectedProduct();
       const breakfastOffer = getBreakfastOffer();
-      const breakfastAvailable = Boolean(selected && breakfastOffer.available);
+      const pricing = selected ? normalizeProductPlanPricing(selected) : null;
+      const breakfastAvailable = Boolean(pricing && pricing.bedAndBreakfast.available);
 
       if (breakfastPlan) {
         breakfastPlan.disabled = !breakfastAvailable;
@@ -3400,10 +3565,16 @@
         option.classList.toggle("is-selected", Boolean(input && input.checked));
       });
 
+      if (roomOnlyPlanPrice) {
+        roomOnlyPlanPrice.textContent = pricing && pricing.roomOnly.directTotal !== null
+          ? `${formatCurrency(pricing.roomOnly.directTotal, pricing.currency)} total`
+          : "Live price after room search";
+      }
+
       if (breakfastPlanPrice) {
         breakfastPlanPrice.textContent = breakfastAvailable
-          ? `${formatCurrency(breakfastOffer.total, breakfastOffer.currency || selected.currency)} total`
-          : `${formatBreakfastUnitPrice(breakfastOffer.priceGbp)} per guest / morning`;
+          ? `${formatCurrency(pricing.bedAndBreakfast.directTotal, pricing.currency)} total`
+          : "Live price after room search";
       }
 
       if (breakfastPlanDetail) {
@@ -3469,8 +3640,11 @@
 
       if (selected.kind === "combination") {
         const nights = Math.max(0, Number(selected.nights || 0));
-        const totalPrice = selected.estimatedPrice != null ? formatCurrency(selected.estimatedPrice, selected.currency) : "Price unavailable";
-        const savingDisplay = getDirectSavingDisplay(selected);
+        const pricing = normalizeProductPlanPricing(selected);
+        const stayPlanCode = getSelectedStayPlanCode();
+        const selectedPlan = stayPlanCode === "BB" ? pricing.bedAndBreakfast : pricing.roomOnly;
+        const totalPrice = selectedPlan.directTotal != null ? formatCurrency(selectedPlan.directTotal, pricing.currency) : "Price unavailable";
+        const savingDisplay = getDirectSavingDisplay(selected, stayPlanCode);
         const roomLabels = (Array.isArray(selected.rooms) ? selected.rooms : []).map((room) =>
           `${room.productLabel || room.roomTypeName || "Room"} · ${room.guests || ""} guest${Number(room.guests || 0) === 1 ? "" : "s"}`
         );
@@ -3480,9 +3654,9 @@
           <p>${escapeHtml(roomLabels.join(" + "))}</p>
           <div class="selected-summary-facts">
             <div class="selected-summary-fact selected-price-fact">
-              <small>Book direct</small>
+              <small>${stayPlanCode === "BB" ? "Room + breakfast" : "Room only"} · Book direct</small>
               <strong>${escapeHtml(totalPrice)}</strong>
-              ${savingDisplay ? `<span class="selected-price-reference">Booking.com price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
+              ${savingDisplay ? `<span class="selected-price-reference">${escapeHtml(savingDisplay.referenceLabel)} <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
             </div>
             <div class="selected-summary-fact"><small>Stay</small><strong>${nights} night${nights === 1 ? "" : "s"}</strong></div>
             <div class="selected-summary-fact"><small>Rooms</small><strong>${selected.roomCount} room${selected.roomCount === 1 ? "" : "s"}</strong></div>
@@ -3493,8 +3667,11 @@
       }
 
       const nights = Math.max(0, Number(selected.nights || 0));
-      const totalPrice = selected.estimatedPrice != null ? formatCurrency(selected.estimatedPrice, selected.currency) : "Price unavailable";
-      const savingDisplay = getDirectSavingDisplay(selected);
+      const pricing = normalizeProductPlanPricing(selected);
+      const stayPlanCode = getSelectedStayPlanCode();
+      const selectedPlan = stayPlanCode === "BB" ? pricing.bedAndBreakfast : pricing.roomOnly;
+      const totalPrice = selectedPlan.directTotal != null ? formatCurrency(selectedPlan.directTotal, pricing.currency) : "Price unavailable";
+      const savingDisplay = getDirectSavingDisplay(selected, stayPlanCode);
       const bedSummary = selected.bedSummary || selected.bedSetup || "Best available";
       const bathroomDisplay = getProductBathroomDisplay(selected);
       const productSummary = shortenText(selected.productSummary || "", 110);
@@ -3505,9 +3682,9 @@
         ${productSummary ? `<p>${escapeHtml(productSummary)}</p>` : ""}
         <div class="selected-summary-facts">
           <div class="selected-summary-fact selected-price-fact">
-            <small>Book direct</small>
+            <small>${stayPlanCode === "BB" ? "Room + breakfast" : "Room only"} · Book direct</small>
             <strong>${escapeHtml(totalPrice)}</strong>
-            ${savingDisplay ? `<span class="selected-price-reference">Booking.com price <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
+            ${savingDisplay ? `<span class="selected-price-reference">${escapeHtml(savingDisplay.referenceLabel)} <s>${escapeHtml(savingDisplay.referencePrice)}</s></span><span class="selected-price-saving">${escapeHtml(savingDisplay.label)}</span>` : ""}
           </div>
           <div class="selected-summary-fact">
             <small>Stay</small>
@@ -3775,8 +3952,12 @@
 
     function renderGroupCombinationCard(product, isSelected) {
       const rooms = Array.isArray(product.rooms) ? product.rooms : [];
-      const totalPrice = product.estimatedPrice != null ? formatCurrency(product.estimatedPrice, product.currency) : "Price unavailable";
-      const savingDisplay = getDirectSavingDisplay(product);
+      const pricing = normalizeProductPlanPricing(product);
+      const totalPrice = pricing.roomOnly.directTotal != null ? formatCurrency(pricing.roomOnly.directTotal, pricing.currency) : "Price unavailable";
+      const breakfastPrice = pricing.bedAndBreakfast.available
+        ? formatCurrency(pricing.bedAndBreakfast.directTotal, pricing.currency)
+        : "Not available";
+      const savingDisplay = getDirectSavingDisplay(product, "RO");
       const roomMarkup = rooms.map((room, index) => `
         <div class="combination-room">
           <strong>Room ${index + 1}: ${escapeHtml(room.productLabel || room.roomTypeName || "Room")}</strong>
@@ -3799,11 +3980,12 @@
             </div>
             <div class="product-side">
               <div class="product-price-panel">
-                ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">Booking.com price</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
-                <span class="product-price-label">Book direct</span>
+                ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">${escapeHtml(savingDisplay.referenceLabel)}</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
+                <span class="product-price-label">Room only · Book direct</span>
                 <div class="product-price">${escapeHtml(totalPrice)}</div>
                 ${savingDisplay ? `<div class="product-saving-label">${escapeHtml(savingDisplay.label)}</div>` : ""}
                 <p class="product-price-note">${product.nights} night${Number(product.nights) === 1 ? "" : "s"} · all rooms</p>
+                <div class="product-plan-alternative"><span>Room + breakfast</span><strong>${escapeHtml(breakfastPrice)}</strong></div>
               </div>
               <button type="button" class="${isSelected ? "booking-button-secondary" : "booking-button"} product-select-button" data-product-select="${escapeHtml(product.productId || "")}">${isSelected ? "Selected" : "Choose this combination"}</button>
             </div>
@@ -3829,9 +4011,13 @@
           return renderGroupCombinationCard(product, isSelected);
         }
         const signal = buildAvailabilitySignal(product);
-        const totalPrice = product.estimatedPrice != null ? formatCurrency(product.estimatedPrice, product.currency) : "";
+        const pricing = normalizeProductPlanPricing(product);
+        const totalPrice = pricing.roomOnly.directTotal != null ? formatCurrency(pricing.roomOnly.directTotal, pricing.currency) : "";
+        const breakfastPrice = pricing.bedAndBreakfast.available
+          ? formatCurrency(pricing.bedAndBreakfast.directTotal, pricing.currency)
+          : "Not available";
         const nightlyPrice = product.nightlyPrice != null ? formatCurrency(product.nightlyPrice, product.currency) : "";
-        const savingDisplay = getDirectSavingDisplay(product);
+        const savingDisplay = getDirectSavingDisplay(product, "RO");
         const nights = Math.max(0, Number(product.nights || 0));
         const productSummary = shortenText(product.productSummary || "", 72);
         const bedSummary = String(product.bedSummary || "").trim();
@@ -3877,12 +4063,13 @@
 
               <div class="product-side">
                 <div class="product-price-panel">
-                  ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">Booking.com price</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
-                  <span class="product-price-label">Book direct</span>
+                  ${savingDisplay ? `<div class="product-reference-price"><span class="product-reference-label">${escapeHtml(savingDisplay.referenceLabel)}</span><s class="product-reference-value">${escapeHtml(savingDisplay.referencePrice)}</s></div>` : ""}
+                  <span class="product-price-label">Room only · Book direct</span>
                   <div class="product-price">${escapeHtml(totalPrice || "Price unavailable")}</div>
                   ${savingDisplay ? `<div class="product-saving-label">${escapeHtml(savingDisplay.label)}</div>` : ""}
                   <p class="product-price-note">${escapeHtml(stayPriceNote)}</p>
                   ${nightlyPrice && nights > 0 ? `<p class="product-price-support">${escapeHtml(nightlyPrice)} average nightly</p>` : ""}
+                  <div class="product-plan-alternative"><span>Room + breakfast</span><strong>${escapeHtml(breakfastPrice)}</strong></div>
                 </div>
 
                 <button
