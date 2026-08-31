@@ -2434,6 +2434,14 @@
       return null;
     }
 
+    function getFirstTextValue(...values) {
+      for (const value of values) {
+        const text = String(value == null ? "" : value).trim();
+        if (text) return text;
+      }
+      return "";
+    }
+
     function getPricingPlanRecord(product, planName) {
       const plans = product && (product.pricingPlans || product.pricing_plans);
       if (!plans || typeof plans !== "object") return {};
@@ -2515,6 +2523,60 @@
       return isBreakfastSelected() ? "BB" : "RO";
     }
 
+    function getProductComparisonLabel(product, stayPlanCode) {
+      const requestedPlan = String(stayPlanCode || "RO").toUpperCase();
+      const planRecord = getPricingPlanRecord(
+        product,
+        requestedPlan === "BB" ? "bedAndBreakfast" : "roomOnly"
+      );
+      const planLabel = getFirstTextValue(
+        planRecord && planRecord.comparisonLabel,
+        planRecord && planRecord.comparison_label
+      );
+      const label = getFirstTextValue(
+        planLabel,
+        product && product.comparisonLabel,
+        product && product.comparison_label
+      );
+      const source = getFirstTextValue(
+        planRecord && planRecord.comparisonSource,
+        planRecord && planRecord.comparison_source,
+        product && product.comparisonSource,
+        product && product.comparison_source
+      );
+      const sourceKey = source.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+      const isBookingComSource = sourceKey === "booking_com_standard";
+      const isMixedSource = sourceKey.indexOf("mixed") !== -1;
+      const isStandardSource = sourceKey === "standard_room_only" || sourceKey === "room_only_reference";
+      const labelClaimsBookingCom = /booking\.com/i.test(label);
+
+      if (isBookingComSource) {
+        if (requestedPlan === "BB") {
+          return planLabel && /booking\.com/i.test(planLabel)
+            ? planLabel
+            : "Booking.com B&B price";
+        }
+        return labelClaimsBookingCom ? label : "Booking.com room-only price";
+      }
+
+      if (isMixedSource) {
+        if (requestedPlan === "BB" && !planLabel) return "B&B reference price";
+        return label && !labelClaimsBookingCom ? label : "Room-only reference price";
+      }
+
+      if (isStandardSource) {
+        if (requestedPlan === "BB" && !planLabel) return "Standard B&B price";
+        return label && !labelClaimsBookingCom
+          ? label
+          : (requestedPlan === "BB" ? "Standard B&B price" : "Standard room-only price");
+      }
+
+      // OTA wording must fail closed unless the backend explicitly verifies the source.
+      if (label && !labelClaimsBookingCom) return label;
+
+      return requestedPlan === "BB" ? "Standard B&B price" : "Standard room-only price";
+    }
+
     function getDirectSavingDisplay(product, stayPlanCode) {
       const pricing = typeof normalizeProductPlanPricing === "function"
         ? normalizeProductPlanPricing(product)
@@ -2544,7 +2606,9 @@
       }).format(savingsPercentage);
       return {
         referencePrice: formatCurrency(comparisonPrice, product.currency || pricing.currency),
-        referenceLabel: hasBreakfastComparison ? "Booking.com B&B price" : "Booking.com room-only price",
+        referenceLabel: typeof getProductComparisonLabel === "function"
+          ? getProductComparisonLabel(product, hasBreakfastComparison ? "BB" : "RO")
+          : (hasBreakfastComparison ? "Standard B&B price" : "Standard room-only price"),
         label: requestedPlan === "BB" && !hasBreakfastComparison
           ? `Room-only saving ${formatCurrency(savingsAmount, product.currency || pricing.currency)} (${percentageLabel}%)`
           : `You save ${formatCurrency(savingsAmount, product.currency || pricing.currency)} (${percentageLabel}%)`
@@ -3403,6 +3467,8 @@
         directPrice: combination && combination.directPrice,
         comparisonPrice: combination && combination.comparisonPrice,
         publicReferencePrice: combination && combination.publicReferencePrice,
+        comparisonSource: String(combination && (combination.comparisonSource || combination.comparison_source) || ""),
+        comparisonLabel: String(combination && (combination.comparisonLabel || combination.comparison_label) || ""),
         savingsAmount: combination && combination.savingsAmount,
         savingsPercentage: combination && combination.savingsPercentage,
         savingsLabel: String(combination && combination.savingsLabel || ""),
