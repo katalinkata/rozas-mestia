@@ -10,7 +10,7 @@
   />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#2D3A2F" />
-  <link rel="canonical" href="https://www.rozaguesthouse.com/book.html" />
+  <link rel="canonical" href="https://roza-guest-house.github.io/rozas-mestia/book.html" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Roza's Guest House" />
@@ -19,8 +19,8 @@
     property="og:description"
     content="Search live room products and confirm your direct booking with Roza's Guest House."
   />
-  <meta property="og:url" content="https://www.rozaguesthouse.com/book.html" />
-  <meta property="og:image" content="https://www.rozaguesthouse.com/hero-social.jpg" />
+  <meta property="og:url" content="https://roza-guest-house.github.io/rozas-mestia/book.html" />
+  <meta property="og:image" content="https://roza-guest-house.github.io/rozas-mestia/hero-social.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -31,7 +31,7 @@
     name="twitter:description"
     content="Search live room products and confirm your direct booking with Roza's Guest House."
   />
-  <meta name="twitter:image" content="https://www.rozaguesthouse.com/hero-social.jpg" />
+  <meta name="twitter:image" content="https://roza-guest-house.github.io/rozas-mestia/hero-social.jpg" />
   <meta name="twitter:image:alt" content="Sunset over the mountains of Svaneti near Roza's Guest House in Mestia" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://script.google.com" crossorigin />
@@ -1706,6 +1706,29 @@
         min-height: 14rem;
       }
     }
+
+    .room-gallery[hidden], .category-preference[hidden] { display:none; }
+    html:has(body.room-gallery-open), body.room-gallery-open { overflow:hidden; }
+    .room-gallery-main { touch-action:pan-y pinch-zoom; min-height:0; flex-shrink:0; }
+    .room-gallery-main img { height:60vh; }
+    .room-gallery-close, .room-gallery-nav button { width:44px; height:44px; }
+    .room-gallery-nav { inset:0; align-items:center; pointer-events:none; }
+    .room-gallery-nav button { pointer-events:auto; } .room-gallery-nav button:disabled { opacity:.4; }
+    .room-gallery-meta { display:flex; align-items:center; justify-content:space-between; gap:1rem; font-size:.8rem; line-height:1.5; color:var(--slate); }
+    .room-gallery-meta p { margin:0; } #room-gallery-count { flex-shrink:0; font-weight:700; }
+    .room-gallery-thumbs { display:flex; overflow-x:auto; padding:3px; flex-shrink:0; }
+    .room-gallery-thumb { flex:0 0 5rem; }
+    .category-preference { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:1rem 0; padding:1rem; border-radius:1rem; border:1px solid rgba(45,58,47,.18); background:var(--cream); font-size:.87rem; line-height:1.6; }
+    .category-preference p { margin:0; } .category-preference button { flex-shrink:0; min-height:44px; padding:.5rem .8rem; background:white; border:1px solid rgba(45,58,47,.18); border-radius:.7rem; cursor:pointer; color:var(--forest); font:inherit; }
+    .category-match { margin:0 0 .6rem; color:var(--forest); font-size:.78rem; font-weight:800; }
+    @media (max-width:767px) {
+      .room-gallery { padding:.45rem; } .room-gallery-panel { max-height:calc(100dvh - .9rem); }
+      .room-gallery-header { padding:.75rem; } .room-gallery-header h3 { font-size:1.2rem; }
+      .room-gallery-body { gap:.65rem; padding:.65rem .75rem .8rem; }
+      .room-gallery-main { min-height:0; } .room-gallery-main img { height:48dvh; }
+      .room-gallery-thumb { flex-basis:4rem; } .room-gallery-meta { font-size:.75rem; }
+      .category-preference { flex-direction:column; align-items:flex-start; gap:.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -1745,15 +1768,15 @@
       <div class="value-strip">
         <div class="value-item">
           <strong>Save when booking direct</strong>
-          <span>Live PMS-backed pricing for the stay you search.</span>
+          <span>See live prices for your dates and guest count.</span>
         </div>
         <div class="value-item">
           <strong>Instant confirmation number</strong>
-          <span>If the room is still valid, a confirmation number is created directly in Roza's PMS.</span>
+          <span>Your reservation is confirmed when you receive a booking reference.</span>
         </div>
         <div class="value-item">
           <strong>Direct with Roza</strong>
-          <span>Choose from guest-friendly room options with internal room codes hidden.</span>
+          <span>Compare room layouts, bed choices and optional breakfast.</span>
         </div>
         <div class="value-item">
           <strong>WhatsApp help</strong>
@@ -1780,6 +1803,10 @@
           <span class="section-tag">Live availability</span>
         </div>
 
+        <div id="category-preference" class="category-preference" hidden>
+          <p id="category-preference-copy"></p>
+          <button id="clear-category-preference" type="button">Clear room interest</button>
+        </div>
         <div class="search-grid">
           <label class="field-group">
             <span class="field-label">Check-in</span>
@@ -1994,7 +2021,7 @@
       </section>
     </form>
 
-    <div id="room-gallery" class="room-gallery" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="room-gallery-title">
+    <div id="room-gallery" class="room-gallery" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="room-gallery-title">
       <div class="room-gallery-backdrop" data-room-gallery-close></div>
       <div class="room-gallery-panel">
         <div class="room-gallery-header">
@@ -2024,6 +2051,7 @@
               </button>
             </div>
           </div>
+          <div class="room-gallery-meta"><p id="room-gallery-caption"></p><span id="room-gallery-count" role="status" aria-live="polite" aria-atomic="true"></span></div>
           <div id="room-gallery-thumbs" class="room-gallery-thumbs"></div>
         </div>
       </div>
@@ -2033,6 +2061,9 @@
   </main>
 
   <!-- Legacy QA contract: Booking.com price <s> values remain struck through; the visible label now states the rate-plan basis. -->
+  <script src="assets/js/stay-context.js"></script>
+  <script src="assets/js/measurement-config.js"></script>
+  <script src="assets/js/measurement.js"></script>
   <script>
     const CONTACT = {
       phone: "+995599641455",
@@ -2107,6 +2138,8 @@
     const roomGallery = document.getElementById("room-gallery");
     const roomGalleryImage = document.getElementById("room-gallery-image");
     const roomGalleryTitle = document.getElementById("room-gallery-title");
+    const roomGalleryCaption = document.getElementById("room-gallery-caption");
+    const roomGalleryCount = document.getElementById("room-gallery-count");
     const roomGalleryThumbs = document.getElementById("room-gallery-thumbs");
     const roomGalleryClose = document.getElementById("room-gallery-close");
     const roomGalleryPrev = document.getElementById("room-gallery-prev");
@@ -2128,6 +2161,8 @@
 
     let availabilityBusy = false;
     let websiteSubmitBusy = false;
+    let measurementBookingOutcomeUnknown = false;
+    const measurementUnknownBookingAttempts = new Set();
     let websiteBookingAttemptId = "";
     let websiteBookingAttemptSignature = "";
     let availabilityRequestSequence = 0;
@@ -2153,33 +2188,33 @@
     const PRODUCT_GALLERIES = {
       CLASSIC_2: [
         { src: "assets/images/optimized/classic-double-room.webp", alt: "Classic Mountain View Room for up to two guests at Roza's Guest House" },
-        { src: "assets/images/optimized/guest-room-bathroom-shower.webp", alt: "Shared shower and WC for Classic Mountain View Room guests at Roza's Guest House" },
-        { src: "assets/images/optimized/guest-room-bathroom-washbasin.webp", alt: "Shared washbasin and amenities for Classic Mountain View Room guests at Roza's Guest House" }
+
+
       ],
       PEAKMV_2: [
         { src: "assets/images/optimized/peak-mountain-view-towers.webp", alt: "Peak Mountain View double room with a view of Mestia's towers" },
         { src: "assets/images/optimized/peak-mountain-view-double.webp", alt: "Alternate Peak Mountain View double room for two guests" },
         { src: "assets/images/optimized/peak-mountain-view-twin.webp", alt: "Peak Mountain View twin room for two guests" },
-        { src: "assets/images/optimized/guest-room-bathroom-shower.webp", alt: "Private ensuite shower and WC for Peak Mountain View rooms" },
-        { src: "assets/images/optimized/guest-room-bathroom-washbasin.webp", alt: "Private ensuite washbasin and amenities for Peak Mountain View rooms" }
+
+
       ],
       PEAKMV_3: [
         { src: "assets/images/optimized/peak-mountain-view-triple-one.webp", alt: "Peak Mountain View ensuite room for three guests" },
         { src: "assets/images/optimized/peak-mountain-view-triple-two.webp", alt: "Alternate view of the Peak Mountain View triple room" },
-        { src: "assets/images/optimized/guest-room-bathroom-shower.webp", alt: "Private ensuite shower and WC for Peak Mountain View rooms" },
-        { src: "assets/images/optimized/guest-room-bathroom-washbasin.webp", alt: "Private ensuite washbasin and amenities for Peak Mountain View rooms" }
+
+
       ],
       PEAKBAL_2: [
         { src: "assets/images/optimized/peak-balcony-double.webp", alt: "Peak Mountain View double room with a private balcony" },
         { src: "assets/images/optimized/peak-balcony-twin.webp", alt: "Peak Mountain View twin room with a private balcony" },
-        { src: "assets/images/optimized/guest-room-bathroom-shower.webp", alt: "Private ensuite shower and WC for Peak Mountain View balcony rooms" },
-        { src: "assets/images/optimized/guest-room-bathroom-washbasin.webp", alt: "Private ensuite washbasin and amenities for Peak Mountain View balcony rooms" }
+
+
       ],
       PEAKBAL_3: [
         { src: "assets/images/optimized/peak-balcony-triple-one.webp", alt: "Peak Mountain View ensuite balcony room for three guests" },
         { src: "assets/images/optimized/peak-balcony-triple-two.webp", alt: "Alternate view of the Peak Mountain View balcony triple room" },
-        { src: "assets/images/optimized/guest-room-bathroom-shower.webp", alt: "Private ensuite shower and WC for Peak Mountain View balcony rooms" },
-        { src: "assets/images/optimized/guest-room-bathroom-washbasin.webp", alt: "Private ensuite washbasin and amenities for Peak Mountain View balcony rooms" }
+
+
       ],
       COTTAGE_4: [
         { src: "assets/images/optimized/peak-cottage-lounge.webp", alt: "Peak Cottage lounge with mountain view" },
@@ -2661,6 +2696,36 @@
       return guests ? String(guests.value || "").trim() : "";
     }
 
+    function measureBookingEvent(name, details) {
+      try {
+        if (window.RozaMeasurement) Promise.resolve(window.RozaMeasurement.track(name, details || {})).catch(() => {});
+      } catch (_) { /* Optional measurement must not affect the guest's action. */ }
+    }
+
+    function measureConfirmedBooking(result) {
+      try {
+        if (window.RozaMeasurement) Promise.resolve(window.RozaMeasurement.confirmedPurchase(result)).catch(() => {});
+      } catch (_) { /* The reservation is already confirmed; analytics is optional. */ }
+    }
+
+    function setMeasurementBookingBusy(busy) {
+      try {
+        if (window.RozaMeasurement) window.RozaMeasurement.setBookingBusy(!!busy);
+      } catch (_) { /* Booking controls remain independent of measurement. */ }
+    }
+
+    function buildBookingMeasurementDetails(stay, product) {
+      const selection = stay || getCurrentStaySearchState();
+      const nights = (Date.parse(String(selection.checkOut || "") + "T00:00:00Z") - Date.parse(String(selection.checkIn || "") + "T00:00:00Z")) / 86400000;
+      const category = product && product.kind === "combination" ? "mixed" : String(product && product.roomTypeId || "");
+      return {
+        guests: Number(selection.guests),
+        nights: Number.isInteger(nights) && nights > 0 ? nights : 0,
+        roomCategory: ["CLASSIC", "PEAKMV", "PEAKBAL", "COTTAGE", "mixed"].includes(category) ? category : "unspecified",
+        productKind: product && product.kind === "combination" ? "combination" : product ? "single" : "unspecified"
+      };
+    }
+
     function syncGroupStayUi() {
       const isGroupStay = isGroupStaySelected();
       if (groupStayPanel) groupStayPanel.classList.toggle("hidden", !isGroupStay);
@@ -3057,6 +3122,23 @@
       }
     }
 
+    function isDefiniteWebsiteBookingResponse(result, action) {
+      if (!result || result.ok !== true || !["confirmed", "in house", "checked out"].includes(String(result.status || "").toLowerCase())) return false;
+      const bookingIdPattern = /^BKG-\d{8}-\d{3,}$/;
+      if (typeof result.bookingId !== "string" || !bookingIdPattern.test(result.bookingId)) return false;
+      if (action === "createWebsiteGroupBooking") {
+        const parent = result.confirmationId || result.groupBookingId;
+        return typeof parent === "string" && /^GRP-\d{8}-\d{6}-[A-Z0-9]{6}$/.test(parent) &&
+          (!result.groupBookingId || result.groupBookingId === parent) &&
+          Array.isArray(result.bookingIds) && result.bookingIds.length > 0 &&
+          result.bookingIds.length === Number(result.roomCount) &&
+          new Set(result.bookingIds).size === result.bookingIds.length && result.bookingIds.includes(result.bookingId) &&
+          result.bookingIds.every(id => typeof id === "string" && bookingIdPattern.test(id));
+      }
+      return !result.groupBookingId && (!result.confirmationId || result.confirmationId === result.bookingId) &&
+        !(Number(result.roomCount) > 1) && !(Array.isArray(result.bookingIds) && result.bookingIds.length > 1);
+    }
+
     async function postToBackend(payload, defaultMessage) {
       if (!BACKEND_URL) {
         throw new Error("The website booking engine is not connected right now. Please continue on WhatsApp.");
@@ -3103,6 +3185,9 @@
 
         if (!parsed.ok) {
           throw new Error(parsed.error || defaultMessage);
+        }
+        if (isWebsiteBookingMutation && !isDefiniteWebsiteBookingResponse(parsed.data, action)) {
+          throw createWebsiteBookingOutcomeUnknownError();
         }
 
         return parsed.data || {};
@@ -3221,8 +3306,11 @@
 
       whatsappRequestSaveStates[saveKey] = "pending";
       postToBackend(payload, "We could not save the WhatsApp enquiry.")
-        .then(() => {
+        .then((result) => {
           whatsappRequestSaveStates[saveKey] = "saved";
+          if (payload.action === "createRequest" && result && typeof result.requestId === "string" && result.requestId.trim()) {
+            measureBookingEvent("enquiry", { channel: "whatsapp", kind: Number(payload.guests) >= 4 ? "group" : "stay" });
+          }
           setFeedback("WhatsApp is open — we also saved your enquiry for Roza.", "success");
         })
         .catch((error) => {
@@ -3915,6 +4003,8 @@
       return { key: productId, images };
     }
 
+    let activeGalleryKey = "";
+
     function renderRoomGallery() {
       if (!roomGalleryImage || !roomGalleryThumbs || !activeGalleryImages.length) return;
       const safeIndex = Math.max(0, Math.min(activeGalleryIndex, activeGalleryImages.length - 1));
@@ -3925,8 +4015,12 @@
       roomGalleryImage.decoding = "async";
       applyKnownImageDimensions(roomGalleryImage, current.src, "(max-width: 767px) 100vw, 72vw");
       if (roomGalleryTitle) {
-        roomGalleryTitle.textContent = current.title || "Room photos";
+        const category = String(activeGalleryKey || "").split("_")[0];
+        roomGalleryTitle.textContent = window.RozaStayContext.categories[category] || current.title || "Room photos";
       }
+      if (roomGalleryCaption) roomGalleryCaption.textContent = current.alt || "";
+      if (roomGalleryCount) roomGalleryCount.textContent = `${safeIndex + 1} / ${activeGalleryImages.length}`;
+      roomGalleryPrev.disabled = roomGalleryNext.disabled = activeGalleryImages.length < 2;
       roomGalleryThumbs.innerHTML = activeGalleryImages.map((image, index) => `
         <button type="button" class="room-gallery-thumb ${index === safeIndex ? "is-active" : ""}" data-room-gallery-index="${index}" aria-label="View room photo ${index + 1}" aria-current="${index === safeIndex ? "true" : "false"}">
           <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt || "")}"${renderKnownImageAttributes(image.src, "(max-width: 767px) 30vw, 8rem")} loading="lazy" decoding="async" />
@@ -3939,6 +4033,8 @@
       const wasOpen = roomGallery.classList.contains("open");
       roomGallery.classList.remove("open");
       roomGallery.setAttribute("aria-hidden", "true");
+      roomGallery.hidden = true;
+      document.body.classList.remove("room-gallery-open");
       if (roomGalleryImage) {
         roomGalleryImage.removeAttribute("src");
         roomGalleryImage.removeAttribute("srcset");
@@ -3958,10 +4054,13 @@
       const images = renderedProductGalleries[galleryKey] || [];
       if (!roomGallery || !images.length) return;
       galleryReturnFocus = trigger || document.activeElement;
+      activeGalleryKey = galleryKey;
       activeGalleryImages = images.map((image) => Object.assign({ title }, image));
       activeGalleryIndex = 0;
       renderRoomGallery();
+      roomGallery.hidden = false;
       roomGallery.classList.add("open");
+      document.body.classList.add("room-gallery-open");
       roomGallery.setAttribute("aria-hidden", "false");
       window.requestAnimationFrame(() => {
         if (roomGalleryClose) roomGalleryClose.focus({ preventScroll: true });
@@ -4034,6 +4133,7 @@
         <article class="product-card room-combination-card ${isSelected ? "is-selected" : ""}">
           <div class="product-layout">
             <div class="product-main">
+              ${window.RozaStayContext.matches(product, preferredRoomCategory) ? '<p class="category-match">Includes your room interest</p>' : ""}
               <div class="product-header"><span class="product-chip available">${escapeHtml(product.recommendationTag || "Recommended")}</span></div>
               <h3 class="product-title">${escapeHtml(product.productLabel || "Group stay")}</h3>
               <p class="product-copy">${escapeHtml(product.productSummary || "A complete live room combination for your group.")}</p>
@@ -4060,10 +4160,27 @@
       `;
     }
 
+    let preferredRoomCategory = window.RozaStayContext.read().category || "";
+    function renderCategoryPreference(products) {
+      const panel = document.getElementById("category-preference");
+      const text = document.getElementById("category-preference-copy");
+      if (!panel || !text) return;
+      panel.hidden = !preferredRoomCategory;
+      if (!preferredRoomCategory) return;
+      const label = window.RozaStayContext.categories[preferredRoomCategory];
+      const matches = Array.isArray(products) ? products.filter(product => window.RozaStayContext.matches(product, preferredRoomCategory) && isProductBookable(product)) : null;
+      text.textContent = matches === null
+        ? `Interested in ${label}? Search your dates and guest count below. Matching options will be marked; you can compare every available room.`
+        : matches.length
+          ? `${label}: matching options are marked below. All available options remain visible so you can compare.`
+          : `No ${label} option was returned for this search. Compare the other options below or try different dates and guest preferences.`;
+    }
+
     function renderAvailabilityProducts(products) {
       if (!availabilityProducts) return;
       Object.keys(renderedProductGalleries).forEach((key) => delete renderedProductGalleries[key]);
       const safeProducts = Array.isArray(products) ? products : [];
+      renderCategoryPreference(safeProducts);
       if (!safeProducts.length) {
         clearAvailabilityProducts();
         return;
@@ -4117,6 +4234,7 @@
               ${mediaMarkup}
 
               <div class="product-main">
+                ${window.RozaStayContext.matches(product, preferredRoomCategory) ? '<p class="category-match">Your room interest</p>' : ""}
                 ${showSignal ? `<div class="product-header"><span class="${escapeHtml(signal.className)}">${escapeHtml(signal.label)}</span></div>` : ""}
                 <h3 class="product-title">${escapeHtml(product.productLabel || product.productName || "")}</h3>
                 ${productSummary ? `<p class="product-copy">${escapeHtml(productSummary)}</p>` : ""}
@@ -4280,6 +4398,7 @@
       setFeedback(`Selected ${bookingState.selectedProductLabel}. Enter the final guest details below to confirm the whole stay in one direct booking.`, "success");
       syncWebsiteSubmitState();
       moveToWebsiteBookingStep();
+      measureBookingEvent("select_option", buildBookingMeasurementDetails(null, selected));
     }
 
     async function checkLiveAvailability() {
@@ -4309,6 +4428,7 @@
         promise: null
       };
       activeAvailabilityRequest = request;
+      measureBookingEvent("search", buildBookingMeasurementDetails(requestState));
 
       setFeedback("", "");
       clearSelectedProduct();
@@ -4337,6 +4457,7 @@
 
           const products = Array.isArray(result.products) ? result.products : [];
           const bookableCount = Number(result.availableProductCount != null ? result.availableProductCount : getBookableProductCount(products));
+          measureBookingEvent("view_options", Object.assign(buildBookingMeasurementDetails(requestState), { optionCount: bookableCount, availability: bookableCount > 0 ? "available" : "unavailable" }));
           const isCombinationSearch = Number(requestState.guests || 0) >= 4;
 
           if (products.length) {
@@ -4376,6 +4497,7 @@
           return result;
         } catch (availabilityError) {
           if (isBackendAbortError(availabilityError) || !isAvailabilityRequestCurrent(request)) return null;
+          measureBookingEvent("view_options", Object.assign(buildBookingMeasurementDetails(requestState), { availability: "error" }));
           console.warn("Availability check failed.", availabilityError);
           resetBookingState();
           if (availabilityProductsIntro) availabilityProductsIntro.classList.remove("hidden");
@@ -4460,6 +4582,7 @@
       );
       setButtonBusy(busyTarget, true, "Opening WhatsApp...");
       window.open(buildWhatsappUrl(message), "_blank", "noopener,noreferrer");
+      measureBookingEvent("contact", { channel: "whatsapp" });
 
       if (hasStructuredStay && !bookingState.bookingComplete && roomType && roomType.value && bookingState.selectedProductId) {
         saveWhatsappRequestAfterOpen(buildRequestPayload());
@@ -4477,6 +4600,7 @@
       const busyTarget = triggerButton || null;
       setButtonBusy(busyTarget, true, "Opening WhatsApp...");
       window.open(buildWhatsappUrl(buildWebsiteBookingFallbackWhatsappMessage()), "_blank", "noopener,noreferrer");
+      measureBookingEvent("contact", { channel: "whatsapp" });
 
       if (!bookingState.bookingComplete && roomType && roomType.value && bookingState.selectedProductId) {
         saveWhatsappRequestAfterOpen(buildRequestPayload());
@@ -4550,15 +4674,20 @@
       if (state.checkOut) url.searchParams.set("checkout", state.checkOut);
       if (state.guests) url.searchParams.set("guests", state.guests);
       if (state.bedSetup && state.bedSetup !== "Best available") url.searchParams.set("bed_setup", state.bedSetup);
+      if (preferredRoomCategory) url.searchParams.set("category", preferredRoomCategory);
+      else url.searchParams.delete("category");
+      window.RozaStayContext.save(Object.assign({}, state, { category: preferredRoomCategory }));
       history.replaceState({}, "", url.toString());
     }
 
     function applyQueryState() {
       const url = new URL(window.location.href);
-      const queryCheckIn = url.searchParams.get("checkin") || url.searchParams.get("check_in") || "";
-      const queryCheckOut = url.searchParams.get("checkout") || url.searchParams.get("check_out") || "";
-      const queryGuests = url.searchParams.get("guests") || "";
-      const queryBedSetup = normalizeBedPreferenceValue(url.searchParams.get("bed_setup") || url.searchParams.get("bed") || "");
+      const context = window.RozaStayContext.read();
+      const explicitSearch = ["checkin", "check_in", "checkout", "check_out", "guests", "bed_setup", "bed"].some(key => url.searchParams.has(key));
+      const queryCheckIn = explicitSearch ? (url.searchParams.get("checkin") || url.searchParams.get("check_in") || "") : (context.checkIn || "");
+      const queryCheckOut = explicitSearch ? (url.searchParams.get("checkout") || url.searchParams.get("check_out") || "") : (context.checkOut || "");
+      const queryGuests = explicitSearch ? (url.searchParams.get("guests") || "") : (context.guests || "");
+      const queryBedSetup = normalizeBedPreferenceValue(explicitSearch ? (url.searchParams.get("bed_setup") || url.searchParams.get("bed") || "") : (context.bedSetup || ""));
 
       if (queryCheckIn) checkIn.value = queryCheckIn;
       if (queryCheckOut) checkOut.value = queryCheckOut;
@@ -4577,6 +4706,8 @@
     }
 
     function resetSearchForm() {
+      preferredRoomCategory = "";
+      renderCategoryPreference();
       cancelActiveAvailabilityRequest();
       if (guests) guests.value = "";
       if (groupGuestCount) groupGuestCount.value = "";
@@ -4599,6 +4730,7 @@
       renderBedPreferenceOptions(bedSetup ? bedSetup.value : "Best available");
       syncCheckOutMin();
       resetBookingState();
+      renderCategoryPreference();
       if (isGroupStaySelected()) {
         setAvailabilityResult("One booking for your whole group", "info", "Enter the exact number of guests, then choose Check group options to compare complete live room combinations.");
       }
@@ -4719,6 +4851,7 @@
 
     if (websiteSubmit) {
       websiteSubmit.addEventListener("click", async () => {
+        if (websiteSubmitBusy || bookingState.bookingComplete) return;
         const error = validateWebsiteForm();
         if (error) {
           setFeedback(error, "error");
@@ -4745,16 +4878,23 @@
           return;
         }
 
+        measureBookingEvent("begin_booking", buildBookingMeasurementDetails(null, selectedProduct));
         websiteSubmitBusy = true;
+        setMeasurementBookingBusy(true);
         setWebsiteBookingInteractionLocked(true);
         syncWebsiteSubmitState();
         startBookingProgressMessages();
 
         try {
           let result;
+          let submittedAttemptId = "";
           try {
-            result = await postToBackend(buildWebsiteBookingPayload(), "We could not complete the website booking.");
+            const payload = buildWebsiteBookingPayload();
+            submittedAttemptId = String(payload.booking_attempt_id || "");
+            result = await postToBackend(payload, "We could not complete the website booking.");
           } catch (submitError) {
+            if (submitError && submitError.code === "POST_OUTCOME_UNKNOWN") measurementUnknownBookingAttempts.add(submittedAttemptId);
+            measurementBookingOutcomeUnknown = measurementUnknownBookingAttempts.size > 0;
             console.warn("Website booking failed.", submitError);
             const message = submitError.message || "We could not complete the website booking right now.";
             if (isWebsiteBookingTemporarySystemError(submitError)) {
@@ -4786,6 +4926,9 @@
           // From this point the backend has returned a definite confirmation.
           // UI/email follow-up errors must never be presented as booking failure.
           bookingState.bookingComplete = true;
+          measurementUnknownBookingAttempts.delete(submittedAttemptId);
+          measurementBookingOutcomeUnknown = measurementUnknownBookingAttempts.size > 0;
+          measureConfirmedBooking(result);
           clearPersistedWebsiteBookingAttempt();
           try {
             syncWebsiteSubmitState();
@@ -4805,6 +4948,7 @@
         } finally {
           clearBookingProgressMessages();
           websiteSubmitBusy = false;
+          setMeasurementBookingBusy(measurementBookingOutcomeUnknown);
           setWebsiteBookingInteractionLocked(false);
           syncWebsiteSubmitState();
         }
@@ -4832,6 +4976,13 @@
       return ["checkin", "check_in", "checkout", "check_out", "guests", "bed_setup", "bed"].some((key) => url.searchParams.has(key));
     })();
 
+    renderCategoryPreference();
+    document.getElementById("clear-category-preference").addEventListener("click", () => {
+      preferredRoomCategory = "";
+      renderCategoryPreference();
+      availabilityProducts?.querySelectorAll(".category-match").forEach(badge => badge.remove());
+      updateUrlFromSearchState();
+    });
     renderBedPreferenceOptions("Best available");
     renderFeedbackScale(websiteFeedbackScale, "website_feedback_score");
     renderFeedbackScale(bookingProcessFeedbackScale, "booking_process_feedback_score");
@@ -4850,6 +5001,11 @@
     syncWebsiteSubmitState();
 
     window.addEventListener("keydown", handleRoomGalleryKeydown);
+    window.RozaStayContext.bindSwipe(roomGallery?.querySelector(".room-gallery-main"), direction => {
+      if (!activeGalleryImages.length) return;
+      activeGalleryIndex = (activeGalleryIndex + direction + activeGalleryImages.length) % activeGalleryImages.length;
+      renderRoomGallery();
+    });
 
     const initialState = getCurrentStaySearchState();
     if (initialState.checkIn && initialState.checkOut && initialState.guests) {

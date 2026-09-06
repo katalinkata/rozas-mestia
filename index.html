@@ -10,7 +10,7 @@
   />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#2D3A2F" />
-  <link rel="canonical" href="https://www.rozaguesthouse.com/" />
+  <link rel="canonical" href="https://roza-guest-house.github.io/rozas-mestia/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Roza's Guest House" />
@@ -19,8 +19,8 @@
     property="og:description"
     content="Check live availability and book mountain-view rooms, balcony stays, or a private A-frame cottage directly with Roza's family in Mestia."
   />
-  <meta property="og:url" content="https://www.rozaguesthouse.com/" />
-  <meta property="og:image" content="https://www.rozaguesthouse.com/hero-social.jpg" />
+  <meta property="og:url" content="https://roza-guest-house.github.io/rozas-mestia/" />
+  <meta property="og:image" content="https://roza-guest-house.github.io/rozas-mestia/hero-social.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -31,19 +31,19 @@
     name="twitter:description"
     content="Check live availability and book a warm, family-run mountain stay directly in Mestia."
   />
-  <meta name="twitter:image" content="https://www.rozaguesthouse.com/hero-social.jpg" />
+  <meta name="twitter:image" content="https://roza-guest-house.github.io/rozas-mestia/hero-social.jpg" />
   <meta name="twitter:image:alt" content="Sunset over the mountains of Svaneti near Roza's Guest House in Mestia" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LodgingBusiness",
       "name": "Roza's Guest House",
-      "url": "https://www.rozaguesthouse.com/",
+      "url": "https://roza-guest-house.github.io/rozas-mestia/",
       "description": "Family-run guest house in Mestia, Georgia with live direct booking, mountain-view rooms, balcony stays, and two private A-frame cottages.",
       "telephone": "+995599641455",
       "email": "rozashukvani@gmail.com",
       "image": [
-        "https://www.rozaguesthouse.com/assets/images/optimized/hero-mestia-sunset.webp"
+        "https://roza-guest-house.github.io/rozas-mestia/assets/images/optimized/hero-mestia-sunset.webp"
       ],
       "address": {
         "@type": "PostalAddress",
@@ -54,11 +54,6 @@
       },
       "hasMap": "https://www.google.com/maps/search/?api=1&query=Roza%27s%20Guest%20House%2C%209%20Erekle%20Parjiani%20I%20Alley%2C%20Mestia%203200%2C%20Georgia",
       "amenityFeature": [
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Free parking",
-          "value": true
-        },
         {
           "@type": "LocationFeatureSpecification",
           "name": "Live direct booking and WhatsApp support",
@@ -202,7 +197,7 @@
       overflow: hidden;
     }
 
-    body.room-viewer-open {
+    html:has(body.room-viewer-open), body.room-viewer-open {
       overflow: hidden;
     }
 
@@ -1317,6 +1312,7 @@
       font-weight: 800;
     }
 
+    #property-map[hidden], #map-choice[hidden] { display:none !important; }
     .map-shell {
       position: relative;
       min-height: 360px;
@@ -2654,6 +2650,44 @@
         transform: translate3d(0, 0, 0) !important;
       }
     }
+
+    /* Room comparison and explicit actions share the existing forest/cream palette. */
+    .room-facts { display:grid; gap:.6rem; margin:1.2rem 0; font-size:.84rem; }
+    .room-facts div { display:grid; grid-template-columns:5.5rem 1fr; gap:.6rem; }
+    .room-facts dt { color:var(--slate); } .room-facts dd { margin:0; font-weight:700; }
+    .room-card-actions { display:flex; flex-wrap:wrap; gap:.6rem; margin:1.25rem 0; }
+    .room-photo-button, .room-availability-link { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:.75rem 1.1rem; border-radius:999px; font-size:.86rem; font-weight:700; border:1px solid rgba(45,58,47,.18); }
+    .room-photo-button { background:var(--cream); color:var(--forest); }
+    .room-availability-link { background:var(--forest); color:var(--cream); text-decoration:none; }
+    .room-availability-link[hidden], .room-viewer[hidden] { display:none; }
+    .room-comparison { margin-top:2rem; padding:1.5rem; border:1px solid rgba(45,58,47,.12); border-radius:1.5rem; background:var(--cream); }
+    .room-comparison h3 { font-size:1.5rem; } .room-comparison p { margin-top:1rem; color:var(--slate); font-size:.85rem; line-height:1.65; }
+    .room-comparison-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin-top:1rem; }
+    .room-comparison-grid a { display:flex; flex-direction:column; gap:.5rem; padding:1rem; background:white; border:1px solid rgba(45,58,47,.1); border-radius:1rem; font-size:.84rem; line-height:1.5; }
+    .room-comparison-grid strong { font-size:.98rem; } .room-comparison-action { margin-top:auto; padding-top:.5rem; font-weight:700; }
+    .room-viewer-main { touch-action:pan-y pinch-zoom; min-height:0; }
+    .room-viewer-meta { align-items:center; margin:.65rem 0; }
+    .room-viewer-caption { font-size:.8rem; line-height:1.5; color:var(--slate); }
+    .room-viewer-description { font-size:.86rem; line-height:1.65; margin-top:1rem; }
+    .room-viewer-nav button:disabled { opacity:.4; cursor:default; }
+    .room-viewer-thumbs { display:flex; overflow-x:auto; padding:3px; }
+    .room-viewer-thumb-button { flex:0 0 5rem; }
+    @media (max-width:767px) {
+      .room-comparison-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
+      .room-comparison { padding:1rem; } .room-comparison-grid a { padding:.8rem; }
+      .room-card-actions > * { flex:1 1 8rem; }
+      .room-viewer { padding:.45rem; }
+      .room-viewer-panel { max-height:calc(100dvh - .9rem); border-radius:1.2rem; }
+      .room-viewer-header { padding:.75rem .75rem 0; }
+      .room-viewer-body { padding:.65rem .75rem .9rem; }
+      #room-viewer-title { font-size:1.28rem; margin-top:.2rem; line-height:1.25; }
+      .room-viewer-main { border-radius:.9rem; }
+      .room-viewer-main img { height:min(48dvh,29rem); }
+      .room-viewer-close, .room-viewer-nav button { width:44px; height:44px; }
+      .room-viewer-caption { font-size:.75rem; } .room-viewer-count { font-size:.72rem; padding:.4rem .65rem; }
+      #room-viewer-availability { width:100%; }
+      .room-viewer-thumbs { margin-top:.65rem; gap:.5rem; } .room-viewer-thumb-button { flex-basis:4rem; border-radius:.65rem; }
+    }
   </style>
 </head>
 <body class="font-sans text-forest">
@@ -2806,49 +2840,50 @@
             </p>
 
             <div class="mt-7 flex flex-wrap gap-2.5" data-stagger>
-              <span class="reveal rounded-full border border-cream/15 bg-white/7 px-4 py-2 text-sm text-cream/82">Heated rooms and Wi-Fi</span>
+              <span class="reveal rounded-full border border-cream/15 bg-white/7 px-4 py-2 text-sm text-cream/82">Rooms and private cottages</span>
               <span id="homepage-breakfast-summary" class="reveal rounded-full border border-cream/15 bg-white/7 px-4 py-2 text-sm text-cream/82">Optional breakfast &middot; live price during booking</span>
-              <span class="reveal rounded-full border border-cream/15 bg-white/7 px-4 py-2 text-sm text-cream/82">Quiet 9-minute walk to Mestia centre</span>
+              <span class="reveal rounded-full border border-cream/15 bg-white/7 px-4 py-2 text-sm text-cream/82">Mountain setting in Mestia</span>
             </div>
 
             <div id="hero-actions" class="mt-9 flex flex-col gap-3 sm:flex-row" data-stagger>
               <a href="book.html" class="reveal btn-focus inline-flex items-center justify-center rounded-full bg-sun px-7 py-4 text-base font-semibold text-white lux-shadow-strong">Check live availability</a>
               <a id="hero-whatsapp" href="https://wa.me/995599641455?text=Hi%20Roza!%20I%20have%20a%20quick%20question%20about%20staying%20at%20Roza%27s%20Guest%20House.%20Could%20you%20please%20help%20me%20on%20WhatsApp%3F" class="reveal btn-focus inline-flex items-center justify-center rounded-full border border-cream/20 bg-white/10 px-7 py-4 text-base font-semibold text-cream glass-panel" style="background:rgba(255,255,255,0.10);">Message Roza on WhatsApp</a>
             </div>
-            <p class="reveal mt-3 text-sm font-semibold text-cream/78">Limited rooms &mdash; Mestia fills quickly in summer and ski season.</p>
+            <p class="reveal mt-3 text-sm font-semibold text-cream/78">Find a room for two, a cottage, or a room combination for your group.</p>
           </div>
 
           <div class="reveal" data-stagger>
             <div class="glass-panel rounded-[2rem] p-6 text-forest sm:p-8">
               <p class="section-label text-[10px] font-semibold uppercase text-slate">Direct booking trust</p>
-              <h2 class="mt-3 font-display text-[1.85rem] font-semibold leading-tight">Verified public ratings and direct family replies.</h2>
+              <h2 class="mt-3 font-display text-[1.85rem] font-semibold leading-tight">Guest reviews and direct family replies.</h2>
               <div class="rating-badge-row mt-5" aria-label="Public review platforms">
-                <a href="#reviews" class="trust-badge platform-badge platform-badge-booking" data-review-platform="booking" aria-label="Booking.com score 9.4 out of 10. See guest reviews below">
+                <a href="#reviews" class="trust-badge platform-badge platform-badge-booking" data-review-platform="booking" aria-label="Booking.com score 9.3 out of 10, checked 6 September 2026. View current reviews below">
                   <span class="platform-badge-mark" aria-hidden="true">B</span>
                   <span class="platform-badge-copy">
                     <span class="platform-badge-name">Booking.com</span>
-                    <span class="platform-badge-score-row"><strong class="platform-badge-score">9.4/10</strong><span class="platform-badge-action">See guest reviews below</span></span>
+                    <span class="platform-badge-score-row"><strong class="platform-badge-score">9.3/10</strong><span class="platform-badge-action">View current reviews</span></span>
                   </span>
                 </a>
-                <a href="#reviews" class="trust-badge platform-badge platform-badge-tripadvisor" data-review-platform="tripadvisor" aria-label="TripAdvisor score 4.7 out of 5. See guest reviews below">
+                <a href="#reviews" class="trust-badge platform-badge platform-badge-tripadvisor" data-review-platform="tripadvisor" aria-label="TripAdvisor. View current reviews below">
                   <span class="platform-badge-mark" aria-hidden="true">T</span>
                   <span class="platform-badge-copy">
                     <span class="platform-badge-name">TripAdvisor</span>
-                    <span class="platform-badge-score-row"><strong class="platform-badge-score">4.7/5</strong><span class="platform-badge-action">See guest reviews below</span></span>
+                    <span class="platform-badge-score-row"><strong class="platform-badge-score">Reviews</strong><span class="platform-badge-action">View current reviews</span></span>
                   </span>
                 </a>
-                <a href="#reviews" class="trust-badge platform-badge platform-badge-google" data-review-platform="google" aria-label="Google Reviews score 4.6 out of 5. See guest reviews below">
+                <a href="#reviews" class="trust-badge platform-badge platform-badge-google" data-review-platform="google" aria-label="Google score 4.6 out of 5, checked 6 September 2026. View current reviews below">
                   <span class="platform-badge-mark" aria-hidden="true">G</span>
                   <span class="platform-badge-copy">
                     <span class="platform-badge-name">Google Reviews</span>
-                    <span class="platform-badge-score-row"><strong class="platform-badge-score">4.6/5</strong><span class="platform-badge-action">See guest reviews below</span></span>
+                    <span class="platform-badge-score-row"><strong class="platform-badge-score">4.6/5</strong><span class="platform-badge-action">View current reviews</span></span>
                   </span>
                 </a>
               </div>
+              <p class="mt-3 text-sm text-slate">Booking.com and Google scores checked 6 September 2026. Follow the links for current reviews.</p>
               <div class="mt-6 overflow-hidden rounded-[1.5rem] border border-forest/8 bg-white/55 p-5 card-float" style="position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;background:linear-gradient(135deg,rgba(255,255,255,0.94),rgba(253,248,242,0.74));box-shadow:inset 0 1px 0 rgba(255,255,255,0.78),0 18px 42px rgba(18,26,20,0.08);">
                 <div style="position:relative;z-index:1;flex:1 1 20rem;min-width:min(20rem,100%);max-width:27rem;">
                   <p class="font-display font-semibold text-forest" style="font-size:1.08rem;line-height:1.35;">17 Rooms & 2 Private A-Frame Cottages. One Family-Run Stay Above Mestia.</p>
-                  <p class="mt-2 text-sm text-slate" style="line-height:1.75;">Mountain views, free parking, real room photos, and direct help from Roza&rsquo;s family before you arrive.</p>
+                  <p class="mt-2 text-sm text-slate" style="line-height:1.75;">Mountain views, real room photos, and direct help from Roza&rsquo;s family before you arrive.</p>
                   <p class="mt-2 text-sm font-semibold uppercase text-slate/70" style="font-size:0.72rem;letter-spacing:0.12em;line-height:1.5;">9 Erekle Parjiani I Alley, Mestia</p>
                 </div>
                 <div style="position:relative;z-index:1;flex:0 1 clamp(16rem,40vw,21rem);width:min(100%,clamp(16rem,40vw,21rem));margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.75rem;align-items:center;justify-content:center;">
@@ -2902,8 +2937,19 @@
           </p>
         </div>
 
+        <div class="room-comparison" aria-labelledby="room-comparison-title">
+          <h3 id="room-comparison-title" class="font-display">Find your room at a glance</h3>
+          <div class="room-comparison-grid">
+            <a href="book.html?category=CLASSIC" data-room-availability="CLASSIC"><strong>Classic · shared bathroom</strong><span>1–2 guests · Shared bathroom</span><span>Double or twin preference</span><span class="room-comparison-action">Check availability →</span></a>
+            <a href="book.html?category=PEAKMV" data-room-availability="PEAKMV"><strong>Peak Mountain View</strong><span>1–3 guests · Private ensuite</span><span>Double, twin or triple options</span><span class="room-comparison-action">Check availability →</span></a>
+            <a href="book.html?category=PEAKBAL" data-room-availability="PEAKBAL"><strong>Peak with Balcony</strong><span>1–3 guests · Private ensuite + balcony</span><span>Double, twin or triple options</span><span class="room-comparison-action">Check availability →</span></a>
+            <a href="book.html?category=COTTAGE" data-room-availability="COTTAGE"><strong>Peak Cottage</strong><span>1–4 guests · Private A-frame cottage</span><span>Double room + twin room</span><span class="room-comparison-action">Check availability →</span></a>
+          </div>
+          <p>Room layouts vary. Choose your guest count and bed preference to see options for your dates. Photos show examples within each category.</p>
+        </div>
+
         <div class="mt-12 grid gap-6 md:grid-cols-2" data-stagger>
-          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float" data-room-card data-room-type-id="CLASSIC">
+          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float" data-room-card data-room-type-id="CLASSIC" data-gallery-title="Classic · shared bathroom">
             <div class="room-art flex items-end p-7 text-cream">
               <img src="assets/images/optimized/classic-double-room.webp" srcset="assets/images/optimized/classic-double-room-480.webp 480w, assets/images/optimized/classic-double-room.webp 1200w" alt="Classic Mountain View Room at Roza's Guest House" loading="lazy" decoding="async" fetchpriority="low" width="1200" height="1600" sizes="(min-width: 1280px) 34rem, (min-width: 768px) 42vw, 100vw" />
               <span class="room-photo-cue">View photos</span>
@@ -2920,15 +2966,20 @@
                 <span class="rounded-full bg-stone px-3.5 py-1.5">Local character</span>
                 <span class="rounded-full bg-stone px-3.5 py-1.5">Traditional stay</span>
               </div>
-              <p class="room-price mt-4" data-room-pricing>Loading live direct price&hellip;</p>
-              <div class="room-thumbs mt-6">
-                <div class="room-thumb"><img src="assets/images/optimized/guest-room-bathroom-shower.webp" srcset="assets/images/optimized/guest-room-bathroom-shower-480.webp 480w, assets/images/optimized/guest-room-bathroom-shower.webp 896w" alt="Shared shower and WC for Classic Mountain View Room guests at Roza's Guest House" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
-                <div class="room-thumb"><img src="assets/images/optimized/guest-room-bathroom-washbasin.webp" srcset="assets/images/optimized/guest-room-bathroom-washbasin-480.webp 480w, assets/images/optimized/guest-room-bathroom-washbasin.webp 896w" alt="Shared washbasin and amenities for Classic Mountain View Room guests at Roza's Guest House" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
+              <dl class="room-facts" aria-label="Room facts">
+                <div><dt>Guests</dt><dd>1–2 guests</dd></div>
+                <div><dt>Room choice</dt><dd>Shared bathroom</dd></div>
+                <div><dt>Beds</dt><dd>Double or twin preference</dd></div>
+              </dl>
+              <div class="room-card-actions">
+                <button type="button" class="room-photo-button btn-focus" data-room-photos aria-haspopup="dialog" aria-label="View Classic · shared bathroom photos">View photos</button>
+                <a class="room-availability-link btn-focus" href="book.html?category=CLASSIC" data-room-availability="CLASSIC" aria-label="Check availability for Classic · shared bathroom">Check availability</a>
               </div>
+              <p class="room-price mt-4" data-room-pricing>Loading live direct price&hellip;</p>
             </div>
           </article>
 
-          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float" data-room-card data-room-type-id="PEAKMV">
+          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float" data-room-card data-room-type-id="PEAKMV" data-gallery-title="Peak Mountain View">
             <div class="room-art flex items-end p-7 text-cream">
               <img src="assets/images/optimized/peak-mountain-view-towers.webp" srcset="assets/images/optimized/peak-mountain-view-towers-480.webp 480w, assets/images/optimized/peak-mountain-view-towers.webp 896w" alt="Peak Mountain View room with Mestia tower view at Roza's Guest House" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 34rem, (min-width: 768px) 42vw, 100vw" />
               <span class="room-photo-cue">View photos</span>
@@ -2945,19 +2996,28 @@
                 <span class="rounded-full bg-stone px-3.5 py-1.5">Private stay</span>
                 <span class="rounded-full bg-stone px-3.5 py-1.5">Mountain base</span>
               </div>
+              <dl class="room-facts" aria-label="Room facts">
+                <div><dt>Guests</dt><dd>1–3 guests</dd></div>
+                <div><dt>Room choice</dt><dd>Private ensuite</dd></div>
+                <div><dt>Beds</dt><dd>Double, twin or triple options</dd></div>
+              </dl>
+              <div class="room-card-actions">
+                <button type="button" class="room-photo-button btn-focus" data-room-photos aria-haspopup="dialog" aria-label="View Peak Mountain View photos">View photos</button>
+                <a class="room-availability-link btn-focus" href="book.html?category=PEAKMV" data-room-availability="PEAKMV" aria-label="Check availability for Peak Mountain View">Check availability</a>
+              </div>
               <p class="room-price mt-4" data-room-pricing>Loading live direct price&hellip;</p>
               <div class="room-thumbs mt-6">
                 <div class="room-thumb"><img src="assets/images/optimized/peak-mountain-view-double.webp" srcset="assets/images/optimized/peak-mountain-view-double-480.webp 480w, assets/images/optimized/peak-mountain-view-double.webp 1200w" alt="Peak Mountain View double room at Roza's Guest House" loading="lazy" decoding="async" width="1200" height="1600" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
                 <div class="room-thumb"><img src="assets/images/optimized/peak-mountain-view-twin.webp" srcset="assets/images/optimized/peak-mountain-view-twin-480.webp 480w, assets/images/optimized/peak-mountain-view-twin.webp 896w" alt="Peak Mountain View twin room at Roza's Guest House" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
                 <div class="room-thumb"><img src="assets/images/optimized/peak-mountain-view-triple-one.webp" srcset="assets/images/optimized/peak-mountain-view-triple-one-480.webp 480w, assets/images/optimized/peak-mountain-view-triple-one.webp 1200w" alt="Peak Mountain View ensuite triple room at Roza's Guest House" loading="lazy" decoding="async" width="1200" height="1600" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
                 <div class="room-thumb hidden"><img src="assets/images/optimized/peak-mountain-view-triple-two.webp" srcset="assets/images/optimized/peak-mountain-view-triple-two-480.webp 480w, assets/images/optimized/peak-mountain-view-triple-two.webp 1200w" alt="Alternate view of the Peak Mountain View ensuite triple room" loading="lazy" decoding="async" width="1200" height="1600" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
-                <div class="room-thumb hidden"><img src="assets/images/optimized/guest-room-bathroom-shower.webp" srcset="assets/images/optimized/guest-room-bathroom-shower-480.webp 480w, assets/images/optimized/guest-room-bathroom-shower.webp 896w" alt="Ensuite shower and WC for Peak Mountain View rooms" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
-                <div class="room-thumb hidden"><img src="assets/images/optimized/guest-room-bathroom-washbasin.webp" srcset="assets/images/optimized/guest-room-bathroom-washbasin-480.webp 480w, assets/images/optimized/guest-room-bathroom-washbasin.webp 896w" alt="Ensuite washbasin and amenities for Peak Mountain View rooms" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
+
+
               </div>
             </div>
           </article>
 
-          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float" data-room-card data-room-type-id="PEAKBAL">
+          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float" data-room-card data-room-type-id="PEAKBAL" data-gallery-title="Peak with Balcony">
             <div class="room-art flex items-end p-7 text-cream">
               <img src="assets/images/optimized/peak-balcony-double.webp" srcset="assets/images/optimized/peak-balcony-double-480.webp 480w, assets/images/optimized/peak-balcony-double.webp 1200w" alt="Peak Mountain View double room with a private balcony" loading="lazy" decoding="async" width="1200" height="1600" sizes="(min-width: 1280px) 34rem, (min-width: 768px) 42vw, 100vw" />
               <span class="room-photo-cue">View photos</span>
@@ -2974,18 +3034,27 @@
                 <span class="rounded-full bg-stone px-3.5 py-1.5">Open skies</span>
                 <span class="rounded-full bg-stone px-3.5 py-1.5">Scenic stay</span>
               </div>
+              <dl class="room-facts" aria-label="Room facts">
+                <div><dt>Guests</dt><dd>1–3 guests</dd></div>
+                <div><dt>Room choice</dt><dd>Private ensuite + balcony</dd></div>
+                <div><dt>Beds</dt><dd>Double, twin or triple options</dd></div>
+              </dl>
+              <div class="room-card-actions">
+                <button type="button" class="room-photo-button btn-focus" data-room-photos aria-haspopup="dialog" aria-label="View Peak with Balcony photos">View photos</button>
+                <a class="room-availability-link btn-focus" href="book.html?category=PEAKBAL" data-room-availability="PEAKBAL" aria-label="Check availability for Peak with Balcony">Check availability</a>
+              </div>
               <p class="room-price mt-4" data-room-pricing>Loading live direct price&hellip;</p>
               <div class="room-thumbs mt-6">
                 <div class="room-thumb"><img src="assets/images/optimized/peak-balcony-twin.webp" srcset="assets/images/optimized/peak-balcony-twin-480.webp 480w, assets/images/optimized/peak-balcony-twin.webp 1200w" alt="Peak Mountain View twin room with a private balcony" loading="lazy" decoding="async" width="1200" height="1600" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
                 <div class="room-thumb"><img src="assets/images/optimized/peak-balcony-triple-one.webp" srcset="assets/images/optimized/peak-balcony-triple-one-480.webp 480w, assets/images/optimized/peak-balcony-triple-one.webp 1200w" alt="Peak Mountain View ensuite triple room with a private balcony" loading="lazy" decoding="async" width="1200" height="1600" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
                 <div class="room-thumb"><img src="assets/images/optimized/peak-balcony-triple-two.webp" srcset="assets/images/optimized/peak-balcony-triple-two-480.webp 480w, assets/images/optimized/peak-balcony-triple-two.webp 896w" alt="Alternate view of the Peak Mountain View balcony triple room" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
-                <div class="room-thumb hidden"><img src="assets/images/optimized/guest-room-bathroom-shower.webp" srcset="assets/images/optimized/guest-room-bathroom-shower-480.webp 480w, assets/images/optimized/guest-room-bathroom-shower.webp 896w" alt="Ensuite shower and WC for Peak Mountain View rooms with balcony" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
-                <div class="room-thumb hidden"><img src="assets/images/optimized/guest-room-bathroom-washbasin.webp" srcset="assets/images/optimized/guest-room-bathroom-washbasin-480.webp 480w, assets/images/optimized/guest-room-bathroom-washbasin.webp 896w" alt="Ensuite washbasin and amenities for Peak Mountain View rooms with balcony" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 7rem, (min-width: 768px) 10vw, 22vw" /></div>
+
+
               </div>
             </div>
           </article>
 
-          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float" data-room-card data-room-type-id="COTTAGE">
+          <article class="reveal group overflow-hidden rounded-[2rem] border border-forest/8 bg-white card-float" data-room-card data-room-type-id="COTTAGE" data-gallery-title="Peak Cottage">
             <div class="room-art flex items-end p-7 text-cream">
               <img src="assets/images/optimized/peak-cottage-lounge.webp" srcset="assets/images/optimized/peak-cottage-lounge-480.webp 480w, assets/images/optimized/peak-cottage-lounge.webp 896w" alt="Peak Cottage lounge with mountain view" loading="lazy" decoding="async" width="896" height="1195" sizes="(min-width: 1280px) 34rem, (min-width: 768px) 42vw, 100vw" />
               <span class="room-photo-cue">View photos</span>
@@ -3001,6 +3070,15 @@
                 <span class="rounded-full bg-stone px-3.5 py-1.5">A-frame stay</span>
                 <span class="rounded-full bg-stone px-3.5 py-1.5">Secluded</span>
                 <span class="rounded-full bg-stone px-3.5 py-1.5">Extra character</span>
+              </div>
+              <dl class="room-facts" aria-label="Room facts">
+                <div><dt>Guests</dt><dd>1–4 guests</dd></div>
+                <div><dt>Room choice</dt><dd>Private A-frame cottage</dd></div>
+                <div><dt>Beds</dt><dd>Double room + twin room</dd></div>
+              </dl>
+              <div class="room-card-actions">
+                <button type="button" class="room-photo-button btn-focus" data-room-photos aria-haspopup="dialog" aria-label="View Peak Cottage photos">View photos</button>
+                <a class="room-availability-link btn-focus" href="book.html?category=COTTAGE" data-room-availability="COTTAGE" aria-label="Check availability for Peak Cottage">Check availability</a>
               </div>
               <p class="room-price mt-4" data-room-pricing>Loading live direct price&hellip;</p>
               <div class="room-thumbs mt-6">
@@ -3022,11 +3100,11 @@
       <div class="grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-end" data-stagger>
         <div>
           <p class="section-label reveal text-[11px] font-semibold uppercase text-slate">Guest feedback</p>
-          <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">Recent public review excerpts you can verify.</h2>
+          <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">Read about stays at Roza's.</h2>
         </div>
         <div class="reveal max-w-xl">
           <p class="text-[1.0625rem] leading-[1.85] text-slate">
-            These are short excerpts from recent public reviews. Official platform links remain available here:
+            Explore guest feedback on the review platforms, including the latest comments and scores:
           </p>
           <div class="review-platform-links mt-5" aria-label="Official external review links">
             <a href="https://www.booking.com/reviews/ge/hotel/guest-house-on-tvibi-5.en-gb.html?page=1" target="_blank" rel="noopener noreferrer" class="review-verify" data-review-platform-link="booking" aria-label="Read official Booking.com reviews in a new tab">Read on Booking.com</a>
@@ -3036,63 +3114,6 @@
         </div>
       </div>
 
-      <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4" data-stagger>
-        <article class="reveal review-card rounded-[2rem] border p-7 card-float">
-          <div class="mb-5 flex flex-wrap gap-2">
-            <span class="review-source-pill">Booking.com</span>
-            <span class="review-source-pill">16 Apr 2026</span>
-          </div>
-          <p class="review-quote">"Great view of the mountains from the room! The owners were so friendly."</p>
-          <div class="mt-auto border-t border-forest/8 pt-6">
-            <div>
-              <p class="text-sm font-semibold text-forest">Jiye &middot; Canada</p>
-              <p class="mt-0.5 text-[0.8125rem] text-slate">Booking.com &middot; Stayed April 2026</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="reveal review-card rounded-[2rem] border p-7 card-float">
-          <div class="mb-5 flex flex-wrap gap-2">
-            <span class="review-source-pill">Booking.com</span>
-            <span class="review-source-pill">16 Sep 2025</span>
-          </div>
-          <p class="review-quote">"The room was clean and comfortable. The balcony view incredible."</p>
-          <div class="mt-auto border-t border-forest/8 pt-6">
-            <div>
-              <p class="text-sm font-semibold text-forest">Ruth &middot; United Kingdom</p>
-              <p class="mt-0.5 text-[0.8125rem] text-slate">Booking.com &middot; Stayed September 2025</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="reveal review-card rounded-[2rem] border p-7 card-float">
-          <div class="mb-5 flex flex-wrap gap-2">
-            <span class="review-source-pill">Booking.com</span>
-            <span class="review-source-pill">22 Sep 2025</span>
-          </div>
-          <p class="review-quote">"Rooms are spacious and comfortable with balconies. Roza is a lovely lady."</p>
-          <div class="mt-auto border-t border-forest/8 pt-6">
-            <div>
-              <p class="text-sm font-semibold text-forest">Claus &middot; United Kingdom</p>
-              <p class="mt-0.5 text-[0.8125rem] text-slate">Booking.com &middot; Stayed September 2025</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="reveal review-card rounded-[2rem] border p-7 card-float">
-          <div class="mb-5 flex flex-wrap gap-2">
-            <span class="review-source-pill">Tripadvisor</span>
-            <span class="review-source-pill">12 Jan 2026</span>
-          </div>
-          <p class="review-quote">"Roza and her husband are so kind, location was amazing and food super delicious!"</p>
-          <div class="mt-auto border-t border-forest/8 pt-6">
-            <div>
-              <p class="text-sm font-semibold text-forest">Ana D</p>
-              <p class="mt-0.5 text-[0.8125rem] text-slate">Tripadvisor &middot; Reviewed January 2026</p>
-            </div>
-          </div>
-        </article>
-      </div>
     </section>
 
     <section id="why-mestia" class="svaneti-showcase border-b border-forest/8">
@@ -3315,7 +3336,7 @@
             <p class="section-label reveal text-[11px] font-semibold uppercase text-slate">Find us</p>
             <h2 class="reveal mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">Getting to Roza's Guest House.</h2>
             <p class="reveal mt-6 text-[1.0625rem] leading-[1.85] text-slate">
-              Roza's Guest House is at 9 Erekle Parjiani I Alley, close enough to walk to Mestia centre but set back enough for quieter nights away from the main square.
+              Find Roza's Guest House at 9 Erekle Parjiani I Alley, Mestia. Contact the family before you travel for help with your arrival route.
             </p>
 
             <div class="mt-8 space-y-4" data-stagger>
@@ -3323,28 +3344,34 @@
                 <div class="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-stone">
                   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D3A2F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
                 </div>
-                <div><p class="font-semibold text-forest">Quiet 9-minute walk from Mestia centre</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">Close enough for restaurants and the main square, far enough to feel calmer at night, with Svan towers and mountain views part of the Mestia setting.</p></div>
+                <div><p class="font-semibold text-forest">Plan the last part of your journey</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">Ask Roza to confirm the entrance and best route for your arrival, especially if you have luggage or specific access needs.</p></div>
               </div>
 
               <div class="reveal flex items-start gap-4 rounded-[1.5rem] border border-forest/8 bg-white p-5 card-float">
                 <div class="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-stone">
                   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D3A2F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
                 </div>
-                <div><p class="font-semibold text-forest">Marshrutka from Kutaisi or Tbilisi</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">Regular minibuses run to Mestia. Ask Roza on WhatsApp for current schedules, pick-up points, and private driver options.</p></div>
+                <div><p class="font-semibold text-forest">Marshrutka from Kutaisi or Tbilisi</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">Ask Roza about current transport options and confirm schedules, pick-up points, prices and availability with the operator before travelling.</p></div>
               </div>
 
               <div class="reveal flex items-start gap-4 rounded-[1.5rem] border border-forest/8 bg-white p-5 card-float">
                 <div class="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-stone">
                   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D3A2F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.21 2 2 0 012 .04h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
                 </div>
-                <div><p class="font-semibold text-forest">Tell us your arrival time</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">Let Roza know when you are arriving and she will make sure someone is ready to welcome you at the door.</p></div>
+                <div><p class="font-semibold text-forest">Tell us your arrival time</p><p class="mt-1.5 text-sm leading-[1.75] text-slate">Share your expected arrival time with Roza and confirm your check-in arrangements, especially if you expect to arrive late.</p></div>
               </div>
             </div>
           </div>
 
           <div class="reveal">
             <div class="map-shell">
-              <iframe title="Roza's Guest House on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Roza%27s%20Guest%20House%2C%209%20Erekle%20Parjiani%20I%20Alley%2C%20Mestia%203200%2C%20Georgia&output=embed"></iframe>
+              <div id="map-choice" style="min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:28px;text-align:center;background:linear-gradient(135deg,#e9e0d4,#fdf8f2)">
+                <p class="font-display text-3xl text-forest">Find Roza in Mestia</p>
+                <p class="text-sm leading-relaxed text-slate">9 Erekle Parjiani I Alley, Mestia<br />The interactive map is provided by Google.</p>
+                <button id="show-map" type="button" class="inline-flex items-center justify-center rounded-full bg-forest px-6 py-3 text-sm font-semibold text-cream btn-focus">Show interactive map</button>
+                <a href="privacy.html#optional-analytics" class="text-sm underline text-slate">About external content and privacy</a>
+              </div>
+              <iframe id="property-map" title="Roza's Guest House on Google Maps" hidden loading="lazy" referrerpolicy="no-referrer" data-map-src="https://www.google.com/maps?q=Roza%27s%20Guest%20House%2C%209%20Erekle%20Parjiani%20I%20Alley%2C%20Mestia%203200%2C%20Georgia&output=embed"></iframe>
             </div>
 
             <div class="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-[1.25rem] border border-forest/8 bg-white p-4 card-float">
@@ -3354,13 +3381,13 @@
               </div>
               <a href="https://www.google.com/maps/search/?api=1&query=Roza%27s%20Guest%20House%2C%209%20Erekle%20Parjiani%20I%20Alley%2C%20Mestia%203200%2C%20Georgia" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-forest/12 bg-cream px-5 py-2.5 text-sm font-semibold text-forest transition hover:bg-stone">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Open exact Google Maps pin
+                Open Google Maps
               </a>
             </div>
             <div class="mt-5 grid grid-cols-3 gap-4" data-stagger>
-              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">9 min</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">to Mestia centre</p></div>
-              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">2 km</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">to ski lift</p></div>
-              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">8 hr</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">from Tbilisi</p></div>
+              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">Arrival</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">Confirm your route</p></div>
+              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">Winter</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">Check road conditions</p></div>
+              <div class="reveal rounded-[1.25rem] border border-forest/8 bg-white p-4 text-center card-float"><p class="font-display text-2xl font-semibold text-forest">Transfers</p><p class="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate">Ask in advance</p></div>
             </div>
           </div>
         </div>
@@ -3420,19 +3447,19 @@
               </button>
               <div class="faq-panel" aria-hidden="true">
                 <div>
-                  <p class="text-sm leading-[1.8] text-slate">Yes. Public property listings show free on-site parking, which is useful if you are driving into Mestia or leaving the car during hikes.</p>
+                  <p class="text-sm leading-[1.8] text-slate">If you are driving, ask Roza to confirm parking arrangements for your vehicle and dates, including any plans to leave your car while hiking.</p>
                 </div>
               </div>
             </div>
 
             <div class="reveal faq-item rounded-[1.5rem] border border-forest/8 bg-white p-6 card-float">
               <button class="faq-toggle btn-focus" type="button" aria-expanded="false">
-                <span>Do the rooms have reliable Wi-Fi and heating?</span>
+                <span>Can I check facilities before booking?</span>
                 <svg class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7.5L10 12.5L15 7.5"/></svg>
               </button>
               <div class="faq-panel" aria-hidden="true">
                 <div>
-                  <p class="text-sm leading-[1.8] text-slate">Yes. Public listings and guest reviews point to Wi-Fi and heated rooms as standard parts of the stay.</p>
+                  <p class="text-sm leading-[1.8] text-slate">Yes. Tell Roza about any specific needs, such as working online, heating or step-free access, so she can confirm the details for your room before you book.</p>
                 </div>
               </div>
             </div>
@@ -3494,7 +3521,7 @@
               </button>
               <div class="faq-panel" aria-hidden="true">
                 <div>
-                  <p class="text-sm leading-[1.8] text-slate">Yes, but group stays should be arranged early so room types and bed setups can be matched properly. Send your dates, guest count, and preferred room mix.</p>
+                  <p class="text-sm leading-[1.8] text-slate">Yes. Search online for 1–20 guests. Choose 6+ and enter your exact group size to compare available room combinations with one confirmation. For four guests, you may see a cottage or several rooms, depending on availability. For 21+ guests, a particular room mix or other requests, contact Roza before booking.</p>
                 </div>
               </div>
             </div>
@@ -3574,7 +3601,7 @@
               <div>
                 <p class="mb-1 text-[10px] uppercase tracking-[0.18em] text-cream/44">WhatsApp</p>
                 <p class="text-[0.9375rem] font-semibold text-cream">Chat with Roza directly</p>
-                <p class="mt-0.5 text-[0.8125rem] text-cream/52">Phone: <span id="footer-whatsapp-number">+995599641455</span> &middot; Fast replies &middot; Available daily</p>
+                <p class="mt-0.5 text-[0.8125rem] text-cream/52">Phone: <span id="footer-whatsapp-number">+995599641455</span> &middot; Contact Roza about your stay</p>
               </div>
               <svg class="ml-auto h-4 w-4 shrink-0 text-cream/24" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12.5L12.5 3.5M12.5 3.5H6.5M12.5 3.5V9.5"/></svg>
             </a>
@@ -3617,7 +3644,7 @@
     </div>
   </footer>
 
-  <div id="room-viewer" class="room-viewer" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="room-viewer-title" aria-describedby="room-viewer-description">
+  <div id="room-viewer" class="room-viewer" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="room-viewer-title" aria-describedby="room-viewer-description">
     <div class="room-viewer-backdrop" data-room-viewer-close></div>
     <div class="room-viewer-panel">
       <div class="room-viewer-header">
@@ -3635,11 +3662,6 @@
       </div>
 
       <div class="room-viewer-body">
-        <div class="room-viewer-meta">
-          <p id="room-viewer-description" class="max-w-3xl text-[0.98rem] leading-[1.8] text-slate"></p>
-          <div id="room-viewer-count" class="room-viewer-count"></div>
-        </div>
-
         <div class="room-viewer-main">
           <img id="room-viewer-image" alt="" />
           <div class="room-viewer-nav">
@@ -3656,7 +3678,13 @@
           </div>
         </div>
 
+        <div class="room-viewer-meta">
+          <p id="room-viewer-caption" class="room-viewer-caption"></p>
+          <div id="room-viewer-count" class="room-viewer-count" role="status" aria-live="polite" aria-atomic="true"></div>
+        </div>
+        <a id="room-viewer-availability" class="room-availability-link btn-focus" href="book.html" hidden>Check availability for this room</a>
         <div id="room-viewer-thumbs" class="room-viewer-thumbs"></div>
+        <p id="room-viewer-description" class="room-viewer-description text-slate"></p>
       </div>
     </div>
   </div>
@@ -3687,20 +3715,41 @@
     </svg>
     <span>WhatsApp</span>
   </a>
+  <script src="assets/js/measurement-config.js"></script>
+  <script src="assets/js/measurement.js"></script>
+  <script src="assets/js/stay-context.js"></script>
   <script>
     (() => {
       const BACKEND_URL = "https://script.google.com/macros/s/AKfycbyzPfNZSno0tPd0dDtxN-PbWtej1iOw6CI_Ee47cpYFr0odIFuSA2sABX4DzepbeQqgXw/exec";
+      document.querySelectorAll('a[href^="book.html"]').forEach(link => {
+        const refresh = () => { link.href = window.RozaStayContext.bookingHref(link.getAttribute("data-room-availability")); };
+        refresh();
+        link.addEventListener("click", refresh);
+      });
       const LIVE_PRICE_FALLBACK_TEXT = "Live prices shown after date search";
       const LIVE_PRICE_ACTION = "getHomepageBaseRateSummary";
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const header = document.getElementById("site-header");
       const heroShell = document.querySelector(".hero-shell");
+      const mapButton = document.getElementById("show-map");
+      if (mapButton) mapButton.addEventListener("click", function () {
+        const map = document.getElementById("property-map");
+        const choice = document.getElementById("map-choice");
+        if (!map || !choice) return;
+        map.src = map.getAttribute("data-map-src");
+        map.hidden = false;
+        choice.hidden = true;
+        map.setAttribute("tabindex", "0");
+        map.focus();
+      });
       const roomViewer = document.getElementById("room-viewer");
       const roomViewerImage = document.getElementById("room-viewer-image");
       const roomViewerKicker = document.querySelector(".room-viewer-kicker");
       const roomViewerTitle = document.getElementById("room-viewer-title");
       const roomViewerDescription = document.getElementById("room-viewer-description");
       const roomViewerCount = document.getElementById("room-viewer-count");
+      const roomViewerCaption = document.getElementById("room-viewer-caption");
+      const roomViewerAvailability = document.getElementById("room-viewer-availability");
       const roomViewerThumbs = document.getElementById("room-viewer-thumbs");
       const roomViewerClose = document.getElementById("room-viewer-close");
       const roomViewerPrev = document.getElementById("room-viewer-prev");
@@ -4089,6 +4138,8 @@
         if (current.height) roomViewerImage.height = current.height;
 
         roomViewerCount.textContent = `${activeRoomIndex + 1} / ${activeRoomGallery.length}`;
+        if (roomViewerCaption) roomViewerCaption.textContent = current.alt;
+        roomViewerPrev.disabled = roomViewerNext.disabled = activeRoomGallery.length < 2;
 
         Array.from(roomViewerThumbs.children).forEach((button, index) => {
           button.classList.toggle("is-active", index === activeRoomIndex);
@@ -4112,6 +4163,7 @@
         if (!roomViewer || !roomViewer.classList.contains("open")) return;
         roomViewer.classList.remove("open");
         roomViewer.setAttribute("aria-hidden", "true");
+        roomViewer.hidden = true;
         document.body.classList.remove("room-viewer-open");
         roomViewerImage?.removeAttribute("src");
         if (roomViewerImage) roomViewerImage.alt = "";
@@ -4125,7 +4177,7 @@
         if (!roomViewer || !roomViewerImage || !roomViewerThumbs || !roomViewerTitle || !roomViewerDescription) return;
 
         const isExperienceGallery = card.hasAttribute("data-gallery-card");
-        const title = card.querySelector("h3")?.textContent.trim() || (isExperienceGallery ? "Experience gallery" : "Room gallery");
+        const title = card.getAttribute("data-gallery-title") || card.querySelector("h3")?.textContent.trim() || (isExperienceGallery ? "Experience gallery" : "Room gallery");
         const description = getGalleryDescription(card);
         const galleryKicker = card.getAttribute("data-gallery-kicker") || (isExperienceGallery ? "Experience gallery" : "Room gallery");
         const gallery = getGalleryImages(card);
@@ -4134,11 +4186,17 @@
 
         activeRoomGallery = gallery;
         activeRoomIndex = Math.max(0, Math.min(index, gallery.length - 1));
-        lastRoomTrigger = card.contains(document.activeElement) ? document.activeElement : card;
+        lastRoomTrigger = card.contains(document.activeElement) ? document.activeElement : (card.querySelector("[data-room-photos]") || card);
 
         if (roomViewerKicker) roomViewerKicker.textContent = galleryKicker;
         roomViewerTitle.textContent = title;
         roomViewerDescription.textContent = description;
+        if (roomViewerAvailability) {
+          roomViewerAvailability.hidden = isExperienceGallery;
+          roomViewerAvailability.setAttribute("data-room-availability", card.getAttribute("data-room-type-id") || "");
+          roomViewerAvailability.href = window.RozaStayContext.bookingHref(card.getAttribute("data-room-type-id"));
+          roomViewerAvailability.textContent = `Check ${title} availability`;
+        }
         roomViewerThumbs.innerHTML = "";
 
         activeRoomGallery.forEach((item, itemIndex) => {
@@ -4167,6 +4225,7 @@
         });
 
         renderRoomViewerImage();
+        roomViewer.hidden = false;
         roomViewer.classList.add("open");
         roomViewer.setAttribute("aria-hidden", "false");
         document.body.classList.add("room-viewer-open");
@@ -4179,10 +4238,15 @@
           ? ".roza-moment-image > img, .roza-gallery-thumbs img"
           : ".room-art > img, .room-thumb > img";
 
-        card.setAttribute("tabindex", "0");
-        card.setAttribute("role", "button");
-        card.setAttribute("aria-haspopup", "dialog");
-        card.setAttribute("aria-label", `Open full-screen gallery for ${title}`);
+        const photoButton = card.querySelector("[data-room-photos]");
+        if (photoButton) {
+          photoButton.addEventListener("click", () => openRoomViewer(card, 0));
+        } else {
+          card.setAttribute("tabindex", "0");
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-haspopup", "dialog");
+          card.setAttribute("aria-label", `Open full-screen gallery for ${title}`);
+        }
 
         card.addEventListener("click", (event) => {
           if (event.target.closest("a, button")) return;
@@ -4194,6 +4258,7 @@
         });
 
         card.addEventListener("keydown", (event) => {
+          if (event.target !== card || photoButton) return;
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
             openRoomViewer(card, 0);
@@ -4206,6 +4271,7 @@
         if (!roomViewer || !galleryTriggers.length) return;
 
         galleryTriggers.forEach(initGalleryTrigger);
+        window.RozaStayContext.bindSwipe(roomViewer.querySelector(".room-viewer-main"), stepRoomViewer);
 
         roomViewerClose?.addEventListener("click", closeRoomViewer);
         roomViewerBackdrop?.addEventListener("click", closeRoomViewer);
